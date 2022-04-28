@@ -1,0 +1,30 @@
+.logo {
+  font-weight: 500;
+  font-size: 28px;
+  font-style: normal;
+  transform: translate(50px, 50px);
+  user-select: none;
+  cursor: pointer;
+}
+.rectSpan {
+  position: relative;
+  color: var(--logoText-1);
+  z-index: 2;
+}
+.rectSpan::before {
+  content: '';
+  position: absolute;
+
+  padding: 4px;
+  top: -4px;
+  left: -4px;
+
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: var(--logoBackground);
+}
+.blankSpan {
+  color: var(--logoText-2);
+  margin-left: 8px;
+}

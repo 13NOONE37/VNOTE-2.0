@@ -1,0 +1,32 @@
+.lightMode {
+  --background-1: #ececec;
+  --background-2: #dbdbdb;
+
+  --mainIcon: #1c2740;
+  --iconColor: #121929;
+  --textColor-1: #121929;
+  --textColor-2: #3b3b3b;
+
+  --primary-1: #224690;
+  --primary-2: #2d53a4;
+
+  --logoBackground: #121929;
+  --logoText-1: var(--background-1);
+  --logoText-2: #121929;
+}
+.darkMode {
+  --background-1: #252525;
+  --background-2: #3b3b3b;
+
+  --mainIcon: #f0f1f5;
+  --iconColor: #c7c7c7;
+  --textColor-1: #252525;
+  --textColor-2: #3b3b3b;
+
+  --primary-1: #ffb733;
+  --primary-2: #eec06b;
+
+  --logoBackground: #eec06b;
+  --logoText-1: var(--background-1);
+  --logoText-2: #f0f1f5;
+}
