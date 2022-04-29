@@ -1,0 +1,6 @@
+.searchBar {
+  height: 55px;
+  /* width: 100%; */
+  background-color: var(--background-1);
+  border-radius: 20px;
+}
