@@ -18,11 +18,12 @@ export default function SearchBar() {
         value={searchValue}
         onChange={(e) => changeInputStateValue(e, setSearchValue)}
       />
-      {/* {searchValue.length > 0 && ( */}
       <XCircle
+        onClick={() => {
+          setSearchValue('');
+        }}
         className={searchValue.length > 0 ? 'appearItem' : 'disappearItem'}
       />
-      {/* )} */}
     </div>
   );
 }

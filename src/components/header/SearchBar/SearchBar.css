@@ -23,6 +23,7 @@
   letter-spacing: 0.2px;
 }
 .searchBar svg {
+  height: 22px;
   fill: var(--iconColor);
 }
 .searchBar svg:nth-child(3) {

@@ -3,12 +3,13 @@
   align-items: center;
 }
 .saveIcon {
-  height: 40px;
+  height: 37px;
+  stroke: var(--primary-2);
 }
 .avatar .picture {
-  width: 45px;
-  height: 45px;
-  box-shadow: 0 0 0 5px var(--background-1);
+  width: 42px;
+  height: 42px;
+  box-shadow: 0 0 0 3px var(--background-1);
   border-radius: 50%;
   overflow: hidden;
 }

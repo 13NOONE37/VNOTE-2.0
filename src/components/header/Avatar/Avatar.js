@@ -21,6 +21,7 @@ export default function Avatar() {
           ease: 'power3.inOut',
           duration: 0.3,
         });
+      window.alert('Show notify that it is already saved');
     }
   };
   return (
@@ -28,7 +29,7 @@ export default function Avatar() {
       <Update className="saveIcon" ref={spinIcon} onClick={spin} />
       <div className="picture">
         <img
-          width={45}
+          width={42}
           src={Image}
           alt={userInfo.nickname}
           // src={`https://avatars.dicebear.com/api/${userInfo.gender}/${userInfo.nickname}.svg?mood[]=${mood}`}
