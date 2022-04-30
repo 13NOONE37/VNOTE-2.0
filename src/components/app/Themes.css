@@ -30,3 +30,10 @@
   --logoText-1: var(--background-1);
   --logoText-2: #f0f1f5;
 }
+.appearItem {
+  opacity: 1;
+}
+.disappearItem {
+  opacity: 0;
+  visibility: hidden;
+}

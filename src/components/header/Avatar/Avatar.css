@@ -1,0 +1,14 @@
+.avatar {
+  display: flex;
+  align-items: center;
+}
+.saveIcon {
+  height: 40px;
+}
+.avatar .picture {
+  width: 45px;
+  height: 45px;
+  box-shadow: 0 0 0 5px var(--background-1);
+  border-radius: 50%;
+  overflow: hidden;
+}

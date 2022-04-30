@@ -10,8 +10,10 @@ export default function Header() {
   return (
     <header className="header">
       <Logo />
-      <SearchBar />
-      <ThemeToggler />
+      <div className="searchAndTheme">
+        <SearchBar />
+        <ThemeToggler />
+      </div>
       <Avatar />
     </header>
   );

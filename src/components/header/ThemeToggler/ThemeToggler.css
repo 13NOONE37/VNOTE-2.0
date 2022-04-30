@@ -21,7 +21,9 @@
   position: absolute;
   padding: 2px;
 }
-.themeIcon svg {
+.themeToggler svg {
+  width: 22px;
+  height: 22px;
   fill: var(--logoText-1); /*#TODO:delete*/
   stroke: var(--logoText-1); /*#TODO:delete*/
 }

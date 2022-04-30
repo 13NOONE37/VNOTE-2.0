@@ -1,7 +1,15 @@
 .header {
   background-color: var(--background-2);
-  height: 75px;
+  height: 85px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+.searchAndTheme {
+  width: 700px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+  grid-gap: 10px;
 }

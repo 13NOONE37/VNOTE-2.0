@@ -9,15 +9,23 @@ import Main from 'Pages/main/Main';
 export default function App() {
   const { i18n } = useTranslation();
 
+  const [userInfo, setUserInfo] = useState({
+    nickname: 'Nickname',
+    gender: 'Female',
+    email: 'test@gmail.com',
+  });
   const [isLogged, setIsLogged] = useState(true);
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([]);
   const [tags, setTags] = useState([]);
+  const [canBeSaved, setCanBeSaved] = useState(false);
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
       <AppContext.Provider
         value={{
+          userInfo,
+          setUserInfo,
           isLogged,
           setIsLogged,
           theme,
@@ -32,6 +40,8 @@ export default function App() {
           setNotes,
           tags,
           setTags,
+          canBeSaved,
+          setCanBeSaved,
         }}
       >
         <Main />
