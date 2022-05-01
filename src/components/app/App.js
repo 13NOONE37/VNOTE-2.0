@@ -18,7 +18,7 @@ export default function App() {
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([]);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>

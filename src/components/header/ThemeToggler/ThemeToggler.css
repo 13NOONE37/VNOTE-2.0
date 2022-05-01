@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   position: relative;
+  cursor: pointer;
 }
 .themeIcon {
   height: 28px;
@@ -24,6 +25,25 @@
 .themeToggler svg {
   width: 20px;
   height: 20px;
-  fill: var(--logoText-1); /*#TODO:delete*/
-  stroke: var(--logoText-1); /*#TODO:delete*/
+  fill: var(--logoText-1);
+  stroke: var(--logoText-1);
+}
+@media (max-width: 750px) {
+  .themeToggler {
+    background-color: var(--background-2);
+  }
+}
+@media (max-width: 380px) {
+  .themeToggler {
+    width: calc(70px * 0.8);
+    height: calc(37px * 0.8);
+  }
+  .themeIcon {
+    height: calc(28px * 0.8);
+    width: calc(28px * 0.8);
+  }
+  .themeToggler svg {
+    width: calc(20px * 0.8);
+    height: calc(20px * 0.8);
+  }
 }

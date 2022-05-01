@@ -12,7 +12,7 @@ export default function ThemeToggler() {
         className="themeIcon"
         style={{
           transform: `${
-            theme === 'dark' ? 'translateX(37px)' : 'translateX(5px)'
+            theme === 'dark' ? 'translateX(130%)' : 'translateX(20%)'
           }`,
         }}
       >

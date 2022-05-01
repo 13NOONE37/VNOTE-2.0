@@ -5,6 +5,8 @@
 .saveIcon {
   height: 37px;
   stroke: var(--primary-2);
+  cursor: pointer;
+  margin-right: 10px;
 }
 .avatar .picture {
   width: 42px;
@@ -12,4 +14,27 @@
   box-shadow: 0 0 0 3px var(--background-1);
   border-radius: 50%;
   overflow: hidden;
+  cursor: pointer;
+}
+.avatar .picture img {
+  width: 42px;
+  height: 42px;
+}
+@media (max-width: 750px) {
+  .avatar .picture {
+    box-shadow: 0 0 0 3px var(--textColor-2);
+  }
+}
+@media (max-width: 380px) {
+  .saveIcon {
+    height: 28px;
+  }
+  .avatar .picture {
+    width: 35px;
+    height: 35px;
+  }
+  .avatar .picture img {
+    width: 35px;
+    height: 35px;
+  }
 }

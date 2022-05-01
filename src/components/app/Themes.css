@@ -13,6 +13,8 @@
   --logoBackground: #121929;
   --logoText-1: var(--background-1);
   --logoText-2: #121929;
+
+  --hoverEffect: rgba(0, 0, 0, 0.1);
 }
 .darkMode {
   --background-1: #252525;
@@ -29,6 +31,8 @@
   --logoBackground: #eec06b;
   --logoText-1: var(--background-1);
   --logoText-2: #f0f1f5;
+
+  --hoverEffect: rgba(255, 255, 255, 0.1);
 }
 .appearItem {
   opacity: 1;

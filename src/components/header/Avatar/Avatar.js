@@ -4,6 +4,8 @@ import Image from './Avatar.jpg';
 import { ReactComponent as Update } from 'assets/Icons/refresh-cw.svg';
 import { gsap } from 'gsap';
 import AppContext from 'store/AppContext';
+import ThemeToggler from '../ThemeToggler/ThemeToggler';
+import useWindowSize from 'utils/useWindowSize';
 
 export default function Avatar() {
   const { userInfo, canBeSaved } = useContext(AppContext);
@@ -24,12 +26,15 @@ export default function Avatar() {
       window.alert('Show notify that it is already saved');
     }
   };
+
+  const size = useWindowSize();
+
   return (
     <div className="avatar">
+      {size.width < 750 && <ThemeToggler />}
       <Update className="saveIcon" ref={spinIcon} onClick={spin} />
       <div className="picture">
         <img
-          width={42}
           src={Image}
           alt={userInfo.nickname}
           // src={`https://avatars.dicebear.com/api/${userInfo.gender}/${userInfo.nickname}.svg?mood[]=${mood}`}

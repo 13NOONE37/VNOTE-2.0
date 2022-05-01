@@ -1,0 +1,38 @@
+.tagsSlider {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+
+  position: relative;
+}
+.tagsIndicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 4px;
+  background-color: var(--primary-2);
+}
+.tagsSlider .tagItem {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  color: var(--iconColor);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.tagsSlider .tagItem:hover {
+  color: var(--primary-2);
+}
+.tagsSlider .newTag {
+  color: var(--primary-2);
+  border-left: 2px solid var(--background-2);
+  padding-left: 20px;
+}

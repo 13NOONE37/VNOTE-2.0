@@ -5,12 +5,12 @@ import { ReactComponent as Bars } from 'assets/Icons/bars.svg';
 import { ReactComponent as XCircle } from 'assets/Icons/x-circle.svg';
 import { changeInputStateValue } from 'utils/ValueManagment';
 
-export default function SearchBar() {
+export default function SearchBar({ variant2 }) {
   const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="searchBar">
+    <div className={`searchBar ${variant2 && 'searchBarVariant2'}`}>
       <Bars />
       <input
         type="text"

@@ -13,8 +13,12 @@ export default function Header() {
     <header className="header">
       <Logo />
       <div className="searchAndTheme">
-        {size.width > 750 && <SearchBar />}
-        <ThemeToggler />
+        {size.width > 750 && (
+          <>
+            <SearchBar />
+            <ThemeToggler />
+          </>
+        )}
       </div>
       <Avatar />
     </header>
