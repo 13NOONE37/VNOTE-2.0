@@ -1,35 +1,40 @@
 .tagsSlider {
-  width: 100%;
-  display: flex;
+  width: auto;
+  /* display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  display: grid;
+
   gap: 20px;
-  margin-top: 30px;
+  margin: 30px 10px 0 10px;
 
   position: relative;
+  overflow-x: auto;
 }
-.tagsIndicator {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 50px;
-  height: 4px;
-  background-color: var(--primary-2);
-}
+
 .tagsSlider .tagItem {
+  font-family: 'Red Hat Display';
+  font-style: normal;
   font-size: 18px;
+  line-height: 32px;
   font-weight: 500;
   letter-spacing: 0.6px;
+
   color: var(--iconColor);
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: 0.3s ease;
+  border-bottom: 4px solid transparent;
+}
+.tagsSlider .selectedItem {
+  border-bottom: 4px solid var(--primary-2);
 }
 .tagsSlider .tagItem:hover {
   color: var(--primary-2);
+  background-color: var(--hoverEffect);
 }
 .tagsSlider .newTag {
   color: var(--primary-2);

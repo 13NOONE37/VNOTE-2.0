@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
 import './TagsSlider.css';
@@ -6,23 +6,18 @@ import './TagsSlider.css';
 export default function TagsSlider() {
   const { t } = useTranslation();
   const { tags, setTags } = useContext(AppContext);
-  const indicatorRef = useRef(null);
-  const handleMouseOver = (e) => {
-    indicatorRef.current.style.transform = `translateX(${e.currentTarget.offsetLeft}px)`;
-  };
-  return (
-    <nav className="tagsSlider">
-      <button className="tagItem" onMouseOver={handleMouseOver}>
-        {t('All')}
-      </button>
 
+  return (
+    <nav
+      className="tagsSlider"
+      style={{ gridTemplateColumns: `repeat(${tags.length + 3}, auto)` }}
+    >
+      <button className="tagItem selectedItem">{t('All')}</button>
+      <button className="tagItem">{t('Alaaaaaaaaaaaaaaal')}</button>
       {tags.map((item) => (
-        <button className="tagItem" onMouseOver={handleMouseOver}>
-          {item}
-        </button>
+        <button className="tagItem">{item}</button>
       ))}
       <button className="tagItem newTag">{t('New')}</button>
-      <div className="tagsIndicator" ref={indicatorRef} />
     </nav>
   );
 }
