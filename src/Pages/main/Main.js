@@ -7,6 +7,7 @@ import Footer from 'components/Footer/Footer';
 import useWindowSize from 'utils/useWindowSize';
 import SearchBar from 'components/header/SearchBar/SearchBar';
 import TagsSlider from 'components/TagsSlider/TagsSlider';
+import NotePreview from 'components/Note/NotePreview/NotePreview';
 export default function Main() {
   const { setLanguage, language } = useContext(AppContext);
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ export default function Main() {
       <Header />
       {size.width < 750 && <SearchBar variant2={true} />}
       <TagsSlider />
+      <NotePreview />
       {/* {t('rat')}
       <button onClick={() => setLanguage('pl')}>pl</button>
       <button onClick={() => setLanguage('en')}>en</button> */}
