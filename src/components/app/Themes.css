@@ -1,3 +1,10 @@
+:root {
+  --noteColor-1: #7dd7e2;
+  --noteColor-2: #c990d4;
+  --noteColor-3: #e2e797;
+  --noteColor-4: #faa88d;
+  --noteColor-5: #fac97d;
+}
 .lightMode {
   --background-1: #ececec;
   --background-2: #dbdbdb;

@@ -1,0 +1,7 @@
+.noteContainer {
+  padding: 90px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: baseline;
+}

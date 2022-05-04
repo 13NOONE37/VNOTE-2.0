@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function NoteFullVIew() {
+export default function NoteFullView() {
   return <div>NoteFullVIew</div>;
 }

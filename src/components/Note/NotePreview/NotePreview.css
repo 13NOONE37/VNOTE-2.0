@@ -1,1 +1,22 @@
+.notePreview {
+  width: 190px;
+  height: auto;
+  border-radius: 24px;
+  padding: 16px;
 
+  display: flex;
+  flex-direction: column;
+}
+.notePreviewTitle {
+  color: var(--background-1);
+  font-size: 24px;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+.notePreviewDate {
+  color: var(--background-2);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+  text-transform: capitalize;
+}
