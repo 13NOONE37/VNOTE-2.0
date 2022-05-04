@@ -20,7 +20,7 @@ export default function NoteContainer() {
       color: 3,
     },
     {
-      title: 'Javascript / TypeScript Tips for good performance',
+      title: 'Bomba na banie',
       date: new Date(),
       color: 4,
     },
@@ -30,7 +30,7 @@ export default function NoteContainer() {
       color: 5,
     },
     {
-      title: 'Javascript / TypeScript Tips for good performance',
+      title: 'Marcin Dubiel vs Alberto',
       date: new Date(),
       color: 4,
     },

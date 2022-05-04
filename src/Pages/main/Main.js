@@ -20,8 +20,7 @@ export default function Main() {
       {size.width < 750 && <SearchBar variant2={true} />}
       <TagsSlider />
       <NoteContainer />
-      {/* {t('rat')}
-      <button onClick={() => setLanguage('pl')}>pl</button>
+      {/* <button onClick={() => setLanguage('pl')}>pl</button>
       <button onClick={() => setLanguage('en')}>en</button> */}
       <Footer />
     </div>

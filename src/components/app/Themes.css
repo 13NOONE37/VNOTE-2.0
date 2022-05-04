@@ -9,6 +9,9 @@
   --background-1: #ececec;
   --background-2: #dbdbdb;
 
+  --text-3: #252525;
+  --text-4: #3b3b3b;
+
   --mainIcon: #1c2740;
   --iconColor: #121929;
   --textColor-1: #121929;
@@ -26,6 +29,9 @@
 .darkMode {
   --background-1: #252525;
   --background-2: #3b3b3b;
+
+  --text-3: #252525;
+  --text-4: #3b3b3b;
 
   --mainIcon: #f0f1f5;
   --iconColor: #c7c7c7;

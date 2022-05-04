@@ -35,6 +35,7 @@ export default function App() {
           language,
           setLanguage: (value) => {
             i18n.changeLanguage(value);
+            setLanguage(value);
           },
           notes,
           setNotes,
