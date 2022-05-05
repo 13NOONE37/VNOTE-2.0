@@ -9,6 +9,8 @@ const AppContext = createContext({
   setLanguage: () => {},
   theme: 'dark',
   toggleTheme: () => {},
+  filterPhrase: '',
+  setFilterPhrase: () => {},
   tags: [],
   setTags: () => {},
   notes: [],

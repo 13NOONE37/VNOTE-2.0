@@ -254,7 +254,9 @@ export default function NoteContainer() {
       color: 4,
     },
   ];
-
+  const MultiplyConditionRender = (element, ...conditions) => {
+    return element;
+  };
   const breakpointColumnsObj = {
     default: Math.max(6, Math.floor(window.innerWidth / 190) - 2),
     1550: 5,
@@ -269,9 +271,7 @@ export default function NoteContainer() {
       className="noteContainer"
       columnClassName="my-masonry-grid_column"
     >
-      {notes.map((item) => (
-        <NotePreview {...item} />
-      ))}
+      {notes.map((item) => MultiplyConditionRender(<NotePreview {...item} />))}
       <NotePreview className="noteBlank" />
       <NotePreview className="noteBlank" />
       <NotePreview className="noteBlank" />

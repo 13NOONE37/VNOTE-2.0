@@ -20,6 +20,7 @@ export default function App() {
   const [notes, setNotes] = useState([]);
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);
+  const [filterPhrase, setFilterPhrase] = useState('');
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
       <AppContext.Provider
@@ -37,6 +38,8 @@ export default function App() {
             i18n.changeLanguage(value);
             setLanguage(value);
           },
+          filterPhrase,
+          setFilterPhrase,
           notes,
           setNotes,
           tags,

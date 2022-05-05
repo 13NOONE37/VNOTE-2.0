@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import AppContext from 'store/AppContext';
 import './NotePreview.css';
-import propTypes from 'prop-types';
 export default function NotePreview({ title, date, color, ...props }) {
   const { language } = useContext(AppContext);
 
