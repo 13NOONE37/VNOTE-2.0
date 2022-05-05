@@ -23,7 +23,7 @@
   display: grid;
   place-items: center;
   transition: all 0.25s ease;
-  transform: scaleX(1.008);
+  transform: scaleX(1.01);
 }
 .footerNav .navItem {
   background-color: var(--background-2);
@@ -36,10 +36,10 @@
   --mask: url("data:image/svg+xml,%3Csvg width='163' height='83' viewBox='0 0 163 83' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.00292969 20V83H162.003V0H42.4999C40.1836 11.4112 30.0948 20 18 20H0.00292969Z' fill='black'/%3E%3C/svg%3E");
   --webkit-mask: var(--mask);
   mask: var(--mask);
-  transform: scaleX(-1.008) !important;
+  transform: scaleX(-1.01) !important;
 }
 .navItem2 svg {
-  transform: scaleX(-1.008);
+  transform: scaleX(-1.01);
 }
 .navItem3 {
   --mask: url("data:image/svg+xml,%3Csvg width='163' height='83' viewBox='0 0 163 83' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.00292969 20V83H162.003V0H42.4999C40.1836 11.4112 30.0948 20 18 20H0.00292969Z' fill='black'/%3E%3C/svg%3E");

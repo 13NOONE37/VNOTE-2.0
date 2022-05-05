@@ -2,4 +2,28 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--background-1);
+  overflow: hidden;
+}
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--scrollColor) transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollColor);
+  border-radius: 0px;
+  border: 0px none #ffffff;
 }

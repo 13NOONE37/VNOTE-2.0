@@ -9,6 +9,10 @@
   cursor: default;
   user-select: none;
 }
+.noteBlank {
+  visibility: hidden;
+  height: 80px !important;
+}
 .notePreviewTitle {
   color: var(--text-3);
   font-size: 24px;
@@ -26,4 +30,41 @@
 .selectedPreviewNote {
   box-shadow: 0 0 0 3px var(--mainIcon),
     inset 0px 0px 0px 2px rgba(37, 37, 37, 0.25);
+}
+@media (max-width: 670px) {
+  .notePreview {
+    width: 180px;
+  }
+}
+@media (max-width: 580px) {
+  .notePreview {
+    width: 150px;
+  }
+}
+@media (max-width: 520px) {
+  .notePreview {
+    width: 180px;
+  }
+}
+@media (max-width: 400px) {
+  .notePreview {
+    width: 150px;
+  }
+}
+@media (max-width: 340px) {
+  .notePreview {
+    width: 130px;
+  }
+}
+
+@media (max-width: 300px) {
+  .notePreview {
+    width: 120px;
+  }
+  .notePreviewTitle {
+    font-size: 20px;
+  }
+  .notePreviewDate {
+    font-size: 8px;
+  }
 }
