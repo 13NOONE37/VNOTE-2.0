@@ -21,7 +21,7 @@ export default function App() {
     {
       title: 'Javascript / TypeScript Tips for good performance',
       content: 'Note Content',
-      date: new Date(),
+      date: new Date(1984, 6, 11),
       color: 2,
     },
     {

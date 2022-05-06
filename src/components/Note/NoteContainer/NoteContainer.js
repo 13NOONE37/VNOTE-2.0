@@ -5,18 +5,29 @@ import Masonry from 'react-masonry-css';
 import AppContext from 'store/AppContext';
 
 export default function NoteContainer() {
-  const { filterPhrase, notes } = useContext(AppContext);
+  const { language, filterPhrase, notes } = useContext(AppContext);
 
-  const includesPhrase = (expectValue, value) => {
-    const re = new RegExp(expectValue, 'i');
-    return value.match(re);
-  };
   const FilterNote = (item, phrase) => {
+    const includesPhrase = (expectValue, value) => {
+      const re = new RegExp(expectValue, 'i');
+      return value.match(re);
+    };
+
     let isValid = false;
 
     if (includesPhrase(phrase, item.title)) isValid = true;
     if (includesPhrase(phrase, item.content)) isValid = true;
-    // if (includesPhrase(phrase, item.date)) isValid = true;
+    if (
+      includesPhrase(
+        phrase,
+        item.date.toLocaleDateString(language, {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        }),
+      )
+    )
+      isValid = true;
 
     return isValid;
   };
@@ -35,7 +46,10 @@ export default function NoteContainer() {
       columnClassName="my-masonry-grid_column"
     >
       {notes.map(
-        (item) => FilterNote(item, filterPhrase) && <NotePreview {...item} />,
+        (item, itemKey) =>
+          FilterNote(item, filterPhrase) && (
+            <NotePreview {...item} key={itemKey} />
+          ),
       )}
       <NotePreview className="noteBlank" />
       <NotePreview className="noteBlank" />
