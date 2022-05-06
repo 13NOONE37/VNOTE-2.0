@@ -1,261 +1,24 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import NotePreview from '../NotePreview/NotePreview';
 import './NoteContainer.css';
 import Masonry from 'react-masonry-css';
+import AppContext from 'store/AppContext';
 
 export default function NoteContainer() {
-  const notes = [
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
+  const { filterPhrase, notes } = useContext(AppContext);
 
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
+  const includesPhrase = (expectValue, value) => {
+    const re = new RegExp(expectValue, 'i');
+    return value.match(re);
+  };
+  const FilterNote = (item, phrase) => {
+    let isValid = false;
 
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
+    if (includesPhrase(phrase, item.title)) isValid = true;
+    if (includesPhrase(phrase, item.content)) isValid = true;
+    // if (includesPhrase(phrase, item.date)) isValid = true;
 
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
-
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
-
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
-
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
-
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 1,
-    },
-
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 2,
-    },
-    {
-      title: 'Javascript / TypeScript Tips for good performance',
-      date: new Date(),
-      color: 3,
-    },
-    {
-      title: 'Bomba na banie',
-      date: new Date(),
-      color: 4,
-    },
-    {
-      title: 'Kinny Zimmer',
-      date: new Date(),
-      color: 5,
-    },
-    {
-      title: 'Marcin Dubiel vs Alberto',
-      date: new Date(),
-      color: 4,
-    },
-  ];
-  const MultiplyConditionRender = (element, ...conditions) => {
-    return element;
+    return isValid;
   };
   const breakpointColumnsObj = {
     default: Math.max(6, Math.floor(window.innerWidth / 190) - 2),
@@ -271,7 +34,9 @@ export default function NoteContainer() {
       className="noteContainer"
       columnClassName="my-masonry-grid_column"
     >
-      {notes.map((item) => MultiplyConditionRender(<NotePreview {...item} />))}
+      {notes.map(
+        (item) => FilterNote(item, filterPhrase) && <NotePreview {...item} />,
+      )}
       <NotePreview className="noteBlank" />
       <NotePreview className="noteBlank" />
       <NotePreview className="noteBlank" />

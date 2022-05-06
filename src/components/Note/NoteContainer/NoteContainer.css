@@ -7,7 +7,7 @@
   width: 100%;
   height: calc(100% - 200px);
   overflow: hidden auto;
-  gap: 20px;
+  /* gap: 20px; */
 }
 .my-masonry-grid_column {
   display: flex;

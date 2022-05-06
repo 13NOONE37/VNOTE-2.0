@@ -6,7 +6,7 @@ import './TagsSlider.css';
 export default function TagsSlider() {
   const { t } = useTranslation();
   const { tags, setTags } = useContext(AppContext);
-
+  // TODO: ideas https://swiperjs.com/ https://codepen.io/Anna_Batura/pen/WNGMerN https://freefrontend.com/javascript-carousels/ https://codepen.io/Alexandr/pen/XWdrxxP
   return (
     <nav
       className="tagsSlider"

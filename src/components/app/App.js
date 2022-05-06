@@ -17,7 +17,75 @@ export default function App() {
   const [isLogged, setIsLogged] = useState(true);
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([
+    {
+      title: 'Javascript / TypeScript Tips for good performance',
+      content: 'Note Content',
+      date: new Date(),
+      color: 2,
+    },
+    {
+      title: 'Javascript / TypeScript Tips for good performance',
+      content: 'Note Content',
+      date: new Date(),
+      color: 3,
+    },
+    {
+      title: 'Bomba na banie',
+      content: 'Note Content',
+      date: new Date(),
+      color: 4,
+    },
+    {
+      title: 'Kinny Zimmer',
+      content: 'Note Content',
+      date: new Date(),
+      color: 5,
+    },
+    {
+      title: 'Marcin Dubiel vs Alberto',
+      content: 'Note Content',
+      date: new Date(),
+      color: 4,
+    },
+    {
+      title: 'Javascript / TypeScript Tips for good performance',
+      content: 'Note Content',
+      date: new Date(),
+      color: 1,
+    },
+
+    {
+      title: 'Javascript / TypeScript Tips for good performance',
+      content: 'Note Content',
+      date: new Date(),
+      color: 2,
+    },
+    {
+      title: 'Javascript / TypeScript Tips for good performance',
+      content: 'Note Content',
+      date: new Date(),
+      color: 3,
+    },
+    {
+      title: 'Bomba na banie',
+      content: 'Note Content',
+      date: new Date(),
+      color: 4,
+    },
+    {
+      title: 'Kinny Zimmer',
+      content: 'Note Content',
+      date: new Date(),
+      color: 5,
+    },
+    {
+      title: 'Marcin Dubiel vs Alberto',
+      content: 'Note Content',
+      date: new Date(),
+      color: 4,
+    },
+  ]);
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
