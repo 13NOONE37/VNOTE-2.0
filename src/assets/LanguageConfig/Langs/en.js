@@ -5,4 +5,5 @@ export default {
   Language: 'Language',
   ImportExport: 'Import/Export',
   ChangePasswordEmail: 'Change password/email',
+  Logout: 'Log out',
 };

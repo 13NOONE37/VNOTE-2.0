@@ -9,10 +9,10 @@ import useWindowSize from 'utils/useWindowSize';
 import Modal, { ModalButton } from 'components/Modal/Modal';
 import { t } from 'i18next';
 
-import { ReactComponent as LanguageIcon } from 'assets/Icons/lock.svg';
-import { ReactComponent as FileIcon } from 'assets/Icons/lock.svg';
+import { ReactComponent as LanguageIcon } from 'assets/Icons/globe.svg';
+import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
 import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
-import { ReactComponent as LogoutIcon } from 'assets/Icons/lock.svg';
+import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 
 export default function Avatar() {
   const { userInfo, canBeSaved, setLanguage } = useContext(AppContext);
@@ -51,7 +51,13 @@ export default function Avatar() {
 
       {showModal && (
         <Modal setShowModal={setShowModal}>
-          <h1>hello gustaw</h1>
+          <div
+            className=" pictureModal"
+            onClick={() => setShowModal(!showModal)}
+          >
+            <img src={Image} alt={userInfo.nickname} />
+          </div>
+          <span className="nicknameModal">{userInfo.nickname}</span>
           <ModalButton
             isCollapse
             collapseContent={

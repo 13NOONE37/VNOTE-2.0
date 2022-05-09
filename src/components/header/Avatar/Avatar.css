@@ -8,7 +8,8 @@
   cursor: pointer;
   margin-right: 10px;
 }
-.avatar .picture {
+.avatar .picture,
+.pictureModal {
   width: 42px;
   height: 42px;
   box-shadow: 0 0 0 3px var(--background-1);
@@ -19,6 +20,23 @@
 .avatar .picture img {
   width: 42px;
   height: 42px;
+}
+.pictureModal {
+  width: 120px;
+  height: 120px;
+  border: 4px solid var(--text-4);
+  box-shadow: unset;
+}
+.pictureModal img {
+  width: 120px;
+  height: 120px;
+}
+.nicknameModal {
+  font-size: 24px;
+  font-weight: 500;
+  transform: translateY(-15px);
+  color: var(--noteColor-5);
+  letter-spacing: 0.25px;
 }
 @media (max-width: 750px) {
   .avatar .picture {
