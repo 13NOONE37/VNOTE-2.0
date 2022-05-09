@@ -4,13 +4,15 @@
   --noteColor-3: #e2e797;
   --noteColor-4: #faa88d;
   --noteColor-5: #fac97d;
+
+  --text-3: #252525;
+  --text-4: #3b3b3b;
+  --text-5: #c7c7c7;
+  --text-6: #f0f1f5;
 }
 .lightMode {
   --background-1: #ececec;
   --background-2: #dbdbdb;
-
-  --text-3: #252525;
-  --text-4: #3b3b3b;
 
   --mainIcon: #1c2740;
   --iconColor: #121929;
@@ -30,9 +32,6 @@
 .darkMode {
   --background-1: #252525;
   --background-2: #3b3b3b;
-
-  --text-3: #252525;
-  --text-4: #3b3b3b;
 
   --mainIcon: #f0f1f5;
   --iconColor: #c7c7c7;

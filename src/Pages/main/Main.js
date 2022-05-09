@@ -12,13 +12,13 @@ import NoteContainer from 'components/Note/NoteContainer/NoteContainer';
 export default function Main() {
   const { setLanguage, language } = useContext(AppContext);
   const { t } = useTranslation();
-
+  //TODO Every element should be focusable and accesable by tab nad css'ed
   const size = useWindowSize();
   return (
     <div className="container">
       <Header />
       {size.width < 750 && <SearchBar variant2={true} />}
-      <TagsSlider />
+      {/* <TagsSlider /> */}
       <NoteContainer />
       {/* <button onClick={() => setLanguage('pl')}>pl</button>
       <button onClick={() => setLanguage('en')}>en</button> */}

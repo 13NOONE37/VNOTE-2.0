@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import NotePreview from '../NotePreview/NotePreview';
 import './NoteContainer.css';
 import Masonry from 'react-masonry-css';
@@ -29,8 +29,10 @@ export default function NoteContainer() {
     )
       isValid = true;
 
+    //TODO:category in url filtering
     return isValid;
   };
+
   const breakpointColumnsObj = {
     default: Math.max(6, Math.floor(window.innerWidth / 190) - 2),
     1550: 5,

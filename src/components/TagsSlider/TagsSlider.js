@@ -1,23 +1,51 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import './TagsSlider.css';
 
 export default function TagsSlider() {
   const { t } = useTranslation();
   const { tags, setTags } = useContext(AppContext);
-  // TODO: ideas https://swiperjs.com/ https://codepen.io/Anna_Batura/pen/WNGMerN https://freefrontend.com/javascript-carousels/ https://codepen.io/Alexandr/pen/XWdrxxP
+
   return (
-    <nav
+    <Swiper
       className="tagsSlider"
-      style={{ gridTemplateColumns: `repeat(${tags.length + 3}, auto)` }}
+      spaceBetween={50}
+      slidesPerView={5}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
     >
-      <button className="tagItem selectedItem">{t('All')}</button>
-      <button className="tagItem">{t('Alaaaaaaaaaaaaaaal')}</button>
+      <SwiperSlide>
+        <button className="tagItem selectedItem">{t('All')}</button>
+      </SwiperSlide>
+      <SwiperSlide>
+        <button className="tagItem">{t('Alaaaaaaaaaaaaaaal')}</button>
+      </SwiperSlide>
       {tags.map((item) => (
-        <button className="tagItem">{item}</button>
+        <SwiperSlide>
+          <button className="tagItem">{item}</button>
+        </SwiperSlide>
       ))}
-      <button className="tagItem newTag">{t('New')}</button>
-    </nav>
+      <SwiperSlide>
+        <button className="tagItem newTag">{t('NewTag')}</button>
+      </SwiperSlide>
+    </Swiper>
+    // <nav
+    //   className="tagsSlider"
+    //   style={{ gridTemplateColumns: `repeat(${tags.length + 3}, auto)` }}
+    // >
+    //   <div className="swiper_wrap">
+    //     <div className="swiper_container">
+    //       <div className="swiper_wrapper"></div>
+    //       <button className="tagItem selectedItem">{t('All')}</button>
+    //       <button className="tagItem">{t('Alaaaaaaaaaaaaaaal')}</button>
+    //       {tags.map((item) => (
+    //         <button className="tagItem">{item}</button>
+    //       ))}
+    //       <button className="tagItem newTag">{t('NewTag')}</button>
+    //     </div>
+    //   </div>
+    // </nav>
   );
 }
