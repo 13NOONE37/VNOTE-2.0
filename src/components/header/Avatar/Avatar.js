@@ -53,6 +53,7 @@ export default function Avatar() {
         <Modal setShowModal={setShowModal}>
           <div
             className=" pictureModal"
+            style={{ cursor: 'default' }}
             onClick={() => setShowModal(!showModal)}
           >
             <img src={Image} alt={userInfo.nickname} />
