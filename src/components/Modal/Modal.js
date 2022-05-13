@@ -19,11 +19,13 @@ export default function Modal({ setShowModal, children }) {
 
 export function ModalButton({ isCollapse, children, collapseContent }) {
   const toggleList = (e) => {
+    if (!isCollapse) return;
     for (const item of document.querySelectorAll('.modalButton')) {
       item !== e.currentTarget && item.classList.remove('clickedModalButton');
     }
 
-    e.currentTarget.classList.toggle('clickedModalButton');
+    // e.currentTarget.classList.toggle('clickedModalButton');
+    e.currentTarget.classList.add('clickedModalButton');
   };
   return (
     <button className="modalButton" onClick={toggleList}>
@@ -31,5 +33,15 @@ export function ModalButton({ isCollapse, children, collapseContent }) {
       {isCollapse && <CollapseIcon />}
       <div className="buttonCollapsedContent">{collapseContent}</div>
     </button>
+  );
+}
+export function ActionButton({ title, children, action }) {
+  return (
+    <div className="actionBox">
+      <button className="actionButton" onClick={action}>
+        {children}
+      </button>
+      <span className="actionName">{title}</span>
+    </div>
   );
 }

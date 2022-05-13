@@ -6,11 +6,13 @@ import { gsap } from 'gsap';
 import AppContext from 'store/AppContext';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
 import useWindowSize from 'utils/useWindowSize';
-import Modal, { ModalButton } from 'components/Modal/Modal';
+import Modal, { ActionButton, ModalButton } from 'components/Modal/Modal';
 import { t } from 'i18next';
 
 import { ReactComponent as LanguageIcon } from 'assets/Icons/globe.svg';
 import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
+import { ReactComponent as DownloadIcon } from 'assets/Icons/download.svg';
+import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
 import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
 import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 
@@ -52,8 +54,7 @@ export default function Avatar() {
       {showModal && (
         <Modal setShowModal={setShowModal}>
           <div
-            className=" pictureModal"
-            style={{ cursor: 'default' }}
+            className=" pictureModal "
             onClick={() => setShowModal(!showModal)}
           >
             <img src={Image} alt={userInfo.nickname} />
@@ -63,15 +64,31 @@ export default function Avatar() {
             isCollapse
             collapseContent={
               <>
-                <button onClick={() => setLanguage('pl')}>pl</button>
-                <button onClick={() => setLanguage('en')}>en</button>
+                <ActionButton title={'PL'} action={() => setLanguage('pl')}>
+                  <LanguageIcon />
+                </ActionButton>
+                <ActionButton title={'EN'} action={() => setLanguage('en')}>
+                  <LanguageIcon />
+                </ActionButton>
               </>
             }
           >
             <LanguageIcon />
             {t('Language')}
           </ModalButton>
-          <ModalButton isCollapse>
+          <ModalButton
+            isCollapse
+            collapseContent={
+              <>
+                <ActionButton title={t('Export')}>
+                  <DownloadIcon />
+                </ActionButton>
+                <ActionButton title={t('Import')}>
+                  <UploadIcon />
+                </ActionButton>
+              </>
+            }
+          >
             <FileIcon />
             {t('ImportExport')}
           </ModalButton>

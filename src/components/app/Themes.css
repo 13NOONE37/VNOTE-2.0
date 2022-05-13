@@ -9,6 +9,9 @@
   --text-4: #3b3b3b;
   --text-5: #c7c7c7;
   --text-6: #f0f1f5;
+
+  --baseYellow-1: #ffb733;
+  --baseYellow-2: #eec06b;
 }
 .lightMode {
   --background-1: #ececec;
