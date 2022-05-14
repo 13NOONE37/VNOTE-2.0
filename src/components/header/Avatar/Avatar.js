@@ -6,18 +6,10 @@ import { gsap } from 'gsap';
 import AppContext from 'store/AppContext';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
 import useWindowSize from 'utils/useWindowSize';
-import Modal, { ActionButton, ModalButton } from 'components/Modal/Modal';
-import { t } from 'i18next';
-
-import { ReactComponent as LanguageIcon } from 'assets/Icons/globe.svg';
-import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
-import { ReactComponent as DownloadIcon } from 'assets/Icons/download.svg';
-import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
-import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
-import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
+import ProfileModal from './ProfileModal';
 
 export default function Avatar() {
-  const { userInfo, canBeSaved, setLanguage } = useContext(AppContext);
+  const { userInfo, canBeSaved } = useContext(AppContext);
 
   const [showModal, setShowModal] = useState(false);
   const spinIcon = useRef(null);
@@ -43,7 +35,7 @@ export default function Avatar() {
     <div className="avatar">
       {size.width < 750 && <ThemeToggler />}
       <Update className="saveIcon" ref={spinIcon} onClick={spin} />
-      <div className="picture" onClick={() => setShowModal(!showModal)}>
+      <div className="picture" onClick={() => setShowModal(true)}>
         <img
           src={Image}
           alt={userInfo.nickname}
@@ -51,57 +43,7 @@ export default function Avatar() {
         />
       </div>
 
-      {showModal && (
-        <Modal setShowModal={setShowModal}>
-          <div
-            className=" pictureModal "
-            onClick={() => setShowModal(!showModal)}
-          >
-            <img src={Image} alt={userInfo.nickname} />
-          </div>
-          <span className="nicknameModal">{userInfo.nickname}</span>
-          <ModalButton
-            isCollapse
-            collapseContent={
-              <>
-                <ActionButton title={'PL'} action={() => setLanguage('pl')}>
-                  <LanguageIcon />
-                </ActionButton>
-                <ActionButton title={'EN'} action={() => setLanguage('en')}>
-                  <LanguageIcon />
-                </ActionButton>
-              </>
-            }
-          >
-            <LanguageIcon />
-            {t('Language')}
-          </ModalButton>
-          <ModalButton
-            isCollapse
-            collapseContent={
-              <>
-                <ActionButton title={t('Export')}>
-                  <DownloadIcon />
-                </ActionButton>
-                <ActionButton title={t('Import')}>
-                  <UploadIcon />
-                </ActionButton>
-              </>
-            }
-          >
-            <FileIcon />
-            {t('ImportExport')}
-          </ModalButton>
-          <ModalButton isCollapse>
-            <LockIcon />
-            {t('ChangePasswordEmail')}
-          </ModalButton>
-          <ModalButton>
-            <LogoutIcon />
-            {t('Logout')}
-          </ModalButton>
-        </Modal>
-      )}
+      <ProfileModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 }

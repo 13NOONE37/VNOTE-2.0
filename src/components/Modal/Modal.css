@@ -13,6 +13,7 @@
 .modal-main {
   width: 600px;
   max-width: 100vw;
+  max-height: 100vh;
   background-color: var(--text-3);
   color: var(--text-5);
   padding: 50px 25px;
@@ -23,6 +24,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 .modalButton {
   cursor: pointer;
@@ -64,7 +66,7 @@
   color: var(--text-6);
 }
 .modalButton svg {
-  transition: all 0.25s 0.1s ease;
+  transition: all 0.25s ease;
 }
 
 .buttonCollapsedContent {
@@ -107,4 +109,20 @@
   stroke: var(--text-3);
   width: 55%;
   height: 55%;
+}
+.fixedActionButton {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 15px;
+}
+.fixedActionButton .actionButton {
+  width: 65px;
+  height: 65px;
+  background-color: var(--text-4);
+}
+.fixedActionButton svg {
+  width: 70%;
+  height: 70%;
+  stroke: var(--text-5);
 }

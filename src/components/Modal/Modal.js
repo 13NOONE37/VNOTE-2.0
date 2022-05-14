@@ -1,18 +1,25 @@
 import React, { useRef } from 'react';
 import './Modal.css';
 import { ReactComponent as CollapseIcon } from 'assets/Icons/chevron-right.svg';
+import { ReactComponent as ArrowLeft } from 'assets/Icons/arrow-left.svg';
+import { useDetectOutsideClick } from 'utils/useDetectOutsideClick';
 
 export default function Modal({ setShowModal, children }) {
   const modalRef = useRef(null);
+
+  useDetectOutsideClick(modalRef, setShowModal);
+
   return (
-    <div
-      className="modal"
-      onClick={(e) => {
-        setShowModal(modalRef.current !== e.target);
-      }}
-      ref={modalRef}
-    >
-      <div className="modal-main">{children}</div>
+    <div className="modal">
+      <div className="modal-main" ref={modalRef}>
+        {children}
+        <ActionButton
+          action={() => setShowModal(false)}
+          classes={'fixedActionButton'}
+        >
+          <ArrowLeft />
+        </ActionButton>
+      </div>
     </div>
   );
 }
@@ -35,9 +42,9 @@ export function ModalButton({ isCollapse, children, collapseContent }) {
     </button>
   );
 }
-export function ActionButton({ title, children, action }) {
+export function ActionButton({ title, children, action, classes }) {
   return (
-    <div className="actionBox">
+    <div className={`actionBox ${classes}`}>
       <button className="actionButton" onClick={action}>
         {children}
       </button>
