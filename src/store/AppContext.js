@@ -1,6 +1,7 @@
 import { getDefaultNormalizer } from '@testing-library/react';
 import { createContext } from 'react';
 const AppContext = createContext({
+  ua: '',
   userInfo: {},
   setUserInfo: () => {},
   isLogged: true,

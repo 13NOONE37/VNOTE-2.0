@@ -14,10 +14,36 @@ export default function App() {
     gender: 'Female',
     email: 'test@gmail.com',
   });
+
+  const deviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return 'tablet';
+    } else if (
+      /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+        ua,
+      )
+    ) {
+      return 'mobile';
+    }
+    return 'desktop';
+  };
   const [isLogged, setIsLogged] = useState(true);
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([
+    {
+      title: 'POMPKA',
+      content: 'Note Content',
+      date: new Date(2022, 1, 1),
+      color: 3,
+    },
+    {
+      title: 'ZEJU POG',
+      content: 'Note Content',
+      date: new Date(2022, 4, 11),
+      color: 1,
+    },
     {
       title: 'Javascript / TypeScript Tips for good performance',
       content: 'Note Content',
@@ -897,6 +923,7 @@ export default function App() {
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
       <AppContext.Provider
         value={{
+          ua: deviceType(),
           userInfo,
           setUserInfo,
           isLogged,
