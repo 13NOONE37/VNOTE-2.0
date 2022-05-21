@@ -38,7 +38,7 @@ export default function Avatar() {
       <div className="picture" onClick={() => setShowModal(true)}>
         <img
           src={Image}
-          alt={userInfo.nickname}
+          alt="Avatar"
           // src={`https://avatars.dicebear.com/api/${userInfo.gender}/${userInfo.nickname}.svg?mood[]=${mood}`}
         />
       </div>

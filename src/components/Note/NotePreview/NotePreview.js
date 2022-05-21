@@ -1,30 +1,36 @@
 import React, { useContext, useState } from 'react';
 import AppContext from 'store/AppContext';
 import './NotePreview.css';
-export default function NotePreview({ title, date, color, id, ...props }) {
+
+export default function NotePreview({
+  title,
+  date,
+  color,
+  id,
+  notesState,
+  setNotesState,
+  ...props
+}) {
   const { ua, language } = useContext(AppContext);
-  const [isSelectMode, setIsSelectMode] = useState(false);
-  const [selectedNotes, setselectedNotes] = useState([]);
-  //TODO Change for reducer
 
-  const selectNote = (e, noteId) => {
-    console.log('select');
-    e.currentTarget.classList.toggle('selectedNote');
-
-    const temp = [...selectedNotes, noteId];
-    setselectedNotes(temp);
-    console.log(selectedNotes);
+  const selectNote = (item, noteId) => {
+    item.classList.toggle('selectedNote');
+    const temp = notesState.selectedNotes;
+    temp.push(noteId);
+    setNotesState({ ['selectedNotes']: temp });
   };
-  const handleOpenFullView = () => {
+  const handleOpenFullView = (noteId) => {
     console.log('full view');
+    setNotesState({ ['showFullView']: true });
+    setNotesState({ ['currentId']: noteId });
   };
 
   let isPressed = false;
-  const handleTimeout = (e, noteId) => {
+  const handleTimeout = (item, noteId) => {
     if (isPressed) {
-      selectNote(e, noteId);
+      selectNote(item, noteId);
     } else {
-      handleOpenFullView();
+      handleOpenFullView(noteId);
     }
   };
   const MobileTouchStart = (e, noteId) => {
@@ -32,7 +38,7 @@ export default function NotePreview({ title, date, color, id, ...props }) {
     if (e.currentTarget.className.includes('selectedNote')) {
       e.currentTarget.classList.remove('selectedNote');
     } else {
-      window.setTimeout(handleTimeout, 250, e, noteId);
+      window.setTimeout(handleTimeout, 250, e.currentTarget, noteId);
     }
   };
   const MobileTouchEnd = () => {
@@ -43,9 +49,9 @@ export default function NotePreview({ title, date, color, id, ...props }) {
     if (ua === 'mobile' || ua === 'tablet') return;
 
     if (e.shiftKey || e.altKey || e.ctrlKey) {
-      selectNote(e, noteId);
-    } else if (!isSelectMode) {
-      handleOpenFullView();
+      selectNote(e.currentTarget, noteId);
+    } else if (!notesState.isSelectMode) {
+      handleOpenFullView(noteId);
     }
   };
 
@@ -74,4 +80,5 @@ NotePreview.defaultProps = {
   title: 'Title of note',
   date: new Date(),
   color: 1,
+  notesState: {},
 };

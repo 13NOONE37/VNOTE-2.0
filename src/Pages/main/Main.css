@@ -3,6 +3,8 @@
   height: 100vh;
   background-color: var(--background-1);
   overflow: hidden;
+  /* display: grid;
+  grid-template-rows: 75px; */
 }
 /* ===== Scrollbar CSS ===== */
 /* Firefox */

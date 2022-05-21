@@ -1,0 +1,97 @@
+.modalButton {
+  cursor: pointer;
+
+  width: 280px;
+  max-height: 45px;
+  padding: 10px 20px;
+
+  background-color: var(--text-4);
+
+  border: 2px solid var(--text-5);
+  border-radius: 16px;
+
+  font-size: 16px;
+  color: var(--text-5);
+  letter-spacing: 0.5px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  place-items: center;
+
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+.clickedModalButton {
+  border: 2px solid var(--baseYellow-2);
+  color: var(--text-6);
+  max-height: 150px;
+}
+.clickedModalButton .buttonCollapsedContent {
+  opacity: 1;
+  visibility: visible;
+}
+.clickedModalButton svg:nth-child(2) {
+  transform: rotate(90deg);
+}
+.modalButton:hover {
+  border: 2px solid var(--baseYellow-2);
+  color: var(--text-6);
+}
+.modalButton svg {
+  transition: all 0.25s ease;
+}
+
+.buttonCollapsedContent {
+  width: 100%;
+  padding-top: 10px;
+  transition: all 0.25s 0.1s ease;
+  opacity: 0;
+  visibility: collapse;
+  grid-area: 2 /1 /2/3 span;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.actionBox {
+  display: grid;
+  place-items: center;
+}
+.actionName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-6);
+  padding-top: 5px;
+}
+.actionButton {
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  background-color: var(--baseYellow-2);
+  border: 6px solid var(--text-3);
+  border-radius: 16px;
+
+  display: grid;
+  place-items: center;
+}
+.actionButton:hover,
+.actionButton:focus {
+  background-color: var(--baseYellow-1);
+}
+.actionBox svg {
+  stroke: var(--text-3);
+  width: 55%;
+  height: 55%;
+}
+.fixedActionButton {
+  margin: 15px;
+}
+.fixedActionButton .actionButton {
+  width: 65px;
+  height: 65px;
+  background-color: var(--text-4);
+}
+.fixedActionButton svg {
+  width: 70%;
+  height: 70%;
+  stroke: var(--text-5);
+}

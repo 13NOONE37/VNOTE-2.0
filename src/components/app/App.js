@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Main from 'Pages/main/Main';
 
 export default function App() {
+  //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
   const { i18n } = useTranslation();
 
   const [userInfo, setUserInfo] = useState({
