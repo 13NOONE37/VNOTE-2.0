@@ -1,17 +1,27 @@
+.fullViewModal modal-main {
+  height: 800px;
+}
 .fullViewModal .modalContent {
   padding: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  grid-gap: 15px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  place-items: center;
+
+  overflow: hidden auto;
+
+  /* overflow: hidden scroll; */
 }
 .modalContent .notePreviewTitle {
-  align-self: start;
+  place-self: start;
+  letter-spacing: 0.25px;
   /* color: var(--baseYellow-2); */
 }
 .modalContent .noteContent {
+  line-height: 25px;
 }
 .modalContent .createDate {
-  align-self: start;
+  place-self: start;
 }
 .modalContent .lastEditDate {
 }

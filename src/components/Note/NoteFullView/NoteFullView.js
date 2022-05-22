@@ -37,7 +37,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       </time>
       <span className="noteContent">{findNote().content}</span>
       <span className="lastEditDate">
-        {/* {t('LastEdit')}: */}
+        {t('LastEdit')}:{'    '}
         <time>
           {findNote().date.toLocaleDateString(language, {
             month: 'long',

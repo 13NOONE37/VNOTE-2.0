@@ -38,6 +38,7 @@ export default function App() {
       title: 'POMPKA',
       content: 'Note Content',
       date: new Date(2022, 1, 1),
+      lastEditDate: new Date(2022, 1, 1),
       color: 3,
     },
     {
@@ -45,6 +46,8 @@ export default function App() {
       title: 'ZEJU POG',
       content: 'Note Content',
       date: new Date(2022, 4, 11),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 1,
     },
     {
@@ -52,6 +55,8 @@ export default function App() {
       title: 'Javascript / TypeScript Tips for good performance',
       content: 'Note Content',
       date: new Date(1984, 6, 11),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 2,
     },
     {
@@ -59,13 +64,273 @@ export default function App() {
       title: 'Javascript / TypeScript Tips for good performance',
       content: 'Note Content',
       date: new Date(),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 3,
     },
     {
       id: 5,
       title: 'Bomba na banie',
-      content: 'Note Content',
+      content: `Note Content ggg yellow Markets firewallfe
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+      
+      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+ 
+Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+ 
+Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+
+      ed Developer Frozen`,
       date: new Date(),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 4,
     },
     {
@@ -73,6 +338,8 @@ export default function App() {
       title: 'Kinny Zimmer',
       content: 'Note Content',
       date: new Date(),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 5,
     },
     {
@@ -80,6 +347,8 @@ export default function App() {
       title: 'Marcin Dubiel vs Alberto',
       content: 'Note Content',
       date: new Date(),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 4,
     },
     {
@@ -87,6 +356,8 @@ export default function App() {
       title: 'Javascript / TypeScript Tips for good performance',
       content: 'Note Content',
       date: new Date(),
+      lastEditDate: new Date(2022, 1, 1),
+
       color: 1,
     },
   ]);
