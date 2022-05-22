@@ -64,14 +64,14 @@ export default function NotePreview({
       onTouchStart={(e) => MobileTouchStart(e, id)}
       onTouchEnd={MobileTouchEnd}
     >
-      <h1 className="notePreviewTitle">{title}</h1>
-      <span className="notePreviewDate">
+      <span className="notePreviewTitle">{title}</span>
+      <time className="notePreviewDate">
         {date.toLocaleDateString(language, {
           month: 'long',
           day: 'numeric',
           year: 'numeric',
         })}
-      </span>
+      </time>
     </div>
   );
 }

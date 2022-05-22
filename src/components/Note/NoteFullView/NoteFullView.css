@@ -1,0 +1,23 @@
+.fullViewModal .modalContent {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.modalContent .notePreviewTitle {
+  align-self: start;
+  /* color: var(--baseYellow-2); */
+}
+.modalContent .noteContent {
+}
+.modalContent .createDate {
+  align-self: start;
+}
+.modalContent .lastEditDate {
+}
+.modalContent .createDate,
+.lastEditDate {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-7);
+}

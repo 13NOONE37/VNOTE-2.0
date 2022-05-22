@@ -6,4 +6,5 @@ export default {
   ImportExport: 'Import/Eksport',
   ChangePasswordEmail: 'Zmień hasło/email',
   Logout: 'Wyloguj się',
+  LastEdit: 'Ostatnia zmiana',
 };

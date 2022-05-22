@@ -3,15 +3,17 @@ import './NoteFullView.css';
 import Modal, { TopActionButton } from 'components/Modal/Modal';
 import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
 import AppContext from 'store/AppContext';
+import { useTranslation } from 'react-i18next';
 
 export default function NoteFullView({ notesState, setNotesState }) {
+  const { t } = useTranslation();
   const { language, notes, setNotes } = useContext(AppContext);
   //we should use useTransition for updating changes into context
   const findNote = () => notes.find((i) => i.id === notesState.currentId);
 
   return (
     <Modal
-      additionalClass="hideHeader"
+      additionalClass="hideHeader fullViewModal"
       modalHeadContent={
         <TopActionButton classes="fixedActionButton">
           <EditIcon />
@@ -19,15 +21,31 @@ export default function NoteFullView({ notesState, setNotesState }) {
       }
       setShowModal={(value) => setNotesState({ ['showFullView']: value })}
     >
-      <h2>{findNote().title}</h2>
-      <span>
+      <span
+        className="notePreviewTitle"
+        style={{ color: `var(--noteColor-${findNote().color})` }}
+      >
+        {findNote().title}
+      </span>
+
+      <time className="createDate">
         {findNote().date.toLocaleDateString(language, {
           month: 'long',
           day: 'numeric',
           year: 'numeric',
         })}
+      </time>
+      <span className="noteContent">{findNote().content}</span>
+      <span className="lastEditDate">
+        {/* {t('LastEdit')}: */}
+        <time>
+          {findNote().date.toLocaleDateString(language, {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </time>
       </span>
-      <span>{findNote().content}</span>
     </Modal>
   );
 }
