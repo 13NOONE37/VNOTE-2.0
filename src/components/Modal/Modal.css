@@ -12,17 +12,15 @@
 }
 
 .modal-main {
-  max-width: 900px;
-  max-height: 750px;
-
-  /* max-width: 100vw;
-  max-height: 100vh; */
+  max-width: 100vw;
+  max-height: 100vh;
   background-color: var(--text-3);
   color: var(--text-5);
   border-radius: 24px;
 
   display: grid;
   grid-template-rows: auto 1fr;
+  overflow: hidden auto;
 }
 
 .modalHead {
@@ -40,19 +38,18 @@
   gap: 20px;
   padding-bottom: 50px;
 }
+
 @media (max-width: 900px) {
-  .modal-main {
-    width: 100vw !important;
-    height: 100vh !important;
+  .fullViewModal .modal-main {
+    width: 100vw;
   }
   .hideHeader .modalHead {
     display: grid;
   }
 }
 @media (max-height: 750px) {
-  .modal-main {
+  .fullViewModal .modal-main {
     height: 100vh;
-    width: 100vw;
   }
   .hideHeader .modalHead {
     display: grid;

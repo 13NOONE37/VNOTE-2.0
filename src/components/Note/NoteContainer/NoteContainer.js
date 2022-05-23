@@ -62,7 +62,10 @@ export default function NoteContainer() {
           (item, itemKey) =>
             FilterNote(item, filterPhrase) && (
               <NotePreview
-                {...item}
+                title={item.title}
+                date={item.date}
+                color={item.color}
+                id={item.id}
                 key={itemKey}
                 notesState={notesState}
                 setNotesState={setNotesState}

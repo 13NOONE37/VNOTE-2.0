@@ -34,11 +34,12 @@ export default function NotePreview({
     }
   };
   const MobileTouchStart = (e, noteId) => {
+    //TODO imporove it mobile
     isPressed = true;
     if (e.currentTarget.className.includes('selectedNote')) {
       e.currentTarget.classList.remove('selectedNote');
     } else {
-      window.setTimeout(handleTimeout, 250, e.currentTarget, noteId);
+      window.setTimeout(handleTimeout, 350, e.currentTarget, noteId);
     }
   };
   const MobileTouchEnd = () => {
@@ -54,7 +55,7 @@ export default function NotePreview({
       handleOpenFullView(noteId);
     }
   };
-
+  console.log(decodeURI(title), decodeURIComponent(title));
   return (
     <div
       className="notePreview"
@@ -64,7 +65,10 @@ export default function NotePreview({
       onTouchStart={(e) => MobileTouchStart(e, id)}
       onTouchEnd={MobileTouchEnd}
     >
-      <span className="notePreviewTitle">{title}</span>
+      <span
+        className="notePreviewTitle"
+        dangerouslySetInnerHTML={{ __html: decodeURI(title) }}
+      ></span>
       <time className="notePreviewDate">
         {date.toLocaleDateString(language, {
           month: 'long',

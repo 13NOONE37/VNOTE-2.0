@@ -38,6 +38,10 @@
   color: var(--noteColor-5);
   letter-spacing: 0.25px;
 }
+.profileModal .modal-main {
+  height: fit-content;
+  width: 500px;
+}
 @media (max-width: 750px) {
   .avatar .picture {
     box-shadow: 0 0 0 3px var(--textColor-2);

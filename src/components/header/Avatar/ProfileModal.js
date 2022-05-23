@@ -71,7 +71,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
 
   return (
     showModal && (
-      <Modal setShowModal={setShowModal}>
+      <Modal setShowModal={setShowModal} additionalClass="profileModal">
         <div className=" pictureModal ">
           <img src={Image} alt="Avatar" />
         </div>
