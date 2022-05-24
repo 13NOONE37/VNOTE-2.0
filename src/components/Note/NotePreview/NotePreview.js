@@ -55,7 +55,6 @@ export default function NotePreview({
       handleOpenFullView(noteId);
     }
   };
-  console.log(decodeURI(title), decodeURIComponent(title));
   return (
     <div
       className="notePreview"

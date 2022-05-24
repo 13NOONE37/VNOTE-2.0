@@ -29,6 +29,9 @@
   hyphens: auto;
   word-break: break-all;
 }
+.noteContent > * {
+  word-break: break-all;
+}
 .modalContent .createDate {
   place-self: start;
 }

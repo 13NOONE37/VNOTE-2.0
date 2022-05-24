@@ -16,35 +16,35 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ...notes.find((i) => i.id === notesState.currentId),
     },
   );
-  const setValue = (value, name) => setNoteValues({ [name]: value });
 
   const updateToContext = () => {
     console.log(noteValues);
-    // startTransition(() => {
-    const temp = notes.map((item) => {
-      if (item.id === notesState.currentId) return noteValues;
-      return item;
+    startTransition(() => {
+      const temp = notes.map((item) => {
+        if (item.id === notesState.currentId) return noteValues;
+        return item;
+      });
+      setNotes(temp);
     });
-    setNotes(temp);
-    // });
   };
   useEffect(() => {
-    console.log('mount full view', noteValues);
-    const updateInterval = setInterval(updateToContext, 15000);
-
-    return () => {
-      updateToContext();
-      console.log(noteValues);
-      console.log('unmount full view');
-      clearInterval(updateInterval);
-    };
+    // const updateInterval = setInterval(updateToContext, 5000);
+    // return () => {
+    //   clearInterval(updateInterval);
+    // };
   }, []);
 
   const handleChange = (e) => {
-    setValue(
-      encodeURI(e.currentTarget.innerHTML),
-      e.currentTarget.getAttribute('name'),
-    );
+    setNoteValues({
+      [e.currentTarget.getAttribute('name')]: encodeURI(
+        e.currentTarget.innerHTML,
+      ),
+    });
+  };
+  const preventStyledPaste = (e) => {
+    e.preventDefault();
+    const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+    document.execCommand('insertHTML', false, text);
   };
 
   return (
@@ -55,8 +55,12 @@ export default function NoteFullView({ notesState, setNotesState }) {
           <EditIcon />
         </TopActionButton>
       }
-      setShowModal={(value) => setNotesState({ ['showFullView']: value })}
+      setShowModal={(value) => {
+        updateToContext();
+        setNotesState({ ['showFullView']: value });
+      }}
     >
+      <button onClick={() => updateToContext()}>update</button>
       <ContentEditable
         style={{ color: `var(--noteColor-${noteValues.color})` }}
         className="notePreviewTitle"
@@ -65,28 +69,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
         html={decodeURI(noteValues.title)}
         onChange={handleChange}
         tagName="span"
+        onPaste={preventStyledPaste}
       />
-      <button
-        onClick={() => {
-          setNoteValues({ ['title']: 'test' });
-        }}
-      >
-        test
-      </button>
-      <button
-        onClick={() => {
-          updateToContext();
-        }}
-      >
-        update
-      </button>
-      <button
-        onClick={() => {
-          console.log(noteValues);
-        }}
-      >
-        log
-      </button>
       <time className="createDate">
         {noteValues.date.toLocaleDateString(language, {
           month: 'long',
@@ -101,6 +85,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         html={decodeURI(noteValues.content)}
         onChange={handleChange}
         tagName="span"
+        onPaste={preventStyledPaste}
       />
       <span className="lastEditDate">
         {t('LastEdit')}:{'    '}
