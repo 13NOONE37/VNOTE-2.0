@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useReducer, useTransition } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useTransition,
+} from 'react';
 import ContentEditable from 'react-contenteditable';
 import './NoteFullView.css';
 import Modal, { TopActionButton } from 'components/Modal/Modal';
@@ -10,6 +16,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
   const { language, notes, setNotes } = useContext(AppContext);
   const [isPending, startTransition] = useTransition();
+  const updateButtonRef = useRef(null);
   const [noteValues, setNoteValues] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -18,7 +25,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
   );
 
   const updateToContext = () => {
-    console.log(noteValues);
     startTransition(() => {
       const temp = notes.map((item) => {
         if (item.id === notesState.currentId) return noteValues;
@@ -28,13 +34,19 @@ export default function NoteFullView({ notesState, setNotesState }) {
     });
   };
   useEffect(() => {
-    // const updateInterval = setInterval(updateToContext, 5000);
-    // return () => {
-    //   clearInterval(updateInterval);
-    // };
+    const updateInterval = setInterval(
+      () => updateButtonRef.current.click(),
+      15000,
+    );
+    return () => {
+      clearInterval(updateInterval);
+    };
   }, []);
 
   const handleChange = (e) => {
+    startTransition(() => {
+      setNoteValues({ ['lastEditDate']: new Date() });
+    });
     setNoteValues({
       [e.currentTarget.getAttribute('name')]: encodeURI(
         e.currentTarget.innerHTML,
@@ -60,7 +72,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
         setNotesState({ ['showFullView']: value });
       }}
     >
-      <button onClick={() => updateToContext()}>update</button>
+      <button
+        style={{ display: 'none' }}
+        onClick={() => updateToContext()}
+        ref={updateButtonRef}
+      />
       <ContentEditable
         style={{ color: `var(--noteColor-${noteValues.color})` }}
         className="notePreviewTitle"
@@ -94,6 +110,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
             month: 'long',
             day: 'numeric',
             year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
           })}
         </time>
       </span>
