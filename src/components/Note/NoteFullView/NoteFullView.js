@@ -11,6 +11,7 @@ import Modal, { TopActionButton } from 'components/Modal/Modal';
 import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
 import AppContext from 'store/AppContext';
 import { useTranslation } from 'react-i18next';
+import NoteFooter from './NoteFooter/NoteFooter';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -115,6 +116,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
           })}
         </time>
       </span>
+      <NoteFooter />
     </Modal>
   );
 }

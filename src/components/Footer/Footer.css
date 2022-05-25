@@ -32,16 +32,16 @@
 }
 
 /* mask don't work for this example  */
-.navItem2 {
+.footerNav .navItem2 {
   --mask: url("data:image/svg+xml,%3Csvg width='163' height='83' viewBox='0 0 163 83' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.00292969 20V83H162.003V0H42.4999C40.1836 11.4112 30.0948 20 18 20H0.00292969Z' fill='black'/%3E%3C/svg%3E");
   --webkit-mask: var(--mask);
   mask: var(--mask);
   transform: scaleX(-1.01) !important;
 }
-.navItem2 svg {
+.footerNav .navItem2 svg {
   transform: scaleX(-1.01);
 }
-.navItem3 {
+.footerNav .navItem3 {
   --mask: url("data:image/svg+xml,%3Csvg width='163' height='83' viewBox='0 0 163 83' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.00292969 20V83H162.003V0H42.4999C40.1836 11.4112 30.0948 20 18 20H0.00292969Z' fill='black'/%3E%3C/svg%3E");
 
   --webkit-mask: var(--mask);
@@ -53,7 +53,8 @@
 .footerNav .navItem:last-child {
   border-radius: 0 25px 0 0;
 }
-.footerNav .navItem:hover {
+.footerNav .navItem:hover,
+.footerNav .navItem:focus {
   filter: brightness(1.2);
 }
 .footerNav .navItemSpecial {
