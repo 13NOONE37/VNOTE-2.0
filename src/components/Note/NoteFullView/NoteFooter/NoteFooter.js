@@ -1,35 +1,45 @@
 import React from 'react';
 import './NoteFooter.css';
 import { ReactComponent as Check } from 'assets/Icons/check-square.svg';
-import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
-import { ReactComponent as Mic } from 'assets/Icons/mic.svg';
-import { ReactComponent as Picture } from 'assets/Icons/image.svg';
-import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
+import { ReactComponent as Tag } from 'assets/Icons/tag.svg';
+import { ReactComponent as Share } from 'assets/Icons/share-2.svg';
+import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 
-export default function NoteFooter() {
-  //TODO: border radius ktory ma byc przezroczysty nalezy wyeksportowac jako clip path i uzyc go w buttonach
+export default function NoteFooter({
+  noteValues,
+  setNoteValues,
+  additionalClass,
+}) {
+  const changeColor = (n) => setNoteValues({ ['color']: n });
+  const toggleIsTagged = () =>
+    setNoteValues({ ['isTagged']: !noteValues.isTagged });
+
   return (
-    <div className="noteFooter">
+    <div className={`noteFooter ${additionalClass}`}>
       <div className="colorsRow">
-        {[1, 2, 3, 4, 5].map((num) => (
+        {[1, 2, 3, 4, 5].map((num, index) => (
           <button
-            className="colorButton"
+            className={`colorButton ${
+              noteValues.color === num && 'selectedColorButton'
+            }`}
             style={{ backgroundColor: `var(--noteColor-${num})` }}
+            onClick={() => changeColor(num)}
+            key={index}
           />
         ))}
       </div>
       <div className="actionsRow">
-        <button className="navItem">
+        <button className="navItem" onClick={toggleIsTagged}>
           <Check />
         </button>
         <button className="navItem navItem2">
-          <Pen />
+          <Tag />
         </button>
         <button className="navItem navItem3">
-          <Mic />
+          <Share />
         </button>
         <button className="navItem">
-          <Picture />
+          <Trash />
         </button>
       </div>
     </div>

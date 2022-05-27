@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useReducer,
   useRef,
+  useState,
   useTransition,
 } from 'react';
 import ContentEditable from 'react-contenteditable';
@@ -12,19 +13,23 @@ import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
 import AppContext from 'store/AppContext';
 import { useTranslation } from 'react-i18next';
 import NoteFooter from './NoteFooter/NoteFooter';
+import useWindowSize from 'utils/useWindowSize';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
   const { language, notes, setNotes } = useContext(AppContext);
-  const [isPending, startTransition] = useTransition();
+
+  const [showFooterForMobile, setShowFooterForMobile] = useState(true);
   const updateButtonRef = useRef(null);
+  const [isPending, startTransition] = useTransition();
+  const size = useWindowSize();
+
   const [noteValues, setNoteValues] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
       ...notes.find((i) => i.id === notesState.currentId),
     },
   );
-
   const updateToContext = () => {
     startTransition(() => {
       const temp = notes.map((item) => {
@@ -34,15 +39,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
       setNotes(temp);
     });
   };
-  useEffect(() => {
-    const updateInterval = setInterval(
-      () => updateButtonRef.current.click(),
-      15000,
-    );
-    return () => {
-      clearInterval(updateInterval);
-    };
-  }, []);
 
   const handleChange = (e) => {
     startTransition(() => {
@@ -54,17 +50,36 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ),
     });
   };
+  const handleFocus = () => setShowFooterForMobile(false);
   const preventStyledPaste = (e) => {
     e.preventDefault();
     const text = (e.originalEvent || e).clipboardData.getData('text/plain');
     document.execCommand('insertHTML', false, text);
   };
 
+  useEffect(() => {
+    const updateInterval = setInterval(
+      () => updateButtonRef.current.click(),
+      15000,
+    );
+    return () => {
+      clearInterval(updateInterval);
+    };
+  }, []);
+  useEffect(() => {
+    if ((size.width < 900) | (size.height < 750) && showFooterForMobile) {
+      setShowFooterForMobile(false);
+    }
+  }, [size]);
+
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
       modalHeadContent={
-        <TopActionButton classes="fixedActionButton">
+        <TopActionButton
+          classes="fixedActionButton"
+          action={() => setShowFooterForMobile(!showFooterForMobile)}
+        >
           <EditIcon />
         </TopActionButton>
       }
@@ -87,6 +102,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         onChange={handleChange}
         tagName="span"
         onPaste={preventStyledPaste}
+        onFocus={handleFocus}
       />
       <time className="createDate">
         {noteValues.date.toLocaleDateString(language, {
@@ -103,6 +119,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         onChange={handleChange}
         tagName="span"
         onPaste={preventStyledPaste}
+        onFocus={handleFocus}
       />
       <span className="lastEditDate">
         {t('LastEdit')}:{'    '}
@@ -116,7 +133,15 @@ export default function NoteFullView({ notesState, setNotesState }) {
           })}
         </time>
       </span>
-      <NoteFooter />
+
+      <NoteFooter
+        additionalClass={
+          (size.width < 900) | (size.height < 750) &&
+          (showFooterForMobile ? 'showNoteFooter' : 'hideNoteFooter')
+        }
+        noteValues={noteValues}
+        setNoteValues={setNoteValues}
+      />
     </Modal>
   );
 }
