@@ -5,6 +5,7 @@ import './Themes.css';
 import { useTranslation } from 'react-i18next';
 
 import Main from 'Pages/main/Main';
+import { ToastContainer } from 'react-toastify';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
@@ -40,7 +41,7 @@ export default function App() {
       date: new Date(2022, 1, 1),
       lastEditDate: new Date(2022, 1, 1),
       color: 3,
-
+      isDeleted: false,
       isTagged: false,
     },
     {
@@ -49,7 +50,7 @@ export default function App() {
       content: 'Note Content',
       date: new Date(2022, 4, 11),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 1,
       isTagged: false,
     },
@@ -59,7 +60,7 @@ export default function App() {
       content: 'Note Content',
       date: new Date(1984, 6, 11),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 2,
       isTagged: true,
     },
@@ -69,7 +70,7 @@ export default function App() {
       content: 'Note Content',
       date: new Date(),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 3,
       isTagged: false,
     },
@@ -92,7 +93,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       ed Developer Frozen`,
       date: new Date(),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 4,
       isTagged: false,
     },
@@ -102,7 +103,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       content: 'Note Content',
       date: new Date(),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 5,
       isTagged: false,
     },
@@ -112,7 +113,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       content: 'Note Content',
       date: new Date(),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 4,
       isTagged: false,
     },
@@ -122,7 +123,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       content: 'Note Content',
       date: new Date(),
       lastEditDate: new Date(2022, 1, 1),
-
+      isDeleted: false,
       color: 1,
       isTagged: false,
     },

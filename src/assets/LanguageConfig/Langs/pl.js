@@ -7,4 +7,6 @@ export default {
   ChangePasswordEmail: 'Zmień hasło/email',
   Logout: 'Wyloguj się',
   LastEdit: 'Ostatnia zmiana',
+  shareCopy: 'Link skopiowany do schowka',
+  DeleteNote: 'Notatka została usunięta do kosza',
 };

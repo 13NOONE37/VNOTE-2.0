@@ -141,6 +141,10 @@ export default function NoteFullView({ notesState, setNotesState }) {
         }
         noteValues={noteValues}
         setNoteValues={setNoteValues}
+        updateToContext={() => updateButtonRef.current.click()}
+        setShowModal={(value) => {
+          setNotesState({ ['showFullView']: value });
+        }}
       />
     </Modal>
   );

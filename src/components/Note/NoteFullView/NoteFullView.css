@@ -28,7 +28,6 @@
 .notePreviewTitle,
 .noteContent {
   hyphens: auto;
-  word-break: break-all;
 }
 .modalContent .createDate {
   place-self: start;

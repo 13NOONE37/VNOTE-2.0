@@ -18,13 +18,13 @@ export default function NoteContainer() {
   );
 
   const FilterNote = (item, phrase) => {
+    let isValid = false;
+
+    //Search
     const includesPhrase = (expectValue, value) => {
       const re = new RegExp(expectValue, 'i');
       return value.match(re);
     };
-
-    let isValid = false;
-
     if (includesPhrase(phrase, item.title)) isValid = true;
     if (includesPhrase(phrase, item.content)) isValid = true;
     if (
@@ -36,10 +36,14 @@ export default function NoteContainer() {
           year: 'numeric',
         }),
       )
-    )
+    ) {
       isValid = true;
-
+    }
+    //Category
     //TODO:category in url filtering
+    //*below is temporaly for emulating deleting in future it should depent from category
+    if (item.isDeleted) isValid = false;
+
     return isValid;
   };
 

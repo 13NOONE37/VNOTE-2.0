@@ -7,4 +7,6 @@ export default {
   ChangePasswordEmail: 'Change password/email',
   Logout: 'Log out',
   LastEdit: 'Last edit',
+  shareCopy: 'Link copied to clipboard',
+  DeleteNote: 'Note has been moved to recycle bin',
 };
