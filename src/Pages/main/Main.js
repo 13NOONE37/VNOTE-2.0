@@ -22,7 +22,7 @@ export default function Main() {
     <div className="container">
       <Header />
       {size.width < 750 && <SearchBar variant2={true} />}
-      {/* <TagsSlider /> */}
+      <TagsSlider />
 
       <ToastContainer position="bottom-right" newestOnTop theme={theme} />
       <NoteContainer />

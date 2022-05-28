@@ -5,6 +5,12 @@ const useDetectOutsideClick = (ref, handler) => {
     if (!ref.current || ref.current.contains(e.target)) {
       return;
     }
+    //? if statement below prevent closing modal
+    //?or other component that use detectOutsideClick
+    //? from closing when we close notify
+    if (document.querySelector('Toastify').contains(e.target)) {
+      return;
+    }
     handler(false);
   };
   useEffect(() => {

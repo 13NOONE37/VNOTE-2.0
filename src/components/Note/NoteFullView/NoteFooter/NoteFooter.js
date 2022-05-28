@@ -26,7 +26,7 @@ export default function NoteFooter({
     navigator.clipboard.writeText(linkToShare);
     toast.info(t('shareCopy'), {
       position: 'bottom-right',
-      autoClose: 3500,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,
