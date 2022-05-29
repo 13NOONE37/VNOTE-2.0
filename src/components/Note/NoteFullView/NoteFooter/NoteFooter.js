@@ -23,7 +23,10 @@ export default function NoteFooter({
   };
   const handleShare = () => {
     const linkToShare = 'https://tostring.app/noone/note?=1337abasd';
+
     navigator.clipboard.writeText(linkToShare);
+    //TODO:we should implement some check if it's not copied(for example when http)
+
     toast.info(t('shareCopy'), {
       position: 'bottom-right',
       autoClose: 3000,

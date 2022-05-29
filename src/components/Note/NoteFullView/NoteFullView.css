@@ -11,14 +11,10 @@
   grid-template-columns: 1fr;
   place-items: center;
   overflow: hidden auto;
-
-  /* overflow: hidden scroll; */
 }
 .modalContent .notePreviewTitle {
   place-self: start;
   letter-spacing: 0.25px;
-
-  /* color: var(--baseYellow-2); */
 }
 .modalContent .noteContent {
   line-height: 25px;

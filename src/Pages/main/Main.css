@@ -2,7 +2,8 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--background-1);
-  overflow: hidden;
+  overflow: hidden auto;
+  padding-top: 75px;
 }
 /* TODO on mobile while scrolling at bottom shows white space, ask on some discord */
 /* ===== Scrollbar CSS ===== */
@@ -17,6 +18,7 @@
 /* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 4px;
+  height: 6px;
 }
 
 *::-webkit-scrollbar-track {
