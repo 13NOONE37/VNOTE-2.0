@@ -13,6 +13,7 @@ export default function NoteFooter({
   additionalClass,
   updateToContext,
   setShowModal,
+  setShowTagView,
 }) {
   const { t } = useTranslation();
   const changeColor = (n) => {
@@ -20,6 +21,9 @@ export default function NoteFooter({
   };
   const toggleIsTagged = () => {
     setNoteValues({ ['isTagged']: !noteValues.isTagged });
+  };
+  const handleOpenTagModal = () => {
+    setShowTagView(true);
   };
   const handleShare = () => {
     const linkToShare = 'https://tostring.app/noone/note?=1337abasd';
@@ -83,7 +87,7 @@ export default function NoteFooter({
         <button className="navItem" onClick={toggleIsTagged}>
           <Check />
         </button>
-        <button className="navItem navItem2">
+        <button className="navItem navItem2" onClick={handleOpenTagModal}>
           <Tag />
         </button>
         <button className="navItem navItem3" onClick={handleShare}>

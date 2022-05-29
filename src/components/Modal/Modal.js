@@ -9,6 +9,7 @@ import useDetectOutsideClick from 'utils/useDetectOutsideClick';
 export default function Modal({
   setShowModal,
   modalHeadContent,
+  hideModalHead,
   children,
   additionalClass,
 }) {
@@ -19,16 +20,18 @@ export default function Modal({
   return (
     <div className={`modal ${additionalClass}`}>
       <div className="modal-main" ref={modalRef}>
-        <div className="modalHead">
-          <TopActionButton
-            action={() => setShowModal(false)}
-            classes={'fixedActionButton'}
-          >
-            <ArrowLeft />
-          </TopActionButton>
-          <span></span>
-          {modalHeadContent}
-        </div>
+        {hideModalHead && (
+          <div className="modalHead">
+            <TopActionButton
+              action={() => setShowModal(false)}
+              classes={'fixedActionButton'}
+            >
+              <ArrowLeft />
+            </TopActionButton>
+            <span></span>
+            {modalHeadContent}
+          </div>
+        )}
         <div className="modalContent">{children}</div>
       </div>
     </div>

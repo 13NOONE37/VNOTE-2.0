@@ -1,0 +1,12 @@
+.tagsViewModal .modalContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.tagsViewModal .modalButton {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+}
+.tagsViewModal .modalButton .buttonCollapsedContent {
+  display: none;
+}

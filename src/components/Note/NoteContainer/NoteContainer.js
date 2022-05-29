@@ -13,6 +13,7 @@ export default function NoteContainer() {
       isSelectMode: false,
       selectedNotes: [],
       showFullView: false,
+      showTagView: false,
       currentId: undefined,
     },
   );

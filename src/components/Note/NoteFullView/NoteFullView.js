@@ -14,6 +14,7 @@ import AppContext from 'store/AppContext';
 import { useTranslation } from 'react-i18next';
 import NoteFooter from './NoteFooter/NoteFooter';
 import useWindowSize from 'utils/useWindowSize';
+import TagsModal from 'components/TagsModal/TagsModal';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -139,6 +140,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
           (size.width < 900) | (size.height < 750) &&
           (showFooterForMobile ? 'showNoteFooter' : 'hideNoteFooter')
         }
+        setShowTagView={(value) => setNotesState({ ['showTagView']: value })}
         noteValues={noteValues}
         setNoteValues={setNoteValues}
         updateToContext={() => updateButtonRef.current.click()}
@@ -146,6 +148,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
           setNotesState({ ['showFullView']: value });
         }}
       />
+      {notesState.showTagView && (
+        <TagsModal notesState={notesState} setNotesState={setNotesState} />
+      )}
     </Modal>
   );
 }
