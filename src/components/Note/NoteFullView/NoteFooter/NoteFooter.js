@@ -19,8 +19,8 @@ export default function NoteFooter({
   const changeColor = (n) => {
     setNoteValues({ ['color']: n });
   };
-  const toggleIsTagged = () => {
-    setNoteValues({ ['isTagged']: !noteValues.isTagged });
+  const toggleIsListed = () => {
+    setNoteValues({ ['isListed']: !noteValues.isListed });
   };
   const handleOpenTagModal = () => {
     setShowTagView(true);
@@ -84,7 +84,7 @@ export default function NoteFooter({
         ))}
       </div>
       <div className="actionsRow">
-        <button className="navItem" onClick={toggleIsTagged}>
+        <button className="navItem" onClick={toggleIsListed}>
           <Check />
         </button>
         <button className="navItem navItem2" onClick={handleOpenTagModal}>

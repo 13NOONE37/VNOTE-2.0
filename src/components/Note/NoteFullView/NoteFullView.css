@@ -14,7 +14,7 @@
 }
 .modalContent .notePreviewTitle {
   place-self: start;
-  letter-spacing: 0.25px;
+  letter-spacing: 0.6px;
 }
 .modalContent .noteContent {
   line-height: 25px;
@@ -35,4 +35,14 @@
   font-size: 12px;
   font-weight: 400;
   color: var(--text-7);
+}
+.noteListedContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.noteListedElement {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
 }

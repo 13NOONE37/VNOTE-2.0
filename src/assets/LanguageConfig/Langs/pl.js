@@ -9,4 +9,5 @@ export default {
   LastEdit: 'Ostatnia zmiana',
   shareCopy: 'Link skopiowany do schowka',
   DeleteNote: 'Notatka została usunięta do kosza',
+  SelectTags: 'Wybierz tagi',
 };

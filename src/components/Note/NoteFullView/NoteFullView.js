@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import NoteFooter from './NoteFooter/NoteFooter';
 import useWindowSize from 'utils/useWindowSize';
 import TagsModal from 'components/TagsModal/TagsModal';
+import Checkbox from './Checkbox/Checkbox';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -67,12 +68,14 @@ export default function NoteFullView({ notesState, setNotesState }) {
       clearInterval(updateInterval);
     };
   }, []);
+
+  //todo reconsider this use effect, we can propably make it with css beacouse now it's lagging
   useEffect(() => {
     if ((size.width < 900) | (size.height < 750) && showFooterForMobile) {
       setShowFooterForMobile(false);
     }
   }, [size]);
-
+  console.log(decodeURI(noteValues.content));
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
@@ -112,16 +115,33 @@ export default function NoteFullView({ notesState, setNotesState }) {
           year: 'numeric',
         })}
       </time>
-      <ContentEditable
-        className="noteContent"
-        spellCheck={false}
-        name="content"
-        html={decodeURI(noteValues.content)}
-        onChange={handleChange}
-        tagName="span"
-        onPaste={preventStyledPaste}
-        onFocus={handleFocus}
-      />
+      {noteValues.isListed ? (
+        <div className="noteListedContent">
+          {decodeURI(noteValues.content)
+            .split('\n')
+            .map(
+              (line, lineIndex) =>
+                line.trim().length > 0 && (
+                  <span className="noteListedElement">
+                    <Checkbox />
+                    {line}
+                    {line.length}
+                  </span>
+                ),
+            )}
+        </div>
+      ) : (
+        <ContentEditable
+          className="noteContent"
+          spellCheck={false}
+          name="content"
+          html={decodeURI(noteValues.content)}
+          onChange={handleChange}
+          tagName="span"
+          onPaste={preventStyledPaste}
+          onFocus={handleFocus}
+        />
+      )}
       <span className="lastEditDate">
         {t('LastEdit')}:{'    '}
         <time>
@@ -134,7 +154,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
           })}
         </time>
       </span>
-
+      <Checkbox />
       <NoteFooter
         additionalClass={
           (size.width < 900) | (size.height < 750) &&

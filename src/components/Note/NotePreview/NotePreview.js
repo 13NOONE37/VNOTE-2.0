@@ -61,8 +61,8 @@ export default function NotePreview({
       style={{ backgroundColor: `var(--noteColor-${color})` }}
       {...props}
       onClick={(e) => handleClick(e, id)}
-      // onTouchStart={(e) => MobileTouchStart(e, id)}
-      // onTouchEnd={MobileTouchEnd}
+      onTouchStart={(e) => MobileTouchStart(e, id)}
+      onTouchEnd={MobileTouchEnd}
     >
       <span
         className="notePreviewTitle"

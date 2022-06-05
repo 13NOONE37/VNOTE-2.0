@@ -9,4 +9,5 @@ export default {
   LastEdit: 'Last edit',
   shareCopy: 'Link copied to clipboard',
   DeleteNote: 'Note has been moved to recycle bin',
+  SelectTags: 'Select tags',
 };

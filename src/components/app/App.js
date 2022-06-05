@@ -42,7 +42,7 @@ export default function App() {
       lastEditDate: new Date(2022, 1, 1),
       color: 3,
       isDeleted: false,
-      isTagged: false,
+      isListed: false,
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ export default function App() {
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 1,
-      isTagged: false,
+      isListed: false,
     },
     {
       id: 3,
@@ -62,7 +62,7 @@ export default function App() {
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 2,
-      isTagged: true,
+      isListed: true,
     },
     {
       id: 4,
@@ -72,7 +72,7 @@ export default function App() {
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 3,
-      isTagged: false,
+      isListed: false,
     },
     {
       id: 5,
@@ -95,7 +95,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 4,
-      isTagged: false,
+      isListed: false,
     },
     {
       id: 6,
@@ -105,7 +105,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 5,
-      isTagged: false,
+      isListed: false,
     },
     {
       id: 7,
@@ -115,7 +115,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 4,
-      isTagged: false,
+      isListed: false,
     },
     {
       id: 8,
@@ -125,7 +125,7 @@ Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non cor
       lastEditDate: new Date(2022, 1, 1),
       isDeleted: false,
       color: 1,
-      isTagged: false,
+      isListed: false,
     },
   ]);
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);

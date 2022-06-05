@@ -24,7 +24,7 @@
   color: var(--iconColor);
   font-family: 'Red Hat Display', monospace;
   font-weight: 500;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.6px;
 }
 .searchBar svg {
   height: 22px;
