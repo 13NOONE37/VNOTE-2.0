@@ -36,97 +36,99 @@ export default function App() {
   const [notes, setNotes] = useState([
     {
       id: 1,
-      title: 'POMPKA',
-      content: 'Note Content',
+      title: 'Zakupy',
+      content:
+        '%3Cdiv%3EMleko%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EMas%C5%82o%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EChleb%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E',
       date: new Date(2022, 1, 1),
       lastEditDate: new Date(2022, 1, 1),
       color: 3,
       isDeleted: false,
       isListed: false,
+      tags: { test: 'test' },
     },
-    {
-      id: 2,
-      title: 'ZEJU POG',
-      content: 'Note Content',
-      date: new Date(2022, 4, 11),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 1,
-      isListed: false,
-    },
-    {
-      id: 3,
-      title: 'Javascript / TypeScript Tips for good performance',
-      content: 'Note Content',
-      date: new Date(1984, 6, 11),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 2,
-      isListed: true,
-    },
-    {
-      id: 4,
-      title: 'Javascript / TypeScript Tips for good performance',
-      content: 'Note Content',
-      date: new Date(),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 3,
-      isListed: false,
-    },
-    {
-      id: 5,
-      title: 'Bomba na banie',
-      content: `Note Content ggg yellow Markets firewallfe
-  os quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
-      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
-Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
- 
-Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
-      
-      Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
- 
-Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
- 
-Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+    //     {
+    //       id: 2,
+    //       title: 'ZEJU POG',
+    //       content: 'Note Content',
+    //       date: new Date(2022, 4, 11),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 1,
+    //       isListed: false,
+    //     },
+    //     {
+    //       id: 3,
+    //       title: 'Javascript / TypeScript Tips for good performance',
+    //       content: 'Note Content',
+    //       date: new Date(1984, 6, 11),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 2,
+    //       isListed: true,
+    //     },
+    //     {
+    //       id: 4,
+    //       title: 'Javascript / TypeScript Tips for good performance',
+    //       content: 'Note Content',
+    //       date: new Date(),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 3,
+    //       isListed: false,
+    //     },
+    //     {
+    //       id: 5,
+    //       title: 'Bomba na banie',
+    //       content: `Note Content ggg yellow Markets firewallfe
+    //   os quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+    //       Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+    // Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
 
-      ed Developer Frozen`,
-      date: new Date(),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 4,
-      isListed: false,
-    },
-    {
-      id: 6,
-      title: 'Kinny Zimmer',
-      content: 'Note Content',
-      date: new Date(),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 5,
-      isListed: false,
-    },
-    {
-      id: 7,
-      title: 'Marcin Dubiel vs Alberto',
-      content: 'Note Content',
-      date: new Date(),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 4,
-      isListed: false,
-    },
-    {
-      id: 8,
-      title: 'Javascript / TypeScript Tips for good performance',
-      content: 'Note Content',
-      date: new Date(),
-      lastEditDate: new Date(2022, 1, 1),
-      isDeleted: false,
-      color: 1,
-      isListed: false,
-    },
+    // Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+
+    //       Soluta voluptatibus quo et quia officia aliquid rerum impedit. Nulla et omnis unde placeat at saepe magni. Saepe aut incidunt qui.
+
+    // Consequatur optio eaque voluptas eos expedita deleniti. Qui dolore omnis ullam sapiente rem et delectus in. Vel recusandae harum non dolore autem.
+
+    // Velit iure eos quo. Cumque vero velit veritatis. Debitis assumenda velit non corporis amet quo aut. Repudiandae nihil velit quia reprehenderit nostrum nobis numquam.
+
+    //       ed Developer Frozen`,
+    //       date: new Date(),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 4,
+    //       isListed: false,
+    //     },
+    //     {
+    //       id: 6,
+    //       title: 'Kinny Zimmer',
+    //       content: 'Note Content',
+    //       date: new Date(),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 5,
+    //       isListed: false,
+    //     },
+    //     {
+    //       id: 7,
+    //       title: 'Marcin Dubiel vs Alberto',
+    //       content: 'Note Content',
+    //       date: new Date(),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 4,
+    //       isListed: false,
+    //     },
+    //     {
+    //       id: 8,
+    //       title: 'Javascript / TypeScript Tips for good performance',
+    //       content: 'Note Content',
+    //       date: new Date(),
+    //       lastEditDate: new Date(2022, 1, 1),
+    //       isDeleted: false,
+    //       color: 1,
+    //       isListed: false,
+    //     },
   ]);
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);

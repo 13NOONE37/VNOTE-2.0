@@ -10,8 +10,10 @@ export default function TagsSlider() {
   return (
     <nav className="tagsSlider">
       <button className="tagItem selectedItem">{t('All')}</button>
-      {tags.map((item) => (
-        <button className="tagItem">{item}</button>
+      {tags.map((item, index) => (
+        <button className="tagItem" key={index}>
+          {item}
+        </button>
       ))}
       <button className="tagItem newTag">{t('NewTag')}</button>
     </nav>

@@ -36,8 +36,15 @@ export default function Modal({
   );
 }
 
-export function ModalButton({ isCollapse, children, collapseContent }) {
+export function ModalButton({
+  isCollapse,
+  children,
+  collapseContent,
+  action,
+  isActive,
+}) {
   const toggleList = (e) => {
+    action && action();
     if (!isCollapse) return;
     for (const item of document.querySelectorAll('.modalButton')) {
       item !== e.currentTarget && item.classList.remove('clickedModalButton');
@@ -47,7 +54,10 @@ export function ModalButton({ isCollapse, children, collapseContent }) {
     e.currentTarget.classList.add('clickedModalButton');
   };
   return (
-    <button className="modalButton" onClick={toggleList}>
+    <button
+      className={`modalButton ${isActive && 'clickedModalButton'}`}
+      onClick={toggleList}
+    >
       {children}
       {isCollapse && <CollapseIcon />}
       <div className="buttonCollapsedContent">{collapseContent}</div>

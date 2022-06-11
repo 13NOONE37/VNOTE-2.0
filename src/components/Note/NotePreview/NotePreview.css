@@ -30,6 +30,7 @@
   font-size: 24px;
   font-weight: 600;
   word-wrap: break-word;
+  word-break: break-word;
 }
 .notePreviewDate {
   color: var(--text-4);

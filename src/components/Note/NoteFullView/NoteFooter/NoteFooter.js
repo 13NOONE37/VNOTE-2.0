@@ -80,20 +80,38 @@ export default function NoteFooter({
             style={{ backgroundColor: `var(--noteColor-${num})` }}
             onClick={() => changeColor(num)}
             key={index}
+            value={num}
+            aria-label={t('AriaColor')}
           />
         ))}
       </div>
       <div className="actionsRow">
-        <button className="navItem" onClick={toggleIsListed}>
+        <button
+          className="navItem"
+          onClick={toggleIsListed}
+          aria-label={t('AriaToggleCheck')}
+        >
           <Check />
         </button>
-        <button className="navItem navItem2" onClick={handleOpenTagModal}>
+        <button
+          className="navItem navItem2"
+          onClick={handleOpenTagModal}
+          aria-label={t('AriaTags')}
+        >
           <Tag />
         </button>
-        <button className="navItem navItem3" onClick={handleShare}>
+        <button
+          className="navItem navItem3"
+          onClick={handleShare}
+          aria-label={t('AriaShare')}
+        >
           <Share />
         </button>
-        <button className="navItem" onClick={deleteNote}>
+        <button
+          className="navItem"
+          onClick={deleteNote}
+          aria-label={t('AriaTrash')}
+        >
           <Trash />
         </button>
       </div>

@@ -52,6 +52,16 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ),
     });
   };
+  const handleChangeLine = (e, lineIndex) => {
+    startTransition(() => {
+      setNoteValues({ ['lastEditDate']: new Date() });
+    });
+    setNoteValues({
+      [e.currentTarget.getAttribute('name')]: encodeURI(
+        e.currentTarget.innerHTML,
+      ),
+    });
+  };
   const handleFocus = () => setShowFooterForMobile(false);
   const preventStyledPaste = (e) => {
     e.preventDefault();
@@ -60,6 +70,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
   };
 
   useEffect(() => {
+    console.log(noteValues);
     const updateInterval = setInterval(
       () => updateButtonRef.current.click(),
       15000,
@@ -69,13 +80,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
     };
   }, []);
 
-  //todo reconsider this use effect, we can propably make it with css beacouse now it's lagging
-  useEffect(() => {
-    if ((size.width < 900) | (size.height < 750) && showFooterForMobile) {
-      setShowFooterForMobile(false);
-    }
-  }, [size]);
-  console.log(decodeURI(noteValues.content));
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
@@ -118,14 +122,25 @@ export default function NoteFullView({ notesState, setNotesState }) {
       {noteValues.isListed ? (
         <div className="noteListedContent">
           {decodeURI(noteValues.content)
-            .split('\n')
+            .split('<br>')
             .map(
               (line, lineIndex) =>
                 line.trim().length > 0 && (
                   <span className="noteListedElement">
                     <Checkbox />
-                    {line}
-                    {line.length}
+                    <ContentEditable
+                      className={`noteContent ${
+                        'checking is checked' == 'checking is checked' &&
+                        'doneLine'
+                      }`}
+                      spellCheck={false}
+                      name="content"
+                      html={line}
+                      onChange={(e) => handleChangeLine(e, lineIndex)}
+                      tagName="span"
+                      onPaste={preventStyledPaste}
+                      onFocus={handleFocus}
+                    />
                   </span>
                 ),
             )}
@@ -154,7 +169,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
           })}
         </time>
       </span>
-      <Checkbox />
+      {/* <Checkbox /> */}
       <NoteFooter
         additionalClass={
           (size.width < 900) | (size.height < 750) &&
@@ -169,7 +184,12 @@ export default function NoteFullView({ notesState, setNotesState }) {
         }}
       />
       {notesState.showTagView && (
-        <TagsModal notesState={notesState} setNotesState={setNotesState} />
+        <TagsModal
+          noteValues={noteValues}
+          setNoteValues={setNoteValues}
+          notesState={notesState}
+          setNotesState={setNotesState}
+        />
       )}
     </Modal>
   );

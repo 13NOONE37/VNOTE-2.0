@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import './SearchBar.css';
 import { ReactComponent as Bars } from 'assets/Icons/bars.svg';
-import { ReactComponent as XCircle } from 'assets/Icons/x-circle.svg';
 import AppContext from 'store/AppContext';
+import SearchInput from './SearchInput/SearchInput';
 
 export default function SearchBar({ variant2 }) {
   const { setFilterPhrase } = useContext(AppContext);
@@ -19,21 +18,16 @@ export default function SearchBar({ variant2 }) {
   }, [tempPhrase]);
 
   return (
-    <div className={`searchBar ${variant2 && 'searchBarVariant2'}`}>
-      <Bars />
-      <input
-        type="text"
-        placeholder={t('SearchYourNotes')}
-        value={tempPhrase}
-        onChange={(e) => setTempPhrase(e.target.value)}
-      />
-      <XCircle
-        onClick={() => {
-          setFilterPhrase('');
-          setTempPhrase('');
-        }}
-        className={tempPhrase.length > 0 ? 'appearItem' : 'disappearItem'}
-      />
-    </div>
+    <SearchInput
+      inputValue={tempPhrase}
+      inputAction={(e) => setTempPhrase(e.target.value)}
+      closeAction={() => {
+        setFilterPhrase('');
+        setTempPhrase('');
+      }}
+      placeholder={t('SearchYourNotes')}
+      icon={() => <Bars />}
+      variant2={variant2 || false}
+    />
   );
 }
