@@ -15,7 +15,7 @@ export default function Checkbox({ ...props }) {
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="feather feather-check"
+        className="feather feather-check"
       >
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>

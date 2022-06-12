@@ -44,7 +44,8 @@ export default function App() {
       color: 3,
       isDeleted: false,
       isListed: false,
-      tags: { test: 'test' },
+      tags: { all: 'all' },
+      checkList:[],
     },
     //     {
     //       id: 2,

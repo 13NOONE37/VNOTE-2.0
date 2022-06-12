@@ -56,11 +56,17 @@ export default function NoteFullView({ notesState, setNotesState }) {
     startTransition(() => {
       setNoteValues({ ['lastEditDate']: new Date() });
     });
-    setNoteValues({
-      [e.currentTarget.getAttribute('name')]: encodeURI(
-        e.currentTarget.innerHTML,
-      ),
-    });
+    // setNoteValues({
+    //   [e.currentTarget.getAttribute('name')]: encodeURI(
+    //     e.currentTarget.innerHTML,
+    //   ),
+    // });
+  };
+  const handleCheck = (index) => {
+    const temp = noteValues.checkList;
+    temp[index] = !temp[index];
+
+    setNoteValues({ ['checkList']: temp });
   };
   const handleFocus = () => setShowFooterForMobile(false);
   const preventStyledPaste = (e) => {
@@ -127,7 +133,10 @@ export default function NoteFullView({ notesState, setNotesState }) {
               (line, lineIndex) =>
                 line.trim().length > 0 && (
                   <span className="noteListedElement">
-                    <Checkbox />
+                    <Checkbox
+                      defaultChecked={noteValues.checkList[lineIndex]}
+                      onClick={() => handleCheck(lineIndex)}
+                    />
                     <ContentEditable
                       className={`noteContent ${
                         'checking is checked' == 'checking is checked' &&
