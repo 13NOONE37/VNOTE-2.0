@@ -52,15 +52,22 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ),
     });
   };
+  //!When we space twice to new task we should add element
+  //!inside checkList becaouse now it's buged
   const handleChangeLine = (e, lineIndex) => {
+    let temp = decodeURI(noteValues.content)
+      .split('<br>')
+      .map((item, index) => {
+        if (index === lineIndex) return e.currentTarget.innerHTML;
+        return item;
+      });
+
     startTransition(() => {
       setNoteValues({ ['lastEditDate']: new Date() });
     });
-    // setNoteValues({
-    //   [e.currentTarget.getAttribute('name')]: encodeURI(
-    //     e.currentTarget.innerHTML,
-    //   ),
-    // });
+    setNoteValues({
+      ['content']: encodeURI(temp.join('<br>')),
+    });
   };
   const handleCheck = (index) => {
     const temp = noteValues.checkList;
@@ -108,8 +115,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
         ref={updateButtonRef}
       />
       <ContentEditable
-        style={{ color: `var(--noteColor-${noteValues.color})` }}
-        className="notePreviewTitle"
+        style={{
+          color: `var(--noteColor-${noteValues.color})`,
+          // '--placeholderContent': t('DefaultTitle'),
+        }}
+        className="notePreviewTitle notePreviewTitle--placeholder"
         spellCheck={false}
         name="title"
         html={decodeURI(noteValues.title)}
@@ -117,6 +127,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         tagName="span"
         onPaste={preventStyledPaste}
         onFocus={handleFocus}
+        defaultValue={'Test'}
       />
       <time className="createDate">
         {noteValues.date.toLocaleDateString(language, {
@@ -125,38 +136,39 @@ export default function NoteFullView({ notesState, setNotesState }) {
           year: 'numeric',
         })}
       </time>
+      {/* <button onClick={() => console.log(decodeURI(noteValues.content))}>
+        log
+      </button> */}
       {noteValues.isListed ? (
         <div className="noteListedContent">
           {decodeURI(noteValues.content)
             .split('<br>')
-            .map(
-              (line, lineIndex) =>
-                line.trim().length > 0 && (
-                  <span className="noteListedElement">
-                    <Checkbox
-                      defaultChecked={noteValues.checkList[lineIndex]}
-                      onClick={() => handleCheck(lineIndex)}
-                    />
-                    <ContentEditable
-                      className={`noteContent ${
-                        'checking is checked' == 'checking is checked' &&
-                        'doneLine'
-                      }`}
-                      spellCheck={false}
-                      name="content"
-                      html={line}
-                      onChange={(e) => handleChangeLine(e, lineIndex)}
-                      tagName="span"
-                      onPaste={preventStyledPaste}
-                      onFocus={handleFocus}
-                    />
-                  </span>
-                ),
-            )}
+            .map((line, lineIndex) => (
+              // line.trim().length > 0 &&
+              <span className="noteListedElement">
+                <Checkbox
+                  defaultChecked={noteValues.checkList[lineIndex]}
+                  onClick={() => handleCheck(lineIndex)}
+                />
+                <ContentEditable
+                  className={`noteContent ${
+                    noteValues.checkList[lineIndex] && 'doneLine'
+                  }`}
+                  spellCheck={false}
+                  name="content"
+                  html={line}
+                  onChange={(e) => handleChangeLine(e, lineIndex)}
+                  tagName="span"
+                  onPaste={preventStyledPaste}
+                  onFocus={handleFocus}
+                />
+              </span>
+            ))}
         </div>
       ) : (
         <ContentEditable
-          className="noteContent"
+          className="noteContent noteContent--placeholder"
+          // style={{ '--placeholderContent': String('abc') }}
           spellCheck={false}
           name="content"
           html={decodeURI(noteValues.content)}

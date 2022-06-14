@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
+import handleOpenFullView from 'utils/handleOpenFullView';
 import './NotePreview.css';
 
 export default function NotePreview({
@@ -19,18 +21,12 @@ export default function NotePreview({
     temp.push(noteId);
     setNotesState({ ['selectedNotes']: temp });
   };
-  const handleOpenFullView = (noteId) => {
-    console.log('full view');
-    setNotesState({ ['showFullView']: true });
-    setNotesState({ ['currentId']: noteId });
-  };
-
   let isPressed = false;
   const handleTimeout = (item, noteId) => {
     if (isPressed) {
       selectNote(item, noteId);
     } else {
-      handleOpenFullView(noteId);
+      handleOpenFullView(setNotesState, noteId);
     }
   };
   const MobileTouchStart = (e, noteId) => {
@@ -52,9 +48,10 @@ export default function NotePreview({
     if (e.shiftKey || e.altKey || e.ctrlKey) {
       selectNote(e.currentTarget, noteId);
     } else if (!notesState.isSelectMode) {
-      handleOpenFullView(noteId);
+      handleOpenFullView(setNotesState, noteId);
     }
   };
+
   return (
     <div
       className="notePreview"
@@ -68,6 +65,7 @@ export default function NotePreview({
         className="notePreviewTitle"
         dangerouslySetInnerHTML={{ __html: decodeURI(title) }}
       ></span>
+
       <time className="notePreviewDate">
         {date.toLocaleDateString(language, {
           month: 'long',

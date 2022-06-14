@@ -5,18 +5,17 @@ import Masonry from 'react-masonry-css';
 import AppContext from 'store/AppContext';
 import NoteFullView from '../NoteFullView/NoteFullView';
 
-export default function NoteContainer() {
+export default function NoteContainer({ notesState, setNotesState }) {
   const { language, filterPhrase, notes } = useContext(AppContext);
-  const [notesState, setNotesState] = useReducer(
-    (state, newState) => ({ ...state, ...newState }),
-    {
-      isSelectMode: false,
-      selectedNotes: [],
-      showFullView: false,
-      showTagView: false,
-      currentId: undefined,
-    },
-  );
+  // const [notesState, setNotesState] = useReducer(
+  //   (state, newState) => ({ ...state, ...newState }),
+  //   {
+  //     isSelectMode: false,
+  //     selectedNotes: [],
+  //     showTagView: false,
+  //     ...props,
+  //   },
+  // );
 
   const FilterNote = (item, phrase) => {
     let isValid = false;

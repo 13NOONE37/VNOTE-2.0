@@ -21,4 +21,6 @@ export default {
   AriaTrash: 'Delete',
   AriaColor: 'Color',
   AddNewTag: 'Add new tag',
+  DefaultTitle: 'Title',
+  DefaultContent: 'Note',
 };

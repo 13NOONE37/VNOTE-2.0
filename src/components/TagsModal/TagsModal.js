@@ -20,7 +20,7 @@ export default function TagsModal({
     if (temp[tag]) {
       delete temp[tag];
     } else {
-      temp[tag] = tag;
+      temp[tag] = true;
     }
     setNoteValues({ ['tags']: temp });
   };

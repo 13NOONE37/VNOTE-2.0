@@ -39,13 +39,16 @@ export default function App() {
       title: 'Zakupy',
       content:
         '%3Cdiv%3EMleko%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EMas%C5%82o%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EChleb%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E',
-      date: new Date(2022, 1, 1),
-      lastEditDate: new Date(2022, 1, 1),
+      date: new Date(2003, 7, 12),
+      lastEditDate: new Date(2003, 7, 12),
       color: 3,
       isDeleted: false,
       isListed: false,
-      tags: { all: 'all' },
-      checkList:[],
+      tags: { all: true },
+      checkList: [],
+      images: [],
+      draws: [],
+      recordings: [],
     },
     //     {
     //       id: 2,
@@ -156,6 +159,9 @@ export default function App() {
           setFilterPhrase,
           notes,
           setNotes,
+          addNewNote: (note) => {
+            setNotes([...notes, note]);
+          },
           tags,
           setTags,
           canBeSaved,

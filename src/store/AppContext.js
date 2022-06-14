@@ -16,6 +16,7 @@ const AppContext = createContext({
   setTags: () => {},
   notes: [],
   setNotes: () => {},
+  addNewNote: () => {},
   canBeSaved: false,
   setCanBeSaved: () => {},
 });
