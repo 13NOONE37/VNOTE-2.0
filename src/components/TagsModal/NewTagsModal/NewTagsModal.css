@@ -1,0 +1,46 @@
+.newTagsGallery .tagsGallery--content {
+  grid-template-columns: 1fr;
+  place-items: center;
+}
+.newTagsGallery .searchBar {
+  margin-top: 25px;
+}
+.tagArea {
+  display: flex;
+  align-items: center;
+}
+.tagArea .modalButton {
+  cursor: auto;
+  outline: none;
+}
+.tagArea .modalButton:focus {
+  border: 2px solid var(--baseYellow-2);
+  color: var(--text-6);
+}
+.tagArea .navItem {
+  cursor: pointer;
+  max-height: 45px;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 10px;
+}
+.tagArea .navItem svg {
+  height: 45px;
+  transition: all 0.2s ease-in;
+}
+.tagArea .navItem:hover svg,
+.tagArea .navItem:focus svg {
+  stroke: var(--baseYellow-2);
+}
+.newTagsGallery .searchBar svg:nth-child(1) {
+  stroke: var(--background-2);
+  fill: var(--iconColor);
+  height: 32px;
+}
+.newTagsModal .modalContent {
+  padding-bottom: 0;
+}
+.newTagButton {
+  margin-top: 12px;
+}

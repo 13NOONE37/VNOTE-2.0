@@ -23,4 +23,5 @@ export default {
   AddNewTag: 'Add new tag',
   DefaultTitle: 'Title',
   DefaultContent: 'Note',
+  WithoutTitle: 'Without title',
 };

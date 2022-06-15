@@ -3,7 +3,6 @@ import AppContext from 'store/AppContext';
 import './TagsModal.css';
 import Modal, { ModalButton } from 'components/Modal/Modal';
 
-import TagsFooter from './TagsFooter/TagsFooter';
 import { useTranslation } from 'react-i18next';
 
 export default function TagsModal({
@@ -44,7 +43,6 @@ export default function TagsModal({
             </ModalButton>
           ))}
         </span>
-        {/* <TagsFooter additionalClass="tagsFooter" /> */}
       </span>
     </Modal>
   );

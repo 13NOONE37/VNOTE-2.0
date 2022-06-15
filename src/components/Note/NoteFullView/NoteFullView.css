@@ -53,8 +53,9 @@
 .doneLine {
   text-decoration: line-through;
 }
-/* .notePreviewTitle--placeholder:empty::before,
+.notePreviewTitle--placeholder:empty::before,
 .noteContent--placeholder:empty::before {
-  content: '' + var(--placeholderContent);
+  /* content: '' + var(--placeholderContent); */
+  content: '...';
   opacity: 0.7;
-} */
+}

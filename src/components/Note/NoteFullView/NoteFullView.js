@@ -79,7 +79,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
   const preventStyledPaste = (e) => {
     e.preventDefault();
     const text = (e.originalEvent || e).clipboardData.getData('text/plain');
-    document.execCommand('insertHTML', false, text);
+
+    document.execCommand('insertText', false, text);
   };
 
   useEffect(() => {
@@ -93,6 +94,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
     };
   }, []);
 
+  //!!!xss dangerous we have to take care about that
+  //?paste has been fixed by using insertText now it's imposibble to inject in paste or typing
+  //?but i have to read more about that
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"

@@ -57,6 +57,17 @@ export default function NotePreview({
       className="notePreview"
       style={{ backgroundColor: `var(--noteColor-${color})` }}
       {...props}
+      // onPointerDown={(e) => {
+      //   console.log('pointer down: ', e);
+      // }}
+      // onPointerMove={(e) => {
+      //   console.log('pointer move: ', e);
+      // }}
+      // onPointerUp={(e) => {
+      //   console.log('pointer up: ', e);
+      //   handleClick(e, id);
+      // }}
+
       onClick={(e) => handleClick(e, id)}
       onTouchStart={(e) => MobileTouchStart(e, id)}
       onTouchEnd={MobileTouchEnd}

@@ -71,10 +71,10 @@ export function TopActionButton({ title, children, action }) {
     </ActionButton>
   );
 }
-export function ActionButton({ title, children, action, classes }) {
+export function ActionButton({ title, children, action, classes, ...props }) {
   return (
     <div className={`actionBox ${classes}`}>
-      <button className="actionButton" onClick={action}>
+      <button className="actionButton" onClick={action} {...props}>
         {children}
       </button>
       <span className="actionName">{title}</span>

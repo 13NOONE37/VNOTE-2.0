@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext } from 'react';
 import NotePreview from '../NotePreview/NotePreview';
 import './NoteContainer.css';
 import Masonry from 'react-masonry-css';
@@ -7,15 +7,6 @@ import NoteFullView from '../NoteFullView/NoteFullView';
 
 export default function NoteContainer({ notesState, setNotesState }) {
   const { language, filterPhrase, notes } = useContext(AppContext);
-  // const [notesState, setNotesState] = useReducer(
-  //   (state, newState) => ({ ...state, ...newState }),
-  //   {
-  //     isSelectMode: false,
-  //     selectedNotes: [],
-  //     showTagView: false,
-  //     ...props,
-  //   },
-  // );
 
   const FilterNote = (item, phrase) => {
     let isValid = false;

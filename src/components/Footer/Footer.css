@@ -18,14 +18,16 @@
 .footerNav .navItemSpecial {
   background-color: transparent;
   border: none;
-  outline: none;
   cursor: pointer;
   display: grid;
   place-items: center;
   transition: all 0.25s ease;
   transform: scaleX(1.01);
 }
+
 .footerNav .navItem {
+  outline: none;
+
   background-color: var(--background-2);
   height: 100%;
   width: 25%;
@@ -66,15 +68,19 @@
   height: 70px;
   transition: all 0.3s ease;
 }
-.footerNav .navItemSpecial:hover {
-  /* TODO:Effect */
-}
+
 .footerNav .navItemSpecial svg {
   width: 75%;
   height: 75%;
+  transition: all 0.6s ease;
 
   stroke: var(--background-1);
 }
+.footerNav .navItemSpecial:hover svg {
+  /* TODO:Effect */
+  transform: rotate(180deg);
+}
+
 .footerNav .navItem svg {
   stroke: var(--iconColor);
   height: 35px;
