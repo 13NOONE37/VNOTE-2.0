@@ -16,12 +16,13 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
   const [tagName, setTagName] = useState('');
 
   const handleChangeTag = (e, value) => {
-    setTags(
-      tags.map((item) => {
-        if (item == value) return e.target.value;
-        return item;
-      }),
-    );
+    e.target.value.trim().length > 0 &&
+      setTags(
+        tags.map((item) => {
+          if (item == value) return e.target.value;
+          return item;
+        }),
+      );
   };
   const deleteTag = (tagToDelete) => {
     setTags(tags.filter((tag) => tag != tagToDelete));

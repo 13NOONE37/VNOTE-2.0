@@ -39,7 +39,7 @@ export default function TagsModal({
               key={index}
               isActive={noteValues.tags[item]}
             >
-              {item}
+              {item || t('WithoutTitle')}
             </ModalButton>
           ))}
         </span>
