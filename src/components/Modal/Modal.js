@@ -54,14 +54,14 @@ export function ModalButton({
     e.currentTarget.classList.add('clickedModalButton');
   };
   return (
-    <button
+    <div
       className={`modalButton ${isActive && 'clickedModalButton'}`}
       onClick={toggleList}
     >
       {children}
       {isCollapse && <CollapseIcon />}
       <div className="buttonCollapsedContent">{collapseContent}</div>
-    </button>
+    </div>
   );
 }
 export function TopActionButton({ title, children, action }) {

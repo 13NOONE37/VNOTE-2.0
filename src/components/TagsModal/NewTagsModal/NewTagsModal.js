@@ -47,7 +47,7 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
         <span className="tagsGallery--title">{t('AddTags')}</span>
         <span className="tagsGallery--content">
           {tags.map((item, index) => (
-            <div className="tagArea">
+            <div className="tagArea" key={index}>
               {/* <button className="navItem" aria-label={t('EditTag')}>
                 <Edit />
               </button> */}

@@ -12,10 +12,12 @@ import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 import Image from './Avatar.jpg';
 
 export default function ProfileModal({ showModal, setShowModal }) {
-  const { notes, tags, userInfo, setLanguage } = useContext(AppContext);
+  const { notes, setNotes, tags, setTags, userInfo, setLanguage } =
+    useContext(AppContext);
 
   const [downloadHref, setDownloadHref] = useState('');
   const downloadRef = useRef(null);
+  const uploadRef = useRef(null);
 
   const handleExport = () => {
     downloadRef.current.click();
@@ -29,45 +31,31 @@ export default function ProfileModal({ showModal, setShowModal }) {
   };
 
   const handleImport = (e) => {
-    /*
- const file = e.target.files[0];
-    let result;
+    const file = e.target.files[0];
+
     if (file) {
       const reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        if (
-          window.confirm('Arey you sure? It will overwrite all your profil.')
-        ) {
+        if (window.confirm('Are you sure? It will overide all your data?')) {
           const myObj = JSON.parse(this.result);
-
-          if (myObj.notes) {
-            setnotes(myObj.notes);
-          }
-          if (myObj.notebooks) {
-            setnotebooks(myObj.notebooks);
-          }
-          if (myObj.categoriesTable) {
-            setcategoriesTable(myObj.categoriesTable);
-          }
-
-          console.log(
-            myObj,
-            myObj.notes ? 'true' : 'false',
-            myObj.notebooks ? 'true' : 'false',
-            myObj.categoriesTable ? 'true' : 'false',
-          );
-        } else {
+          //todo we should validate it in some way
+          const notes = myObj.notes.map((note) => {
+            note.date = new Date(note.date);
+            note.lastEditDate = new Date(note.lastEditDate);
+            return note;
+          });
+          setNotes(notes);
+          setTags(myObj.tags);
         }
       });
       reader.readAsText(file);
     }
-*/
   };
 
   useEffect(() => {
     handlePrepeareExport();
-  }, []);
+  }, [showModal]);
 
   return (
     showModal && (
@@ -103,10 +91,20 @@ export default function ProfileModal({ showModal, setShowModal }) {
                   href={downloadHref}
                   ref={downloadRef}
                   style={{ display: 'none' }}
+                  aria-hidden
                 ></a>
               </ActionButton>
-              <ActionButton title={t('Import')}>
+              <ActionButton
+                title={t('Import')}
+                action={() => uploadRef.current.click()}
+              >
                 <UploadIcon />
+                <input
+                  type="file"
+                  ref={uploadRef}
+                  onChange={handleImport}
+                  style={{ display: 'none' }}
+                />
               </ActionButton>
             </>
           }
