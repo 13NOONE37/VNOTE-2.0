@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import Main from 'Pages/main/Main';
 import { ToastContainer } from 'react-toastify';
+import Login from 'Pages/login/Login';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
@@ -168,7 +169,8 @@ export default function App() {
           setCanBeSaved,
         }}
       >
-        <Main />
+        {/* <Main /> */}
+        <Login />
       </AppContext.Provider>
     </div>
   );

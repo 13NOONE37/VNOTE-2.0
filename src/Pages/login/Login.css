@@ -1,0 +1,138 @@
+.loginPage {
+  background-image: linear-gradient(90deg, #ececec 50%, #dbdbdb 50%);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.loginPage--shapes {
+  position: absolute;
+  display: none;
+}
+.loginPage--box {
+  max-width: 100vw;
+  width: 1340px;
+  height: 840px;
+
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 44px;
+  overflow: hidden;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+.loginPage--box--leftBlock {
+  background-color: #ffffff;
+}
+.loginPage--box--rightBlock {
+  background-color: #2d53a4;
+}
+.loginPage--box--leftBlock,
+.loginPage--box--rightBlock {
+  padding: 44px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 15px;
+}
+.form--heading {
+  font-size: 28px;
+  font-weight: 500;
+  color: #121929;
+}
+.form--button,
+.form--input {
+  width: 312px;
+  max-width: 90vw;
+  height: 37px;
+}
+.form--button {
+  cursor: pointer;
+
+  /* outline: none; //TODO: some effect of focusing */
+  border: none;
+  border-radius: 4px;
+  overflow: hidden;
+
+  display: grid;
+}
+.form--button svg {
+  padding: 8px;
+  fill: #fff;
+}
+.form--button span {
+  color: #fff;
+  font-size: 17px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+.form--button svg,
+.form--button span {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.form--button__github,
+.form--button__twitter,
+.form--button__google {
+  grid-template-columns: 40px 1fr;
+}
+.form--button__github svg {
+  background-color: #292929;
+}
+.form--button__github span {
+  background-color: #343434;
+}
+.form--button__twitter svg {
+  background-color: #0d96ca;
+}
+.form--button__twitter span {
+  background-color: #07acee;
+}
+.form--button__google svg {
+  background-color: #c43325;
+}
+.form--button__google span {
+  background-color: #f44334;
+}
+.form--button__submit {
+  background-color: #121929;
+}
+.form--input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #121929;
+}
+.form--input__password {
+}
+.splitter {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  place-items: center;
+}
+.splitter--line {
+  height: 1px;
+  width: 100%;
+  background-color: #ececec;
+}
+.splitter--text {
+  padding: 0 10px;
+  color: #898989;
+}
+
+.form--info {
+  color: #898989;
+  font-size: 14px;
+}
+.form--info--button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  /* outline: none; TODO: create some better focus*/
+  color: #121929;
+  font-weight: 500;
+  margin-left: 10px;
+}
