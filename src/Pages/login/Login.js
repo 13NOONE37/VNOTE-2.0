@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Login.css';
 
 import { ReactComponent as Monitor } from 'assets/Icons/monitor.svg';
@@ -14,15 +14,28 @@ export default function Login() {
       <div className="loginPage--box">
         <div className=" loginPage--box--leftBlock">
           <div className="loginPage--header">
-            <Logo />
+            <Logo forceDark />
           </div>
           <form className="form form__login">
             <h2 className="form--heading">Login</h2>
-            <input type="email" className="form--input" />
-            <input
-              type="password"
-              className="form--input form--input__password"
+            <LoginInput
+              type="email"
+              placeholder={'Email'}
+              name={'EmailInput'}
+              value={''}
+              onChange={() => {}}
+              containerClasses={'form--inputBox__margin'}
             />
+
+            <LoginInput
+              type="password"
+              classes={'form--inputBox--input__password'}
+              placeholder={'Password'}
+              name={'PasswordInput'}
+              value={''}
+              onChange={() => {}}
+            />
+
             <button type="submit" className="form--button form--button__submit">
               <span>Sign in</span>
             </button>
@@ -70,3 +83,32 @@ export default function Login() {
     </div>
   );
 }
+const LoginInput = ({
+  value,
+  changeValue,
+  type,
+  name,
+  placeholder,
+  classes,
+  containerClasses,
+}) => {
+  return (
+    <span className={`form--inputBox ${containerClasses}`}>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={changeValue}
+        className={`form--inputBox--input ${classes}`}
+      />
+      <label
+        className={`form--inputBox--placeholder ${
+          value.length > 0 && 'form--inputBox--input__focused'
+        }`}
+        htmlFor={name}
+      >
+        {placeholder}
+      </label>
+    </span>
+  );
+};

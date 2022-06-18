@@ -28,6 +28,16 @@
   color: var(--logoText-2);
   margin-left: 8px;
 }
+.darkLogoForced .rectSpan {
+  color: #ececec;
+}
+.darkLogoForced .rectSpan::before {
+  background-color: #121929;
+}
+.darkLogoForced .blankSpan {
+  color: #121929;
+}
+
 @media (max-width: 380px) {
   .logo {
     font-size: 20px;
