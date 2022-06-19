@@ -1,15 +1,20 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './Login.css';
 
 import { ReactComponent as Monitor } from 'assets/Icons/monitor.svg';
-import { ReactComponent as Github } from 'assets/Icons/github.svg';
-import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
-import { ReactComponent as Google } from 'assets/Icons/google.svg';
+import { ReactComponent as Dot } from 'assets/Icons/dot.svg';
 import { ReactComponent as Trust } from 'assets/Icons/Shapes/trust.svg';
 import { ReactComponent as Dots } from 'assets/Icons/Shapes/dots.svg';
-import { ReactComponent as Dot } from 'assets/Icons/dot.svg';
+
+import { ReactComponent as Dots2 } from 'assets/Icons/Shapes/dots2.svg';
+import { ReactComponent as Cross } from 'assets/Icons/Shapes/cross.svg';
+import { ReactComponent as Rainbow } from 'assets/Icons/Shapes/rainbow.svg';
+import { ReactComponent as Rect } from 'assets/Icons/Shapes/rect.svg';
+
 import Logo from 'assets/Logo/Logo';
+import LoginForm from './LoginForm';
 export default function Login() {
+  const [currentPage, setCurrentPage] = useState(1);
   return (
     <div className="loginPage">
       <div className="loginPage--box">
@@ -17,47 +22,9 @@ export default function Login() {
           <div className="loginPage--header">
             <Logo forceDark />
           </div>
-          <form className="form form__login">
-            <h2 className="form--heading">Login</h2>
-            <LoginInput
-              type="email"
-              placeholder={'Email'}
-              name={'EmailInput'}
-              value={''}
-              onChange={() => {}}
-              containerClasses={'form--inputBox__margin'}
-            />
-
-            <LoginInput
-              type="password"
-              classes={'form--inputBox--input__password'}
-              placeholder={'Password'}
-              name={'PasswordInput'}
-              value={''}
-              onChange={() => {}}
-            />
-
-            <LoginButton classes={'form--button__submit'} type={'submit'}>
-              Sign in
-            </LoginButton>
-            <LoginInfo text={'Create it here'}>
-              Don't have an account?
-            </LoginInfo>
-
-            <LoginSplitter>or</LoginSplitter>
-
-            <LoginButton icon={<Github />} classes={'form--button__github'}>
-              Login with Github
-            </LoginButton>
-            <LoginButton icon={<Twitter />} classes={'form--button__twitter'}>
-              Login with Twitter
-            </LoginButton>
-            <LoginButton icon={<Google />} classes={'form--button__google'}>
-              Login with Google
-            </LoginButton>
-          </form>
+          <LoginForm />
         </div>
-        <div className=" loginPage--box--rightBlock">
+        <div className="loginPage--box--rightBlock">
           <div className="monitor">
             <div className="monitor--container">
               <Monitor className="monitor--icon" />
@@ -66,12 +33,46 @@ export default function Login() {
               {/* images for monitor */}
             </div>
             <h3 className="monitor--info">Simplify your notes</h3>
-            <h4 className="monitor--subinfo">Save you thougs simply</h4>
+            <h4 className="monitor--subinfo">Save your thougs simply</h4>
             <div className="monitor--nav">
-              <Dot />
-              <Dot />
-              <Dot />
+              <button
+                className="monitor--nav--dot"
+                onClick={() => setCurrentPage(1)}
+              >
+                <Dot
+                  className={`monitor--nav--dot--icon ${
+                    currentPage === 1 && 'monitor--nav--dot--icon__active'
+                  }`}
+                />
+              </button>
+              <button
+                className="monitor--nav--dot"
+                onClick={() => setCurrentPage(2)}
+              >
+                <Dot
+                  className={`monitor--nav--dot--icon ${
+                    currentPage === 2 && 'monitor--nav--dot--icon__active'
+                  }`}
+                />
+              </button>
+              <button
+                className="monitor--nav--dot"
+                onClick={() => setCurrentPage(3)}
+              >
+                <Dot
+                  className={`monitor--nav--dot--icon ${
+                    currentPage === 3 && 'monitor--nav--dot--icon__active'
+                  }`}
+                />
+              </button>
             </div>
+          </div>
+          <div className="shapes">
+            <Rect className="shapes--rect1" />
+            <Rect className="shapes--rect2" />
+            <Cross className="shapes--cross" />
+            <Rainbow className="shapes--rainbow" />
+            <Dots2 className="shapes--dots2" />
           </div>
         </div>
       </div>
@@ -136,7 +137,7 @@ const LoginSplitter = ({ children }) => {
 };
 const LoginInput = ({
   value,
-  changeValue,
+  onChange,
   type,
   name,
   placeholder,
@@ -149,7 +150,7 @@ const LoginInput = ({
         type={type}
         name={name}
         value={value}
-        onChange={changeValue}
+        onChange={onChange}
         className={`form--inputBox--input ${classes}`}
       />
       <label
@@ -179,3 +180,4 @@ const LoginButton = ({ icon, children, action, classes, type, ...props }) => {
 LoginButton.defaultProps = {
   type: 'button',
 };
+export { LoginInfo, LoginSplitter, LoginInput, LoginButton };
