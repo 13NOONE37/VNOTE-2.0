@@ -31,16 +31,7 @@
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
 }
-@media (max-width: 1000px) {
-  .loginPage--box {
-    grid-template-columns: unset;
-    grid-template-rows: 1fr 1fr;
-  }
-  .loginPage--box--leftBlock,
-  .loginPage--box--rightBlock {
-    padding: 20px;
-  }
-}
+
 .loginPage--box--leftBlock {
   background-color: #ffffff;
   display: grid;
@@ -239,6 +230,16 @@
   align-items: center;
 }
 .monitor--container {
+  position: relative;
+}
+.monitor--page1,
+.monitor--page2,
+.monitor--page3 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: bottom;
+  transform: translate(-50%, -50%);
 }
 .monitor--icon {
   max-width: 90vw;
@@ -281,4 +282,14 @@
 }
 .monitor--nav--dot--icon__active {
   fill: #dbdbdb;
+}
+@media (max-width: 1000px) {
+  .loginPage--box {
+    grid-template-columns: unset;
+    grid-template-rows: 1fr 1fr;
+  }
+  .loginPage--box--leftBlock,
+  .loginPage--box--rightBlock {
+    padding: 20px;
+  }
 }

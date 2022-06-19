@@ -1,18 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 
-import { ReactComponent as Monitor } from 'assets/Icons/monitor.svg';
+import Monitor from './Monitor/Monitor';
+import Page1 from './Monitor/Page1';
+import Page2 from './Monitor/Page2';
+import Logo from 'assets/Logo/Logo';
+import LoginForm from './LoginForm';
+
 import { ReactComponent as Dot } from 'assets/Icons/dot.svg';
 import { ReactComponent as Trust } from 'assets/Icons/Shapes/trust.svg';
 import { ReactComponent as Dots } from 'assets/Icons/Shapes/dots.svg';
-
 import { ReactComponent as Dots2 } from 'assets/Icons/Shapes/dots2.svg';
 import { ReactComponent as Cross } from 'assets/Icons/Shapes/cross.svg';
 import { ReactComponent as Rainbow } from 'assets/Icons/Shapes/rainbow.svg';
 import { ReactComponent as Rect } from 'assets/Icons/Shapes/rect.svg';
 
-import Logo from 'assets/Logo/Logo';
-import LoginForm from './LoginForm';
 export default function Login() {
   const [currentPage, setCurrentPage] = useState(1);
   return (
@@ -27,10 +29,10 @@ export default function Login() {
         <div className="loginPage--box--rightBlock">
           <div className="monitor">
             <div className="monitor--container">
-              <Monitor className="monitor--icon" />
-              {/* images for monitor */}
-              {/* images for monitor */}
-              {/* images for monitor */}
+              <Monitor>
+                {currentPage === 1 && <Page1 />}
+                {currentPage === 2 && <Page2 />}
+              </Monitor>
             </div>
             <h3 className="monitor--info">Simplify your notes</h3>
             <h4 className="monitor--subinfo">Save your thougs simply</h4>
@@ -80,7 +82,7 @@ export default function Login() {
         {/* <Trust />
         <Dots />
         <Dots /> */}
-        <svg
+        {/* <svg
           width="827"
           height="556"
           viewBox="0 0 827 556"
@@ -111,7 +113,7 @@ export default function Login() {
           <circle cx="140.5" cy="55.5" r="12.5" fill="#ECECEC" />
           <circle cx="212.5" cy="55.5" r="12.5" fill="#ECECEC" />
           <circle cx="176.5" cy="55.5" r="12.5" fill="#ECECEC" />
-        </svg>
+        </svg> */}
       </div>
     </div>
   );
@@ -120,7 +122,7 @@ const LoginInfo = ({ children, text, action }) => {
   return (
     <span className="form--info">
       {children}
-      <button className="form--info--button" onClick={action}>
+      <button className="form--info--button" type="button" onClick={action}>
         {text}
       </button>
     </span>
