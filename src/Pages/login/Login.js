@@ -4,6 +4,9 @@ import './Login.css';
 import Monitor from './Monitor/Monitor';
 import Page1 from './Monitor/Page1';
 import Page2 from './Monitor/Page2';
+import Page3 from './Monitor/Page3';
+import Page4 from './Monitor/Page4';
+
 import Logo from 'assets/Logo/Logo';
 import LoginForm from './LoginForm';
 
@@ -32,12 +35,26 @@ export default function Login() {
               <Monitor>
                 {currentPage === 1 && <Page1 />}
                 {currentPage === 2 && <Page2 />}
+                {currentPage === 3 && <Page3 />}
+                {currentPage === 4 && <Page4 />}
               </Monitor>
             </div>
             <h3 className="monitor--info">Simplify your notes</h3>
             <h4 className="monitor--subinfo">Save your thougs simply</h4>
             <div className="monitor--nav">
-              <button
+              {[1, 2, 3, 4].map((item) => (
+                <button
+                  className="monitor--nav--dot"
+                  onClick={() => setCurrentPage(item)}
+                >
+                  <Dot
+                    className={`monitor--nav--dot--icon ${
+                      currentPage === item && 'monitor--nav--dot--icon__active'
+                    }`}
+                  />
+                </button>
+              ))}
+              {/* <button
                 className="monitor--nav--dot"
                 onClick={() => setCurrentPage(1)}
               >
@@ -66,7 +83,7 @@ export default function Login() {
                     currentPage === 3 && 'monitor--nav--dot--icon__active'
                   }`}
                 />
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="shapes">

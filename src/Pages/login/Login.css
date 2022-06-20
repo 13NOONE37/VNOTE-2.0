@@ -232,13 +232,10 @@
 .monitor--container {
   position: relative;
 }
-.monitor--page1,
-.monitor--page2,
-.monitor--page3 {
+.monitor--page {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform-origin: bottom;
   transform: translate(-50%, -50%);
 }
 .monitor--icon {
