@@ -5,7 +5,7 @@ import { ReactComponent as Google } from 'assets/Icons/google.svg';
 import { LoginButton, LoginInput, LoginInfo, LoginSplitter } from './Login';
 import AppContext from 'store/AppContext';
 export default function LoginForm() {
-  const { setisLogged } = useContext(AppContext);
+  const { setIsLogged } = useContext(AppContext);
   const [formValues, setFormValues] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -23,6 +23,11 @@ export default function LoginForm() {
   };
   const handlePassword = (e) => {
     setFormValues({ ['password']: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLogged(true);
   };
   return (
     <form className="form form__login">
@@ -48,9 +53,7 @@ export default function LoginForm() {
       <LoginButton
         classes={'form--button__submit'}
         type={'submit'}
-        action={() => {
-          setisLogged(true);
-        }}
+        action={handleSubmit}
       >
         Log in
       </LoginButton>

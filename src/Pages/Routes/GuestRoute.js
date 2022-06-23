@@ -1,16 +1,10 @@
 import React, { useContext } from 'react';
 import AppContext from 'store/AppContext';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export default function GuestRoute(props) {
+export default function GuestRoute() {
   const { isLogged } = useContext(AppContext);
+  if (isLogged == null) return <h1>Loading...</h1>;
 
-  // if (isLogged == null) {
-  // return <h1>Loading</h1>;
-  // }
-  if (!isLogged) {
-    return <Route {...props} />;
-  }
-  return Navigate('/');
-  // <Navigate to="/" />;
+  return !isLogged ? <Outlet /> : <Navigate to={'/'} />;
 }

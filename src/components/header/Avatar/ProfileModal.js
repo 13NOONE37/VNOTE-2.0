@@ -12,7 +12,7 @@ import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 import Image from './Avatar.jpg';
 
 export default function ProfileModal({ showModal, setShowModal }) {
-  const { notes, setNotes, tags, setTags, userInfo, setLanguage } =
+  const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
     useContext(AppContext);
 
   const [downloadHref, setDownloadHref] = useState('');
@@ -118,7 +118,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
           <LockIcon />
           {t('ChangePasswordEmail')}
         </ModalButton>
-        <ModalButton>
+        <ModalButton action={() => setIsLogged(false)}>
           <LogoutIcon />
           {t('Logout')}
         </ModalButton>

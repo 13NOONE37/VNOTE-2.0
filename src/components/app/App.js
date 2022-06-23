@@ -3,13 +3,15 @@ import AppContext from 'store/AppContext';
 import './App.css';
 import './Themes.css';
 import { useTranslation } from 'react-i18next';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import pages from 'Pages/Routes/Pages';
 
 import Main from 'Pages/main/Main';
 import Login from 'Pages/login/Login';
-
 import NotFound from 'Pages/NotFound/NotFound';
+
+import AuthRoute from 'Pages/Routes/AuthRoute';
+import GuestRoute from 'Pages/Routes/GuestRoute';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
@@ -33,7 +35,7 @@ export default function App() {
     }
     return 'desktop';
   };
-  const [isLogged, setIsLogged] = useState(null);
+  const [isLogged, setIsLogged] = useState(false); //todo change back for null
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([
@@ -174,33 +176,19 @@ export default function App() {
       >
         <Routes>
           <Route path="*" element={<NotFound />} />
-          {pages.map((page, pageIndex) => {
-            return <Route path={page.path} element={page.element} />;
-          })}
+
+          <Route path="/" element={<AuthRoute />}>
+            {pages.authPages.map((authPage, authPageIndex) => {
+              return <Route {...authPage} />;
+            })}
+          </Route>
+          <Route path="/" element={<GuestRoute />}>
+            {pages.guestPages.map((authPage, authPageIndex) => {
+              return <Route {...authPage} />;
+            })}
+          </Route>
         </Routes>
-        {/* <Main /> */}
-        {/* <Login /> */}
       </AppContext.Provider>
     </div>
   );
 }
-const AuthRoute = ({ path, element }) => {
-  const { isLogged } = useContext(AppContext);
-  const navigate = useNavigate();
-
-  if (isLogged == null) {
-    return <Route path="/loading" element={<>Loading...</>} />;
-  }
-  if (isLogged) return <Route path={path} element={element} />;
-  navigate('/login');
-};
-const GuestRoute = ({ path, element }) => {
-  const { isLogged } = useContext(AppContext);
-  const navigate = useNavigate();
-
-  if (isLogged == null) {
-    return <Route path="/loading" element={<>Loading...</>} />;
-  }
-  if (!isLogged) return <Route path={path} element={element} />;
-  navigate('/');
-};

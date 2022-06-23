@@ -1,14 +1,9 @@
 import React, { useContext } from 'react';
 import AppContext from 'store/AppContext';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export default function AuthRoute(props) {
+export default function AuthRoute() {
   const { isLogged } = useContext(AppContext);
-  if (isLogged == null) {
-    // return <h1>Loading</h1>;
-  }
-  if (isLogged) {
-    return <Route {...props} />;
-  }
-  // <Navigate to="/login" />;
+  if (isLogged == null) return <h1>Loading...</h1>;
+  return isLogged ? <Outlet /> : <Navigate to={'/login'} />;
 }

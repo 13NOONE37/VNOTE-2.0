@@ -5,7 +5,7 @@ const AppContext = createContext({
   userInfo: {},
   setUserInfo: () => {},
   isLogged: null,
-  setisLogged: () => {},
+  setIsLogged: () => {},
   language: 'en',
   setLanguage: () => {},
   theme: 'dark',
