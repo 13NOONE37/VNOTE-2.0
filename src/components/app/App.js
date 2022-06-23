@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AppContext from 'store/AppContext';
 import './App.css';
 import './Themes.css';
 import { useTranslation } from 'react-i18next';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import pages from 'Pages/Routes/Pages';
 
 import Main from 'Pages/main/Main';
-import { ToastContainer } from 'react-toastify';
 import Login from 'Pages/login/Login';
+
+import NotFound from 'Pages/NotFound/NotFound';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
@@ -17,7 +20,6 @@ export default function App() {
     gender: 'Female',
     email: 'test@gmail.com',
   });
-
   const deviceType = () => {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -31,7 +33,7 @@ export default function App() {
     }
     return 'desktop';
   };
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(null);
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([
@@ -138,6 +140,7 @@ export default function App() {
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
+
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
       <AppContext.Provider
@@ -169,9 +172,35 @@ export default function App() {
           setCanBeSaved,
         }}
       >
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          {pages.map((page, pageIndex) => {
+            return <Route path={page.path} element={page.element} />;
+          })}
+        </Routes>
         {/* <Main /> */}
-        <Login />
+        {/* <Login /> */}
       </AppContext.Provider>
     </div>
   );
 }
+const AuthRoute = ({ path, element }) => {
+  const { isLogged } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  if (isLogged == null) {
+    return <Route path="/loading" element={<>Loading...</>} />;
+  }
+  if (isLogged) return <Route path={path} element={element} />;
+  navigate('/login');
+};
+const GuestRoute = ({ path, element }) => {
+  const { isLogged } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  if (isLogged == null) {
+    return <Route path="/loading" element={<>Loading...</>} />;
+  }
+  if (!isLogged) return <Route path={path} element={element} />;
+  navigate('/');
+};

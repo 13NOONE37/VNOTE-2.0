@@ -1,9 +1,11 @@
-import React, { useReducer } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { ReactComponent as Github } from 'assets/Icons/github.svg';
 import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
 import { ReactComponent as Google } from 'assets/Icons/google.svg';
 import { LoginButton, LoginInput, LoginInfo, LoginSplitter } from './Login';
+import AppContext from 'store/AppContext';
 export default function LoginForm() {
+  const { setisLogged } = useContext(AppContext);
   const [formValues, setFormValues] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -43,7 +45,13 @@ export default function LoginForm() {
         onChange={handlePassword}
       />
 
-      <LoginButton classes={'form--button__submit'} type={'submit'}>
+      <LoginButton
+        classes={'form--button__submit'}
+        type={'submit'}
+        action={() => {
+          setisLogged(true);
+        }}
+      >
         Log in
       </LoginButton>
       <LoginInfo text={'Create it here'}>Don't have an account?</LoginInfo>

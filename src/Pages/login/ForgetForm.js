@@ -16,17 +16,9 @@ export default function ForgetForm() {
         containerClasses={'form--inputBox__margin'}
       />
 
-      <LoginInput
-        type="password"
-        classes={'form--inputBox--input__password'}
-        placeholder={'Password'}
-        name={'PasswordInput'}
-        value={''}
-        onChange={() => {}}
-      />
 
       <LoginButton classes={'form--button__submit'} type={'submit'}>
-        Sign in
+        Search
       </LoginButton>
       <LoginInfo text={'Create it here'}>Don't have an account?</LoginInfo>
 
