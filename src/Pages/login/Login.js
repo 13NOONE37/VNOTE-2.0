@@ -8,7 +8,6 @@ import Page3 from './Monitor/Page3';
 import Page4 from './Monitor/Page4';
 
 import Logo from 'assets/Logo/Logo';
-import LoginForm from './LoginForm';
 
 import { ReactComponent as Dot } from 'assets/Icons/dot.svg';
 import { ReactComponent as Trust } from 'assets/Icons/Shapes/trust.svg';
@@ -17,6 +16,7 @@ import { ReactComponent as Dots2 } from 'assets/Icons/Shapes/dots2.svg';
 import { ReactComponent as Cross } from 'assets/Icons/Shapes/cross.svg';
 import { ReactComponent as Rainbow } from 'assets/Icons/Shapes/rainbow.svg';
 import { ReactComponent as Rect } from 'assets/Icons/Shapes/rect.svg';
+import { Outlet } from 'react-router-dom';
 
 export default function Login() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +44,7 @@ export default function Login() {
           <div className="loginPage--header">
             <Logo forceDark />
           </div>
-          <LoginForm />
+          <Outlet />
         </div>
         <div className="loginPage--box--rightBlock">
           <div className="monitor">
@@ -114,7 +114,7 @@ export default function Login() {
       </div>
       <Trust className="loginPage--shape loginPage--shape__trust" />
       <Dots className="loginPage--shape loginPage--shape__dots" />
-     </div>
+    </div>
   );
 }
 const LoginInfo = ({ children, text, action }) => {

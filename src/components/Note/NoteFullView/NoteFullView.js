@@ -55,8 +55,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
   //!When we space twice to new task we should add element
   //!inside checkList becaouse now it's buged
   const handleChangeLine = (e, lineIndex) => {
+    // console.log(e.target.value, noteValues.content, lineIndex);
     let temp = decodeURI(noteValues.content)
       .split('<br>')
+      // .split('</div>')
+      // .map((el) => el.replaceAll('<div>', '').replaceAll('</div>', ''))
       .map((item, index) => {
         if (index === lineIndex) return e.currentTarget.innerHTML;
         return item;
@@ -65,7 +68,13 @@ export default function NoteFullView({ notesState, setNotesState }) {
     startTransition(() => {
       setNoteValues({ ['lastEditDate']: new Date() });
     });
+    // console.log('Before map: ', temp);
+    // temp = temp.map((item) => {
+    //   return `<div>${item || ''}</div>`;
+    // });
+    // console.log('Before update: ', temp);
     setNoteValues({
+      // ['content']: encodeURI(temp.join('')),
       ['content']: encodeURI(temp.join('<br>')),
     });
   };
@@ -84,7 +93,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
   };
 
   useEffect(() => {
-    console.log(noteValues);
+    console.log(noteValues.content);
     const updateInterval = setInterval(
       () => updateButtonRef.current.click(),
       15000,
@@ -97,6 +106,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
   //!!!xss dangerous we have to take care about that
   //?paste has been fixed by using insertText now it's imposibble to inject in paste or typing
   //?but i have to read more about that
+
+  //todo w content editable jest lista
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
@@ -121,7 +132,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
       <ContentEditable
         style={{
           color: `var(--noteColor-${noteValues.color})`,
-          // '--placeholderContent': t('DefaultTitle'),
         }}
         className="notePreviewTitle notePreviewTitle--placeholder"
         spellCheck={false}
@@ -140,34 +150,52 @@ export default function NoteFullView({ notesState, setNotesState }) {
           year: 'numeric',
         })}
       </time>
-      {/* <button onClick={() => console.log(decodeURI(noteValues.content))}>
-        log
-      </button> */}
       {noteValues.isListed ? (
         <div className="noteListedContent">
           {decodeURI(noteValues.content)
             .split('<br>')
-            .map((line, lineIndex) => (
-              // line.trim().length > 0 &&
-              <span className="noteListedElement">
-                <Checkbox
-                  defaultChecked={noteValues.checkList[lineIndex]}
-                  onClick={() => handleCheck(lineIndex)}
-                />
-                <ContentEditable
-                  className={`noteContent ${
-                    noteValues.checkList[lineIndex] && 'doneLine'
-                  }`}
-                  spellCheck={false}
-                  name="content"
-                  html={line}
-                  onChange={(e) => handleChangeLine(e, lineIndex)}
-                  tagName="span"
-                  onPaste={preventStyledPaste}
-                  onFocus={handleFocus}
-                />
-              </span>
-            ))}
+            // .split('</div>')
+            // .map((el) => el.replace('<div>', ''))
+            .map(
+              (line, lineIndex) => (
+                // line.trim().length > 0 && (
+                // line.length > 0 &&
+                <span className="noteListedElement">
+                  <Checkbox
+                    defaultChecked={noteValues.checkList[lineIndex]}
+                    onClick={() => handleCheck(lineIndex)}
+                  />
+                  <ContentEditable
+                    className={`noteContent ${
+                      noteValues.checkList[lineIndex] && 'doneLine'
+                    }`}
+                    spellCheck={false}
+                    name="content"
+                    html={line}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        console.log(
+                          document.querySelector('.noteListedContent'),
+                        );
+                        // e.target.value.length == 0 &&
+                        //   document.execCommand('insertText', false, '$');
+                        setTimeout(() => {
+                          document
+                            .querySelector('.noteListedContent')
+                            .children[lineIndex + 1].children[1].focus();
+                        }, 10);
+                      }
+                    }}
+                    onChange={(e) => handleChangeLine(e, lineIndex)}
+                    tagName="span"
+                    onPaste={preventStyledPaste}
+                    key={lineIndex}
+                  />
+                </span>
+              ),
+              // ),
+              // ),
+            )}
         </div>
       ) : (
         <ContentEditable

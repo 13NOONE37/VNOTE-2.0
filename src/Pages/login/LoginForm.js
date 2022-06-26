@@ -4,7 +4,9 @@ import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
 import { ReactComponent as Google } from 'assets/Icons/google.svg';
 import { LoginButton, LoginInput, LoginInfo, LoginSplitter } from './Login';
 import AppContext from 'store/AppContext';
+import { useNavigate } from 'react-router-dom';
 export default function LoginForm() {
+  const navigate = useNavigate();
   const { setIsLogged } = useContext(AppContext);
   const [formValues, setFormValues] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -14,6 +16,7 @@ export default function LoginForm() {
       error: false,
     },
   );
+
   let regexEmail = new RegExp(
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
   );
@@ -24,14 +27,14 @@ export default function LoginForm() {
   const handlePassword = (e) => {
     setFormValues({ ['password']: e.target.value });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLogged(true);
   };
+
   return (
     <form className="form form__login">
-      <h2 className="form--heading">Log In</h2>
+      <h2 className="form--heading">Sign In</h2>
       <LoginInput
         type="email"
         placeholder={'Email'}
@@ -57,18 +60,29 @@ export default function LoginForm() {
       >
         Log in
       </LoginButton>
-      <LoginInfo text={'Create it here'}>Don't have an account?</LoginInfo>
+      <LoginInfo
+        text={'Forgot password?'}
+        action={() => navigate('/login/forget')}
+      />
+      {/* <LoginSplitter>or</LoginSplitter> */}
+
+      <LoginInfo
+        text={'Create it here'}
+        action={() => navigate('/login/register')}
+      >
+        Don't have an account?
+      </LoginInfo>
 
       <LoginSplitter>or</LoginSplitter>
 
       <LoginButton icon={<Github />} classes={'form--button__github'}>
-        Login with Github
+        Continue with Github
       </LoginButton>
       <LoginButton icon={<Twitter />} classes={'form--button__twitter'}>
-        Login with Twitter
+        Continue with Twitter
       </LoginButton>
       <LoginButton icon={<Google />} classes={'form--button__google'}>
-        Login with Google
+        Continue with Google
       </LoginButton>
     </form>
   );

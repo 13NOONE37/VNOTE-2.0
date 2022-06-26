@@ -3,10 +3,12 @@ import { ReactComponent as Github } from 'assets/Icons/github.svg';
 import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
 import { ReactComponent as Google } from 'assets/Icons/google.svg';
 import { LoginButton, LoginInput, LoginInfo, LoginSplitter } from './Login';
+import { useNavigate } from 'react-router-dom';
 export default function RegisterForm() {
+  const navigate = useNavigate();
   return (
     <form className="form form__login">
-      <h2 className="form--heading">Sign Up</h2>
+      <h2 className="form--heading">Create account</h2>
       <LoginInput
         type="email"
         placeholder={'Email'}
@@ -28,18 +30,20 @@ export default function RegisterForm() {
       <LoginButton classes={'form--button__submit'} type={'submit'}>
         Sign Up
       </LoginButton>
-      <LoginInfo text={'Create it here'}>Don't have an account?</LoginInfo>
+      <LoginInfo text={'Log in here'} action={() => navigate('/login')}>
+        Already have an account?
+      </LoginInfo>
 
       <LoginSplitter>or</LoginSplitter>
 
       <LoginButton icon={<Github />} classes={'form--button__github'}>
-        Login with Github
+        Continue with Github
       </LoginButton>
       <LoginButton icon={<Twitter />} classes={'form--button__twitter'}>
-        Login with Twitter
+        Continue with Twitter
       </LoginButton>
       <LoginButton icon={<Google />} classes={'form--button__google'}>
-        Login with Google
+        Continue with Google
       </LoginButton>
     </form>
   );

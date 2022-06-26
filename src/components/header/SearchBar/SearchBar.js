@@ -12,6 +12,7 @@ export default function SearchBar({ variant2 }) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setFilterPhrase(tempPhrase);
+      // setFilterPhrase(encodeURI(tempPhrase));//todo figure out about it now we can looking by emotes but is make bug that when we type for example <div> it show every note becaouse innerHTML containt div
     }, 200);
 
     return () => clearTimeout(timeoutId);

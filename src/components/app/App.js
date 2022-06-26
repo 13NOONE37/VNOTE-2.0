@@ -35,7 +35,7 @@ export default function App() {
     }
     return 'desktop';
   };
-  const [isLogged, setIsLogged] = useState(false); //todo change back for null
+  const [isLogged, setIsLogged] = useState(true); //todo change back for null
   const [theme, setTheme] = useState('dark');
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([
@@ -179,12 +179,28 @@ export default function App() {
 
           <Route path="/" element={<AuthRoute />}>
             {pages.authPages.map((authPage, authPageIndex) => {
-              return <Route {...authPage} />;
+              return (
+                <Route path={authPage.path} element={authPage.element}>
+                  {authPage?.subPages?.map((subPage, subPageIndex) => {
+                    return (
+                      <Route path={subPage.path} element={subPage.element} />
+                    );
+                  })}
+                </Route>
+              );
             })}
           </Route>
           <Route path="/" element={<GuestRoute />}>
-            {pages.guestPages.map((authPage, authPageIndex) => {
-              return <Route {...authPage} />;
+            {pages.guestPages.map((guestPage, guestPageIndex) => {
+              return (
+                <Route path={guestPage.path} element={guestPage.element}>
+                  {guestPage?.subPages?.map((subPage, subPageIndex) => {
+                    return (
+                      <Route path={subPage.path} element={subPage.element} />
+                    );
+                  })}
+                </Route>
+              );
             })}
           </Route>
         </Routes>
