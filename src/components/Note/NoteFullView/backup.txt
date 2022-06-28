@@ -1,3 +1,4 @@
+
 import React, {
   useContext,
   useEffect,
@@ -52,24 +53,32 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ),
     });
   };
+  //!When we space twice to new task we should add element
+  //!inside checkList becaouse now it's buged
   const handleChangeLine = (e, lineIndex) => {
     let temp = decodeURI(noteValues.content)
       .split('<br>')
+      .map((item) => item.replaceAll('<div>', '').replaceAll('</div>', ''))
       .map((item, index) => {
         if (index === lineIndex) return e.currentTarget.innerHTML;
         return item;
       });
-    if (e.currentTarget.innerHTML.split('<br>').length - 1 == 2) {
-      temp = temp.map((item) => {
-        return item.replace('<br>', '');
-      });
-    }
 
     startTransition(() => {
       setNoteValues({ ['lastEditDate']: new Date() });
     });
+    console.log('Before maping: ', temp);
+    temp = temp.map((item) => {
+      return `${item
+        .replaceAll('<div>', '<br>')
+        .replaceAll('</div>', '')
+        .replaceAll('<br>', '')}${item.includes('<br>') ? '<br>' : ''}
+        `;
+    });
+    console.log('Before update: ', temp);
+    console.log('After update: ', [...temp, ...''].join('<br>'));
     setNoteValues({
-      ['content']: encodeURI(temp.join('<br>')),
+      ['content']: encodeURI([...temp, ...''].join('<br>')),
     });
   };
   const handleCheck = (index) => {
@@ -101,7 +110,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
   //?paste has been fixed by using insertText now it's imposibble to inject in paste or typing
   //?but i have to read more about that
 
-  //todo w content editable jest lista
+  //todo breakline inside word
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
@@ -164,22 +173,10 @@ export default function NoteFullView({ notesState, setNotesState }) {
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       setTimeout(() => {
-                        if (
-                          line.replaceAll('<div>', '').replaceAll('</div>', '')
-                            .length == 0
-                        ) {
-                          document
-                            .querySelector('.noteListedContent')
-                            .children[lineIndex + 1].children[1].focus();
-                        } else if (
-                          line.length > 0 &&
-                          line.includes('<div>') | line.includes('</div>')
-                        ) {
-                          document
-                            .querySelector('.noteListedContent')
-                            .children[lineIndex + 1].children[1].focus();
-                        }
-                      }, 10);
+                        document
+                          .querySelector('.noteListedContent')
+                          ?.children[lineIndex + 1]?.children[1]?.focus();
+                      }, 50);
                     }
                   }}
                   onChange={(e) => handleChangeLine(e, lineIndex)}
@@ -214,7 +211,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
           })}
         </time>
       </span>
-      {/* <Checkbox /> */}
       <NoteFooter
         additionalClass={
           (size.width < 900) | (size.height < 750) &&

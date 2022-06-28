@@ -4,6 +4,7 @@ import './NoteContainer.css';
 import Masonry from 'react-masonry-css';
 import AppContext from 'store/AppContext';
 import NoteFullView from '../NoteFullView/NoteFullView';
+import { useParams } from 'react-router-dom';
 
 export default function NoteContainer({ notesState, setNotesState }) {
   const { language, filterPhrase, notes } = useContext(AppContext);
@@ -31,6 +32,8 @@ export default function NoteContainer({ notesState, setNotesState }) {
       isValid = true;
     }
     //Category
+    const { category } = useParams();
+    if (category && !item.tags[category]) isValid = false;
     //TODO:category in url filtering
     //*below is temporaly for emulating deleting in future it should depent from category
     if (item.isDeleted) isValid = false;

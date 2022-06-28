@@ -9,8 +9,10 @@ import TagsSlider from 'components/TagsSlider/TagsSlider';
 import NoteContainer from 'components/Note/NoteContainer/NoteContainer';
 import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
+
 export default function Main() {
   const { theme } = useContext(AppContext);
+
   //TODO Every element should be focusable and accesable by tab nad css'ed
   const size = useWindowSize();
   injectStyle(); //! temp, we have to use own styles for notify
@@ -25,7 +27,6 @@ export default function Main() {
       currentId: undefined,
     },
   );
-
   return (
     <div className="container">
       <Header />

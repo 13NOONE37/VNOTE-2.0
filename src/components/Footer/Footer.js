@@ -8,6 +8,7 @@ import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
 import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
 import handleOpenFullView from 'utils/handleOpenFullView';
+import { useParams } from 'react-router-dom';
 export default function Footer({ setNotesState }) {
   const { t } = useTranslation();
   const [isPending, startTransition] = useTransition();
@@ -50,7 +51,9 @@ export default function Footer({ setNotesState }) {
     });
   };
 
+  const { category } = useParams();
   const handleNewNote = async (note, showOptionalModal) => {
+    if (category) note.tags[category] = true;
     addNewNote(note);
     showOptionalModal && (await showOptionalModal());
     showFullView(note.id);
