@@ -31,6 +31,12 @@ export default function TagsSlider() {
         </button>
       ))}
       <button
+        className={`tagItem ${category === 'trash' && 'selectedItem'}`}
+        onClick={() => navigate(`/trash`)}
+      >
+        {t('Trash')}
+      </button>
+      <button
         className="tagItem newTag"
         onClick={() => setShowNewTagsModal(true)}
       >

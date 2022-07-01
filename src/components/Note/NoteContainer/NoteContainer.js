@@ -1,22 +1,30 @@
-import React, { useContext } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import NotePreview from '../NotePreview/NotePreview';
 import './NoteContainer.css';
 import Masonry from 'react-masonry-css';
 import AppContext from 'store/AppContext';
 import NoteFullView from '../NoteFullView/NoteFullView';
 import { useParams } from 'react-router-dom';
+import EmptyState from './EmptyState/EmptyState';
 
 export default function NoteContainer({ notesState, setNotesState }) {
   const { language, filterPhrase, notes } = useContext(AppContext);
+  const noteIndexes = [];
 
   const FilterNote = (item, phrase) => {
     let isValid = false;
-
-    //Search
+    const { category } = useParams();
     const includesPhrase = (expectValue, value) => {
       const re = new RegExp(expectValue, 'i');
       return value.match(re);
     };
+
     if (includesPhrase(phrase, item.title)) isValid = true;
     if (includesPhrase(phrase, item.content)) isValid = true;
     if (
@@ -31,16 +39,21 @@ export default function NoteContainer({ notesState, setNotesState }) {
     ) {
       isValid = true;
     }
-    //Category
-    const { category } = useParams();
+    //?category
+    console.log(item);
+    // if (category === 'trash' && item.isDeleted) {
+    //   isValid = true;
+    // }
+    if (item.isDeleted) isValid = false;
     if (category && !item.tags[category]) isValid = false;
     //TODO:category in url filtering
     //*below is temporaly for emulating deleting in future it should depent from category
-    if (item.isDeleted) isValid = false;
-
+    if (item.isDeleted && category === 'trash') {
+      isValid = true;
+    }
+    if (isValid) noteIndexes.push(item.id);
     return isValid;
   };
-
   const breakpointColumnsObj = {
     default: Math.max(6, Math.floor(window.innerWidth / 190) - 2),
     1550: 5,
@@ -70,13 +83,18 @@ export default function NoteContainer({ notesState, setNotesState }) {
               />
             ),
         )}
-        <NotePreview className="noteBlank" />
-        <NotePreview className="noteBlank" />
-        <NotePreview className="noteBlank" />
+        {noteIndexes.length > 0 && (
+          <>
+            <NotePreview className="noteBlank" />
+            <NotePreview className="noteBlank" />
+            <NotePreview className="noteBlank" />
+          </>
+        )}
       </Masonry>
       {notesState.showFullView && (
         <NoteFullView notesState={notesState} setNotesState={setNotesState} />
       )}
+      {noteIndexes.length == 0 && <EmptyState />}
     </>
   );
 }

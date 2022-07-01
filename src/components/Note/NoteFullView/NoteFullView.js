@@ -129,6 +129,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         }}
         className="notePreviewTitle notePreviewTitle--placeholder"
         spellCheck={false}
+        data-placeholder={t('DefaultTitlePlaceholder')}
         name="title"
         html={decodeURI(noteValues.title)}
         onChange={handleChange}
@@ -155,10 +156,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
                   onClick={() => handleCheck(lineIndex)}
                 />
                 <ContentEditable
-                  className={`noteContent ${
+                  className={`noteContent noteContent--placeholder ${
                     noteValues.checkList[lineIndex] && 'doneLine'
                   }`}
                   spellCheck={false}
+                  data-placeholder={t('ListContentPlaceholder')}
                   name="content"
                   html={line}
                   onKeyDown={(e) => {
@@ -193,6 +195,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ) : (
         <ContentEditable
           className="noteContent noteContent--placeholder"
+          data-placeholder={t('DefaultContentPlaceholder')}
           spellCheck={false}
           name="content"
           html={decodeURI(noteValues.content)}

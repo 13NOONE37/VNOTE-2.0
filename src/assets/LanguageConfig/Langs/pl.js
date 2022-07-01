@@ -21,7 +21,8 @@ export default {
   AriaTrash: 'Usuń',
   AriaColor: 'Kolor',
   AddNewTag: 'Dodaj nowy tag',
-  DefaultTitle: 'Tytuł',
-  DefaultContent: 'Notatka',
+  DefaultTitlePlaceholder: 'Wprowadź tytuł...',
+  DefaultContentPlaceholder: 'Wprowadź zawartość...',
+  ListContentPlaceholder: 'Dodaj element listy...',
   WithoutTitle: 'Bez tytułu',
 };

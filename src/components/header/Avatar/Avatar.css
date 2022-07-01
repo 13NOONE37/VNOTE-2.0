@@ -20,6 +20,7 @@
 .avatar .picture img {
   width: 42px;
   height: 42px;
+  user-select: none;
 }
 .pictureModal {
   width: 120px;

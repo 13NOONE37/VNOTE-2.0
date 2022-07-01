@@ -14,14 +14,15 @@ export default function SearchBar({ variant2 }) {
       setFilterPhrase(tempPhrase);
       // setFilterPhrase(encodeURI(tempPhrase));//todo figure out about it now we can looking by emotes but is make bug that when we type for example <div> it show every note becaouse innerHTML containt div
     }, 200);
-
     return () => clearTimeout(timeoutId);
   }, [tempPhrase]);
 
   return (
     <SearchInput
       inputValue={tempPhrase}
-      inputAction={(e) => setTempPhrase(e.target.value)}
+      inputAction={(e) =>
+        setTempPhrase(e.target.value.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&'))
+      }
       closeAction={() => {
         setFilterPhrase('');
         setTempPhrase('');

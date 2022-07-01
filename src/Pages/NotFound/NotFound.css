@@ -1,0 +1,38 @@
+.notFoundBox {
+  background: var(--background-1);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.notFoundBox--heading {
+  color: var(--mainIcon);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.darkMode .notFoundBox--heading {
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+.lightMode .notFoundBox--heading {
+  text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+.notFoundBox--heading__1 {
+  font-size: 100px;
+}
+.notFoundBox--heading__2 {
+  font-size: 40px;
+}
+.notFoundBox--button {
+  border: none;
+
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 40px;
+  color: var(--logoText-1);
+  font-weight: 500;
+  font-size: 18px;
+  background-color: var(--primary-2);
+  transition: all 0.3s ease;
+}

@@ -57,6 +57,6 @@
 .notePreviewTitle--placeholder:empty::before,
 .noteContent--placeholder:empty::before {
   /* content: '' + var(--placeholderContent); */
-  content: '...';
+  content: attr(data-placeholder);
   opacity: 0.7;
 }

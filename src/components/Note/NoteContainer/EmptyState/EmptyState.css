@@ -1,0 +1,18 @@
+.emptyStateBox {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--iconColor);
+  user-select: none;
+}
+.emptyStateBox h1 {
+  font-size: 64px;
+}
+.emptyStateBox h2 {
+  font-size: 28px;
+  margin-top: 24px;
+  letter-spacing: 1px;
+}

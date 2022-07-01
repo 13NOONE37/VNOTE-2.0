@@ -44,14 +44,15 @@ export default function NoteFooter({
   const deleteNote = () => {
     setNoteValues({ ['isDeleted']: true });
     updateToContext();
-    setShowModal(false);
+    // setTimeout(() => {
+    //   setShowModal(false);
+    // }, 2200);
     toast(
       <>
         <button
           className="textButton"
           onClick={() => {
             setNoteValues({ ['isDeleted']: false });
-            console.log('undo');
           }}
         >
           {t('Undo')}
