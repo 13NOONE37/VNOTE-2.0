@@ -14,6 +14,9 @@ export default {
   ToggleTheme: 'Toggle theme',
   SyncData: 'Save to cloud',
   DataSynced: 'Data already saved',
+  DeleteAll: 'Delete all',
+  Trash: 'Trash',
+  NoteDeleted: 'Note moved to trash',
 
   AriaColor: 'Color',
   AddNewTag: 'Add new tag',
@@ -25,6 +28,7 @@ export default {
   SetTagsForNote: 'Set tags for note',
   ShareNote: 'Share note',
   DeleteNote: ' Delete note',
+  RestoreNote: 'Restore note',
 
   NewListedNote: 'New list',
   NewDrawNote: 'New note with draw',

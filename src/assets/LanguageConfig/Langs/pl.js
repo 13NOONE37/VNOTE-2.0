@@ -14,6 +14,9 @@ export default {
   ToggleTheme: 'Zmień motyw',
   SyncData: 'Zapisz w chmurze',
   DataSynced: 'Dane zostały zapisane w chmurze',
+  DeleteAll: 'Opróżnij kosz',
+  Trash: 'Kosz',
+  NoteDeleted: 'Notatka przeniesiona do kosza',
 
   AriaColor: 'Kolor',
   AddNewTag: 'Dodaj nowy tag',
@@ -25,6 +28,7 @@ export default {
   SetTagsForNote: 'Ustaw tagi',
   ShareNote: 'Udostępnij',
   DeleteNote: 'Usuń',
+  RestoreNote: 'Przywróć',
 
   NewListedNote: 'Nowa lista',
   NewDrawNote: 'Nowa notatka z rysunkiem',

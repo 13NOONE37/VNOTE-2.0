@@ -9,7 +9,7 @@
   user-select: none;
 }
 .emptyStateBox h1 {
-  font-size: 64px;
+  font-size: min(10vw, 64px);
 }
 .emptyStateBox h2 {
   font-size: 28px;

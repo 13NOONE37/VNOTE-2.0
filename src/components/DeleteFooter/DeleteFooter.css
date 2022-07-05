@@ -1,0 +1,6 @@
+.footerNav__delete .navItemSpecial:hover svg {
+  transform: rotate(360deg);
+}
+.footerNav__delete .navItemSpecial svg {
+  width: 45px;
+}

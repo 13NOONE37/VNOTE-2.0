@@ -48,28 +48,16 @@ export default function NoteFooter({
     setTimeout(() => {
       updateToContext();
       setShowModal(false);
-      toast(
-        <>
-          {/* <button
-            className="textButton"
-            onClick={() => {
-              setNoteValues({ ['isDeleted']: false });
-            }}
-          >
-            {t('Undo')}
-          </button> */}
-          {t('DeleteNote')}
-        </>,
-        {
+      !noteValues.isDeleted &&
+        toast(t('NoteDeleted'), {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
-        },
-      );
+        });
     }, 0);
   };
   return (
@@ -117,7 +105,9 @@ export default function NoteFooter({
           className="navItem"
           onClick={deleteNote}
           aria-label={t('DeleteNote')}
-          data-tooltip__top={t('DeleteNote')}
+          data-tooltip__top={
+            noteValues.isDeleted ? t('RestoreNote') : t('DeleteNote')
+          }
         >
           {noteValues.isDeleted ? <Restore /> : <Trash />}
         </button>
