@@ -157,7 +157,7 @@ export default function App() {
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
-
+  //todo https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
       <AppContext.Provider
@@ -193,12 +193,20 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
 
           <Route path="/" element={<AuthRoute />}>
-            {pages.authPages.map((authPage, authPageIndex) => {
+            {pages.authPages.map((authPage, index) => {
               return (
-                <Route path={authPage.path} element={authPage.element}>
-                  {authPage?.subPages?.map((subPage, subPageIndex) => {
+                <Route
+                  path={authPage.path}
+                  element={authPage.element}
+                  key={index}
+                >
+                  {authPage?.subPages?.map((subPage, subIndex) => {
                     return (
-                      <Route path={subPage.path} element={subPage.element} />
+                      <Route
+                        path={subPage.path}
+                        element={subPage.element}
+                        key={subIndex}
+                      />
                     );
                   })}
                 </Route>
@@ -206,12 +214,20 @@ export default function App() {
             })}
           </Route>
           <Route path="/" element={<GuestRoute />}>
-            {pages.guestPages.map((guestPage, guestPageIndex) => {
+            {pages.guestPages.map((guestPage, index) => {
               return (
-                <Route path={guestPage.path} element={guestPage.element}>
-                  {guestPage?.subPages?.map((subPage, subPageIndex) => {
+                <Route
+                  path={guestPage.path}
+                  element={guestPage.element}
+                  key={index}
+                >
+                  {guestPage?.subPages?.map((subPage, subIndex) => {
                     return (
-                      <Route path={subPage.path} element={subPage.element} />
+                      <Route
+                        path={subPage.path}
+                        element={subPage.element}
+                        key={subIndex}
+                      />
                     );
                   })}
                 </Route>

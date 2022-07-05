@@ -9,6 +9,7 @@ export default function SearchBar({ variant2 }) {
   const { t } = useTranslation();
 
   const [tempPhrase, setTempPhrase] = useState('');
+  
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setFilterPhrase(tempPhrase);

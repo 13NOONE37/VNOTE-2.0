@@ -14,6 +14,7 @@
 
   --baseYellow-1: #ffb733;
   --baseYellow-2: #eec06b;
+  --placeholderColor: #3b3b3b;
 }
 .lightMode {
   --background-1: #ececec;
@@ -72,4 +73,47 @@
 }
 .textButton:hover {
   background-color: var(--hoverEffect);
+}
+[data-tooltip__top],
+[data-tooltip__bottom] {
+  position: relative;
+}
+
+[data-tooltip__top]::after,
+[data-tooltip__bottom]::after {
+  pointer-events: none;
+  position: absolute;
+  padding: 3px 6px;
+  border-radius: 4px;
+
+  background-color: var(--placeholderColor);
+  color: white;
+  box-shadow: 0 0 0 2px var(--logoText-1);
+
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  opacity: 0;
+  visibility: collapse;
+  transition: all 0.1s linear;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-tooltip__bottom]::after {
+  content: attr(data-tooltip__bottom);
+
+  top: calc(100% + 10px);
+}
+[data-tooltip__top]::after {
+  content: attr(data-tooltip__top);
+
+  bottom: calc(100% + 10px);
+}
+
+[data-tooltip__top]:hover::after,
+[data-tooltip__bottom]:hover::after {
+  opacity: 1;
+  visibility: visible;
 }

@@ -1,14 +1,13 @@
-import SearchInput from 'components/header/SearchBar/SearchInput/SearchInput';
-import Modal, { ActionButton } from 'components/Modal/Modal';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
+import SearchInput from 'components/header/SearchBar/SearchInput/SearchInput';
+import Modal, { ActionButton } from 'components/Modal/Modal';
 import './NewTagsModal.css';
 import { ReactComponent as Tags } from 'assets/Icons/tag-2.svg';
 import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2_2.svg';
 import { ReactComponent as Edit } from 'assets/Icons/edit-2_2.svg';
-import { useState } from 'react';
 
 export default function NewTagsModal({ setShowNewTagsModal }) {
   const { t } = useTranslation();
@@ -30,7 +29,12 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
   const handleAddNewTag = (e) => {
     e.preventDefault();
 
-    if (tagName.trim().length > 0 && !tags.find((tag) => tag === tagName)) {
+    if (
+      tagName.trim().length > 0 &&
+      !tags.find((tag) => tag === tagName) &&
+      !new RegExp(/^trash$/i).test(tagName) &&
+      !new RegExp(/^all$/i).test(tagName)
+    ) {
       setTags([...tags, tagName]);
       setTagName('');
     }

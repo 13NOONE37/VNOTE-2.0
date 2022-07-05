@@ -3,11 +3,18 @@ import AppContext from 'store/AppContext';
 import './ThemeToggler.css';
 import { ReactComponent as Moon } from 'assets/Icons/moon.svg';
 import { ReactComponent as Sun } from 'assets/Icons/sun.svg';
+import { useTranslation } from 'react-i18next';
 
 export default function ThemeToggler() {
+  const { t } = useTranslation();
+
   const { theme, toggleTheme } = useContext(AppContext);
   return (
-    <div className="themeToggler" onClick={toggleTheme}>
+    <div
+      className="themeToggler"
+      onClick={toggleTheme}
+      data-tooltip__bottom={t('ToggleTheme')}
+    >
       <div
         className="themeIcon"
         style={{

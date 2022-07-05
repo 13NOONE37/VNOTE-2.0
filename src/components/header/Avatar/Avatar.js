@@ -8,8 +8,10 @@ import ThemeToggler from '../ThemeToggler/ThemeToggler';
 import useWindowSize from 'utils/useWindowSize';
 import ProfileModal from './ProfileModal';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 export default function Avatar() {
+  const { t } = useTranslation();
   const { userInfo, canBeSaved } = useContext(AppContext);
 
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +38,14 @@ export default function Avatar() {
   return (
     <div className="avatar">
       {size.width < 750 && <ThemeToggler />}
-      <Update className="saveIcon" ref={spinIcon} onClick={spin} />
+
+      <div
+        data-tooltip__bottom={t('SyncData')}
+        // data-tooltip__bottom={t('DataSynced')}
+        style={{ display: 'grid', placeItems: 'center' }}
+      >
+        <Update className="saveIcon" ref={spinIcon} onClick={spin} />
+      </div>
       <div className="picture" onClick={() => setShowModal(true)}>
         <img
           src={Image}

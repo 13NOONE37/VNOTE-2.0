@@ -31,7 +31,7 @@ export default function TagsSlider() {
         </button>
       ))}
       <button
-        className={`tagItem ${category === 'trash' && 'selectedItem'}`}
+        className={`tagItem  ${category === 'trash' && 'selectedItem'}`}
         onClick={() => navigate(`/trash`)}
       >
         {t('Trash')}

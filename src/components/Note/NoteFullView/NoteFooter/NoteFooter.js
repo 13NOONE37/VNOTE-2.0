@@ -4,6 +4,7 @@ import { ReactComponent as Check } from 'assets/Icons/check-square.svg';
 import { ReactComponent as Tag } from 'assets/Icons/tag.svg';
 import { ReactComponent as Share } from 'assets/Icons/share-2.svg';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
+import { ReactComponent as Restore } from 'assets/Icons/restore.svg';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
@@ -42,33 +43,34 @@ export default function NoteFooter({
     });
   };
   const deleteNote = () => {
-    setNoteValues({ ['isDeleted']: true });
-    updateToContext();
-    // setTimeout(() => {
-    //   setShowModal(false);
-    // }, 2200);
-    toast(
-      <>
-        <button
-          className="textButton"
-          onClick={() => {
-            setNoteValues({ ['isDeleted']: false });
-          }}
-        >
-          {t('Undo')}
-        </button>
-        {t('DeleteNote')}
-      </>,
-      {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      },
-    );
+    setNoteValues({ ['isDeleted']: !noteValues.isDeleted });
+    //it's not too good solution i think
+    setTimeout(() => {
+      updateToContext();
+      setShowModal(false);
+      toast(
+        <>
+          {/* <button
+            className="textButton"
+            onClick={() => {
+              setNoteValues({ ['isDeleted']: false });
+            }}
+          >
+            {t('Undo')}
+          </button> */}
+          {t('DeleteNote')}
+        </>,
+        {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        },
+      );
+    }, 0);
   };
   return (
     <div className={`noteFooter ${additionalClass}`}>
@@ -90,30 +92,34 @@ export default function NoteFooter({
         <button
           className="navItem"
           onClick={toggleIsListed}
-          aria-label={t('AriaToggleCheck')}
+          aria-label={t('MakeListed')}
+          data-tooltip__top={t('MakeListed')}
         >
           <Check />
         </button>
         <button
           className="navItem navItem2"
           onClick={handleOpenTagModal}
-          aria-label={t('AriaTags')}
+          aria-label={t('SetTagsForNote')}
+          data-tooltip__top={t('SetTagsForNote')}
         >
           <Tag />
         </button>
         <button
           className="navItem navItem3"
           onClick={handleShare}
-          aria-label={t('AriaShare')}
+          aria-label={t('ShareNote')}
+          data-tooltip__top={t('ShareNote')}
         >
           <Share />
         </button>
         <button
           className="navItem"
           onClick={deleteNote}
-          aria-label={t('AriaTrash')}
+          aria-label={t('DeleteNote')}
+          data-tooltip__top={t('DeleteNote')}
         >
-          <Trash />
+          {noteValues.isDeleted ? <Restore /> : <Trash />}
         </button>
       </div>
     </div>

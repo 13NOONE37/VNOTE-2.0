@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  useTransition,
-} from 'react';
+import React, { useContext } from 'react';
 import NotePreview from '../NotePreview/NotePreview';
 import './NoteContainer.css';
 import Masonry from 'react-masonry-css';
@@ -14,12 +8,12 @@ import { useParams } from 'react-router-dom';
 import EmptyState from './EmptyState/EmptyState';
 
 export default function NoteContainer({ notesState, setNotesState }) {
+  const { category } = useParams();
   const { language, filterPhrase, notes } = useContext(AppContext);
   const noteIndexes = [];
 
   const FilterNote = (item, phrase) => {
     let isValid = false;
-    const { category } = useParams();
     const includesPhrase = (expectValue, value) => {
       const re = new RegExp(expectValue, 'i');
       return value.match(re);
@@ -39,15 +33,9 @@ export default function NoteContainer({ notesState, setNotesState }) {
     ) {
       isValid = true;
     }
-    //?category
-    console.log(item);
-    // if (category === 'trash' && item.isDeleted) {
-    //   isValid = true;
-    // }
     if (item.isDeleted) isValid = false;
     if (category && !item.tags[category]) isValid = false;
-    //TODO:category in url filtering
-    //*below is temporaly for emulating deleting in future it should depent from category
+
     if (item.isDeleted && category === 'trash') {
       isValid = true;
     }

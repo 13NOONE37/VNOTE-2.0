@@ -11,6 +11,7 @@ export default function Modal({
   modalHeadContent,
   children,
   additionalClass,
+  optionalColor,
 }) {
   const modalRef = useRef(null);
 
@@ -19,7 +20,7 @@ export default function Modal({
   return (
     <div className={`modal ${additionalClass}`}>
       <div className="modal-main" ref={modalRef}>
-        <div className="modalHead">
+        <div className="modalHead" style={{ backgroundColor: optionalColor }}>
           <TopActionButton
             action={() => setShowModal(false)}
             classes={'fixedActionButton'}
@@ -30,7 +31,12 @@ export default function Modal({
           {modalHeadContent}
         </div>
 
-        <div className="modalContent">{children}</div>
+        <div
+          className="modalContent"
+          style={{ backgroundColor: optionalColor }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -49,8 +55,6 @@ export function ModalButton({
     for (const item of document.querySelectorAll('.modalButton')) {
       item !== e.currentTarget && item.classList.remove('clickedModalButton');
     }
-
-    // e.currentTarget.classList.toggle('clickedModalButton');
     e.currentTarget.classList.add('clickedModalButton');
   };
   return (

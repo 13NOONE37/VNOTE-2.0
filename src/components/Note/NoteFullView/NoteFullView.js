@@ -19,7 +19,7 @@ import Checkbox from './Checkbox/Checkbox';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
-  const { language, notes, setNotes } = useContext(AppContext);
+  const { theme, language, notes, setNotes } = useContext(AppContext);
 
   const [showFooterForMobile, setShowFooterForMobile] = useState(true);
   const updateButtonRef = useRef(null);
@@ -87,7 +87,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
   };
 
   useEffect(() => {
-    console.log(noteValues.content);
     const updateInterval = setInterval(
       () => updateButtonRef.current.click(),
       15000,
@@ -105,6 +104,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
+      optionalColor={`var(--noteColor-${noteValues.color})`}
       modalHeadContent={
         <TopActionButton
           classes="fixedActionButton"
@@ -125,7 +125,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       />
       <ContentEditable
         style={{
-          color: `var(--noteColor-${noteValues.color})`,
+          color: theme === 'dark' && `var(--noteColor-${noteValues.color})`,
         }}
         className="notePreviewTitle notePreviewTitle--placeholder"
         spellCheck={false}
@@ -150,7 +150,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
           {decodeURI(noteValues.content)
             .split('<br>')
             .map((line, lineIndex) => (
-              <span className="noteListedElement">
+              <span className="noteListedElement" key={lineIndex}>
                 <Checkbox
                   defaultChecked={noteValues.checkList[lineIndex]}
                   onClick={() => handleCheck(lineIndex)}
@@ -216,8 +216,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
             minute: 'numeric',
           })}
         </time>
+        {/* <h1>{noteValues}</h1> */}
       </span>
-      {/* <Checkbox /> */}
       <NoteFooter
         additionalClass={
           (size.width < 900) | (size.height < 750) &&

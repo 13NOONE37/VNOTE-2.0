@@ -163,35 +163,40 @@ export default function Footer({ setNotesState }) {
       <button
         onClick={createListNote}
         className="navItem"
-        aria-label={t('AriaCheck')}
+        aria-label={t('NewListedNote')}
+        data-tooltip__top={t('NewListedNote')}
       >
         <Check />
       </button>
       <button
         onClick={createDrawNote}
         className="navItem navItem2"
-        aria-label={t('AriaPen')}
+        aria-label={t('NewDrawNote')}
+        data-tooltip__top={t('NewDrawNote')}
       >
         <Pen />
       </button>
       <button
         onClick={createDefaultNote}
         className="navItemSpecial"
-        aria-label={t('AriaPlus')}
+        aria-label={t('NewNote')}
+        data-tooltip__top={t('NewNote')}
       >
         <Plus />
       </button>
       <button
         onClick={createAudioNote}
         className="navItem navItem3"
-        aria-label={t('AriaMic')}
+        aria-label={t('NewAudioNote')}
+        data-tooltip__top={t('NewAudioNote')}
       >
         <Mic />
       </button>
       <button
         onClick={createImageNote}
         className="navItem"
-        aria-label={t('AriaPicture')}
+        aria-label={t('NewPictureNote')}
+        data-tooltip__top={t('NewPictureNote')}
       >
         <Picture />
       </button>
