@@ -7,7 +7,7 @@ import './NewTagsModal.css';
 import { ReactComponent as Tags } from 'assets/Icons/tag-2.svg';
 import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2_2.svg';
-import { ReactComponent as Edit } from 'assets/Icons/edit-2_2.svg';
+import { toast } from 'react-toastify';
 
 export default function NewTagsModal({ setShowNewTagsModal }) {
   const { t } = useTranslation();
@@ -15,13 +15,33 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
   const [tagName, setTagName] = useState('');
 
   const handleChangeTag = (e, value) => {
+    const isCorrect = !/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(
+      e.target.value,
+    );
+
+    !isCorrect &&
+      toast.warn(t('TagNameError'), {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+      });
     e.target.value.trim().length > 0 &&
       setTags(
         tags.map((item) => {
-          if (item == value) return e.target.value;
+          if (item == value && isCorrect) return e.target.value;
           return item;
         }),
       );
+  };
+  const handleChangeNewTag = (e) => {
+    const isCorrect = !/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(
+      e.target.value,
+    );
+    isCorrect && setTagName(e.target.value);
   };
   const deleteTag = (tagToDelete) => {
     setTags(tags.filter((tag) => tag != tagToDelete));
@@ -80,9 +100,7 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
         <form onSubmit={handleAddNewTag}>
           <SearchInput
             inputValue={tagName}
-            inputAction={(e) => {
-              e.target.value.length < 27 && setTagName(e.target.value);
-            }}
+            inputAction={handleChangeNewTag}
             closeAction={() => {
               setTagName('');
             }}

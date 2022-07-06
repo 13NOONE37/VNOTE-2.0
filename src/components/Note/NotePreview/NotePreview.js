@@ -48,6 +48,7 @@ export default function NotePreview({
     if (e.shiftKey || e.altKey || e.ctrlKey) {
       selectNote(e.currentTarget, noteId);
     } else if (!notesState.isSelectMode) {
+      //!replace with length of array checking
       handleOpenFullView(setNotesState, noteId);
     }
   };

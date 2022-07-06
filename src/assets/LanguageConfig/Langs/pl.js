@@ -17,6 +17,7 @@ export default {
   DeleteAll: 'Opróżnij kosz',
   Trash: 'Kosz',
   NoteDeleted: 'Notatka przeniesiona do kosza',
+  TagNameError: 'Nazwa nie powinna zawierać znaków specialnych',
 
   AriaColor: 'Kolor',
   AddNewTag: 'Dodaj nowy tag',

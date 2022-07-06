@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import { injectStyle } from 'react-toastify/dist/inject-style';
 import { useParams } from 'react-router-dom';
 import DeleteFooter from 'components/DeleteFooter/DeleteFooter';
+import ActionHeader from 'components/ActionHeader/ActionHeader';
 
 export default function Main() {
   const { category } = useParams();
@@ -24,7 +25,6 @@ export default function Main() {
   const [notesState, setNotesState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      isSelectMode: false,
       selectedNotes: [],
       showTagView: false,
       showFullView: false,
@@ -33,10 +33,9 @@ export default function Main() {
   );
   return (
     <div className="container">
-      <Header />
+      {notesState.selectedNotes.length > 0 ? <ActionHeader /> : <Header />}
       {size.width < 750 && <SearchBar variant2={true} />}
       <TagsSlider />
-
       <ToastContainer position="bottom-right" newestOnTop theme={theme} />
       <NoteContainer notesState={notesState} setNotesState={setNotesState} />
       {category === 'trash' ? (
