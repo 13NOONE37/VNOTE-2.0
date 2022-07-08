@@ -1,1 +1,43 @@
+.editHeader {
+  background-color: var(--background-2);
+  height: 75px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  place-content: center;
+  justify-items: start;
 
+  padding: 0 15px;
+  z-index: 5;
+
+  position: fixed;
+  top: 0;
+}
+.editHeader--icon {
+  cursor: pointer;
+  height: 50px;
+  transform: translateX(-25px);
+  stroke: var(--logoText-2);
+  transition: 0.1s ease-in;
+}
+.editHeader--icon:hover {
+  stroke: var(--primary-1);
+}
+.editHeader--counter {
+  color: var(--logoText-2);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.editHeader--counter span {
+  margin-left: 10px;
+}
+
+@media (max-width: 750px) {
+  .editHeader {
+    background-color: var(--background-1);
+  }
+}

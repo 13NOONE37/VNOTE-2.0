@@ -18,6 +18,7 @@ export default {
   Trash: 'Kosz',
   NoteDeleted: 'Notatka przeniesiona do kosza',
   TagNameError: 'Nazwa nie powinna zawierać znaków specialnych',
+  Selected: 'Wybrano',
 
   AriaColor: 'Kolor',
   AddNewTag: 'Dodaj nowy tag',

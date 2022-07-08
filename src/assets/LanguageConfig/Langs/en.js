@@ -18,6 +18,7 @@ export default {
   Trash: 'Trash',
   NoteDeleted: 'Note moved to trash',
   TagNameError: 'Tag name should not contain special characters',
+  Selected: 'Selected',
 
   AriaColor: 'Color',
   AddNewTag: 'Add new tag',

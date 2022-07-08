@@ -1,5 +1,25 @@
 import React from 'react';
 import './ActionHeader.css';
-export default function ActionHeader() {
-  return <div>ActionHeader</div>;
+
+import { ReactComponent as ArrowBack } from 'assets/Icons/arrow-left.svg';
+import { useTranslation } from 'react-i18next';
+
+export default function ActionHeader({ notesState, setNotesState }) {
+  const { t } = useTranslation();
+
+  return (
+    <header className="editHeader">
+      <ArrowBack
+        className="editHeader--icon"
+        onClick={() => {
+          console.log(notesState.selectedNotes);
+          setNotesState({ ['selectedNotes']: {} });
+        }}
+      />
+      <span className="editHeader--counter">
+        {t('Selected')}:
+        <span>{Object.keys(notesState.selectedNotes).length}</span>{' '}
+      </span>
+    </header>
+  );
 }
