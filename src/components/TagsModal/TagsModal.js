@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 export default function TagsModal({
   noteValues,
   setNoteValues,
-  notesState,
   setNotesState,
 }) {
   const { tags } = useContext(AppContext);

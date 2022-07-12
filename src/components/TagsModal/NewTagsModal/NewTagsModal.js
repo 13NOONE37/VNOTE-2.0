@@ -8,9 +8,11 @@ import { ReactComponent as Tags } from 'assets/Icons/tag-2.svg';
 import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2_2.svg';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewTagsModal({ setShowNewTagsModal }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { tags, setTags } = useContext(AppContext);
   const [tagName, setTagName] = useState('');
 
@@ -36,6 +38,7 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
           return item;
         }),
       );
+    navigate('/all');
   };
   const handleChangeNewTag = (e) => {
     const isCorrect = !/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(

@@ -16,13 +16,13 @@ export default function NotePreview({
 }) {
   const { ua, language } = useContext(AppContext);
 
-  const selectNote = (noteId) => {
-    console.log(notesState.selectedNotes);
+  const selectNote = () => {
+    console.log(notesState.selectedNotes, `Current Id: ${id}`);
     const temp = notesState.selectedNotes;
-    if (temp[noteId]) {
-      delete temp[noteId];
+    if (temp[id]) {
+      delete temp[id];
     } else {
-      temp[noteId] = noteId;
+      temp[id] = id;
     }
     setNotesState({ ['selectedNotes']: temp });
   };
@@ -77,14 +77,14 @@ export default function NotePreview({
   //   detect: LongPressDetectEvents.BOTH,
   // });
 
-  const handleClick = (e, noteId) => {
+  const handleClick = (e) => {
     console.log('click exexuction');
     // if (ua === 'mobile' || ua === 'tablet') return;
     const isSelectedMode = Object.keys(notesState.selectedNotes).length > 0;
     if (e.shiftKey || e.altKey || e.ctrlKey || isSelectedMode) {
-      selectNote(noteId);
+      selectNote(id);
     } else if (!isSelectedMode) {
-      handleOpenFullView(setNotesState, noteId);
+      handleOpenFullView(setNotesState, id);
     }
   };
   return (
@@ -94,7 +94,7 @@ export default function NotePreview({
       }`}
       style={{ backgroundColor: `var(--noteColor-${color})` }}
       // data-id={id}
-      onClick={(e) => handleClick(e, id)}
+      onClick={handleClick}
       // {...bind()}
       {...props}
     >

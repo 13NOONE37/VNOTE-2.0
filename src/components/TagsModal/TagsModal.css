@@ -33,16 +33,11 @@
 .tagsGallery--content .modalButton .buttonCollapsedContent {
   display: none;
 }
-/* .tagsFooter {
-  position: unset;
-  left: unset;
-  bottom: unset;
-  transform: unset;
-}
-.tagsFooter .searchBar svg {
-  fill: transparent;
-  stroke: var(--iconColor);
-}
-.tagsFooter .colorsRow {
-  padding-top: 10px;
+/* .tagsViewModal .modalButton{
+
 } */
+.tagsViewModal .clickedModalButton {
+  /* border: 2px solid var(--baseYellow-2); */
+  background-color: var(--baseYellow-2);
+  color: var(--text-3);
+}

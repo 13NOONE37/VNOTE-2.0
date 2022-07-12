@@ -16,11 +16,15 @@ export default function Footer({ setNotesState }) {
 
   const getUniqId = () => {
     const arrayOfIds = notes.map(({ id }) => id);
-    let id = 0;
-    while (arrayOfIds.includes(id)) {
-      id += Math.random();
-    }
-    return id;
+    return arrayOfIds.sort((a, b) => a - b)[arrayOfIds.length - 1] + 1;
+
+    // let id = 0;
+
+    // id = arrayOfIds.sort((a, b) => a - b)[arrayOfIds.length - 1] + 1;
+    // while (arrayOfIds.includes(id)) {
+    //   // id += Math.random();
+    // }
+    // return id;
   };
   const showFullView = (id) => {
     console.log('Full view exec');

@@ -45,7 +45,10 @@ export default function Main() {
       <ToastContainer position="bottom-right" newestOnTop theme={theme} />
       <NoteContainer notesState={notesState} setNotesState={setNotesState} />
       {Object.keys(notesState.selectedNotes).length > 0 ? (
-        <MultiActionFooter notesState={notesState} />
+        <MultiActionFooter
+          notesState={notesState}
+          setNotesState={setNotesState}
+        />
       ) : category === 'trash' ? (
         <DeleteFooter />
       ) : (

@@ -31,6 +31,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ...notes.find((i) => i.id === notesState.currentId),
     },
   );
+
   const updateToContext = () => {
     startTransition(() => {
       const temp = notes.map((item) => {
