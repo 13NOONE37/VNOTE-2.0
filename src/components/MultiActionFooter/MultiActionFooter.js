@@ -78,7 +78,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
         </div>
         <div className="actionsRow">
           <button
-            className="navItem"
+            className="navItem button__effect"
             onClick={toggleIsListed}
             aria-label={t('MakeListed')}
             data-tooltip__top={t('MakeListed')}
@@ -86,7 +86,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
             <Check />
           </button>
           <button
-            className="navItem navItem2"
+            className="navItem button__effect navItem2"
             onClick={handleOpenTagModal}
             aria-label={t('SetTagsForNote')}
             data-tooltip__top={t('SetTagsForNote')}
@@ -95,7 +95,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
           </button>
 
           <button
-            className="navItem"
+            className="navItem button__effect"
             onClick={deleteNote}
             aria-label={t('DeleteNote')}
             data-tooltip__top={

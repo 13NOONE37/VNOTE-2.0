@@ -78,7 +78,7 @@ export default function NoteFooter({
       </div>
       <div className="actionsRow">
         <button
-          className="navItem"
+          className="navItem button__effect"
           onClick={toggleIsListed}
           aria-label={t('MakeListed')}
           data-tooltip__top={t('MakeListed')}
@@ -86,7 +86,7 @@ export default function NoteFooter({
           <Check />
         </button>
         <button
-          className="navItem navItem2"
+          className="navItem button__effect navItem2"
           onClick={handleOpenTagModal}
           aria-label={t('SetTagsForNote')}
           data-tooltip__top={t('SetTagsForNote')}
@@ -94,7 +94,7 @@ export default function NoteFooter({
           <Tag />
         </button>
         <button
-          className="navItem navItem3"
+          className="navItem button__effect navItem3"
           onClick={handleShare}
           aria-label={t('ShareNote')}
           data-tooltip__top={t('ShareNote')}
@@ -102,7 +102,7 @@ export default function NoteFooter({
           <Share />
         </button>
         <button
-          className="navItem"
+          className="navItem button__effect"
           onClick={deleteNote}
           aria-label={t('DeleteNote')}
           data-tooltip__top={

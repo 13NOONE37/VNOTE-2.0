@@ -72,10 +72,7 @@
 .footerNav .navItem:last-child {
   border-radius: 0 25px 0 0;
 }
-.footerNav .navItem:hover,
-.footerNav .navItem:focus {
-  filter: brightness(1.2);
-}
+
 .footerNav .navItemSpecial {
   position: fixed;
   background-color: var(--primary-1);

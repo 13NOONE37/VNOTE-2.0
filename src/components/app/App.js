@@ -53,7 +53,7 @@ export default function App() {
       checkList: [],
       images: [],
       draws: [],
-      recordings: [],
+      records: [],
     },
     {
       id: 2,
@@ -68,7 +68,7 @@ export default function App() {
       checkList: [],
       images: [],
       draws: [],
-      recordings: [],
+      records: [],
     },
     //     {
     //       id: 2,

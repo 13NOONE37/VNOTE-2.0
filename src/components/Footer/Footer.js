@@ -9,25 +9,32 @@ import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
 import handleOpenFullView from 'utils/handleOpenFullView';
 import { useParams } from 'react-router-dom';
+import getUniqId from 'utils/getUniqId';
+
 export default function Footer({ setNotesState }) {
   const { t } = useTranslation();
-  const [isPending, startTransition] = useTransition();
+  const { category } = useParams();
   const { notes, addNewNote } = useContext(AppContext);
 
-  const getUniqId = () => {
-    const arrayOfIds = notes.map(({ id }) => id);
-    return arrayOfIds.sort((a, b) => a - b)[arrayOfIds.length - 1] + 1;
+  const [isPending, startTransition] = useTransition();
 
-    // let id = 0;
-
-    // id = arrayOfIds.sort((a, b) => a - b)[arrayOfIds.length - 1] + 1;
-    // while (arrayOfIds.includes(id)) {
-    //   // id += Math.random();
-    // }
-    // return id;
+  const noteTemplate = {
+    id: getUniqId(notes),
+    title: '',
+    content: '',
+    date: new Date(),
+    lastEditDate: new Date(),
+    color: 1,
+    isDeleted: false,
+    isListed: false,
+    tags: { all: true },
+    checkList: [],
+    images: [],
+    draws: [],
+    records: [],
   };
+
   const showFullView = (id) => {
-    console.log('Full view exec');
     handleOpenFullView(setNotesState, id);
   };
   const showDrawModal = () => {
@@ -55,108 +62,52 @@ export default function Footer({ setNotesState }) {
     });
   };
 
-  const { category } = useParams();
   const handleNewNote = async (note, showOptionalModal) => {
     if (category) note.tags[category] = true;
     addNewNote(note);
-    showOptionalModal && (await showOptionalModal());
-    showFullView(note.id);
+    // showOptionalModal && (await showOptionalModal());
+    showOptionalModal && setNotesState({ [showOptionalModal]: note.id });
+    !showOptionalModal && showFullView(note.id);
   };
   const createDefaultNote = () => {
     //todo await until it's finished then run necessary function like full view or some modal
     handleNewNote({
-      id: getUniqId(),
-      title: '',
-      content: '',
-      date: new Date(),
-      lastEditDate: new Date(),
-      color: 1,
-      isDeleted: false,
-      isListed: false,
-      tags: { all: true },
-      checkList: [],
-      images: [],
-      draws: [],
-      recordings: [],
+      ...noteTemplate,
     });
   };
   const createListNote = () => {
     handleNewNote({
-      id: getUniqId(),
-      title: '',
-      content: '',
-      date: new Date(),
-      lastEditDate: new Date(),
-      color: 1,
-      isDeleted: false,
+      ...noteTemplate,
       isListed: true,
-      tags: { all: true },
-      checkList: [],
-      images: [],
-      draws: [],
-      recordings: [],
     });
   };
   const createDrawNote = () => {
     handleNewNote(
       {
-        id: getUniqId(),
-        title: '',
-        content: '',
-        date: new Date(),
-        lastEditDate: new Date(),
-        color: 1,
-        isDeleted: false,
-        isListed: false,
-        tags: { all: true },
-        checkList: [],
-        images: [],
-        draws: [],
-        recordings: [],
+        ...noteTemplate,
       },
-      showDrawModal,
+      // showDrawModal,
+      'showDrawModal',
     );
     //todo call draw component and place it inside note
   };
   const createAudioNote = () => {
     handleNewNote(
       {
-        id: getUniqId(),
-        title: '',
-        content: '',
-        date: new Date(),
-        lastEditDate: new Date(),
-        color: 1,
-        isDeleted: false,
-        isListed: false,
-        tags: { all: true },
-        checkList: [],
-        images: [],
-        draws: [],
-        recordings: [],
+        ...noteTemplate,
       },
-      showAudioModal,
+      // showAudioModal,
+      'showRecordModal',
     );
     //todo call audio component and place it inside note
   };
   const createImageNote = () => {
     handleNewNote(
       {
-        id: getUniqId(),
-        title: '',
-        content: '',
-        date: new Date(),
-        lastEditDate: new Date(),
-        color: 1,
-        isDeleted: false,
-        isListed: false,
-        tags: { all: true },
-        checkList: [],
-        images: [],
-        draws: [],
-        recordings: [],
+        ...noteTemplate,
       },
-      showImageModal,
+      // showImageModal,
+      'showImageModal',
     );
     //todo call image component and place it inside note
   };
@@ -166,7 +117,7 @@ export default function Footer({ setNotesState }) {
     <div className="footerNav">
       <button
         onClick={createListNote}
-        className="navItem"
+        className="navItem button__effect"
         aria-label={t('NewListedNote')}
         data-tooltip__top={t('NewListedNote')}
       >
@@ -174,7 +125,7 @@ export default function Footer({ setNotesState }) {
       </button>
       <button
         onClick={createDrawNote}
-        className="navItem navItem2"
+        className="navItem button__effect navItem2"
         aria-label={t('NewDrawNote')}
         data-tooltip__top={t('NewDrawNote')}
       >
@@ -190,7 +141,7 @@ export default function Footer({ setNotesState }) {
       </button>
       <button
         onClick={createAudioNote}
-        className="navItem navItem3"
+        className="navItem button__effect navItem3"
         aria-label={t('NewAudioNote')}
         data-tooltip__top={t('NewAudioNote')}
       >
@@ -198,12 +149,13 @@ export default function Footer({ setNotesState }) {
       </button>
       <button
         onClick={createImageNote}
-        className="navItem"
+        className="navItem button__effect"
         aria-label={t('NewPictureNote')}
         data-tooltip__top={t('NewPictureNote')}
       >
         <Picture />
       </button>
+      {}
     </div>
   );
 }

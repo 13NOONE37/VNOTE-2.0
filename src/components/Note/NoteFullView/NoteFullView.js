@@ -7,15 +7,23 @@ import React, {
   useTransition,
 } from 'react';
 import ContentEditable from 'react-contenteditable';
-import './NoteFullView.css';
-import Modal, { TopActionButton } from 'components/Modal/Modal';
-import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
-import AppContext from 'store/AppContext';
 import { useTranslation } from 'react-i18next';
-import NoteFooter from './NoteFooter/NoteFooter';
 import useWindowSize from 'utils/useWindowSize';
+import AppContext from 'store/AppContext';
+
+import Record from '../NoteAssets/Record/Record';
+import Modal, { TopActionButton } from 'components/Modal/Modal';
+import NoteFooter from './NoteFooter/NoteFooter';
 import TagsModal from 'components/TagsModal/TagsModal';
 import Checkbox from './Checkbox/Checkbox';
+
+import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
+import { ReactComponent as Close } from 'assets/Icons/x.svg';
+
+import './NoteFullView.css';
+
+import audio from 'components/Note/NoteAssets/Record/audio.wav';
+import NewRecord from '../NoteAssets/Record/NewRecord/NewRecord';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -72,6 +80,18 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ['content']: encodeURI(temp.join('<br>')),
     });
   };
+  const DeleteLine = (lineIndex) => {
+    let temp = decodeURI(noteValues.content)
+      .split('<br>')
+      .filter((item, index) => index !== lineIndex);
+
+    startTransition(() => {
+      setNoteValues({ ['lastEditDate']: new Date() });
+    });
+    setNoteValues({
+      ['content']: encodeURI(temp.join('<br>')),
+    });
+  };
   const handleCheck = (index) => {
     const temp = noteValues.checkList;
     temp[index] = !temp[index];
@@ -86,6 +106,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
     document.execCommand('insertText', false, text);
   };
 
+  /*
+  todo po każdym przejściu do nowej lini jest to zapisywane do nowego elementu tablicy
+  todo informacje o zaznaczeniu moglibśmy przechowywać np. poprzez napis #checked na początku lini byłby on wymazywany przed pokazaniem
+  ? zaoszczędzi to wiele błędów i zmniejszy skomplikowanie kodu
+  */
   useEffect(() => {
     const updateInterval = setInterval(
       () => updateButtonRef.current.click(),
@@ -162,7 +187,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
                     noteValues.checkList[lineIndex] && 'doneLine'
                   }`}
                   spellCheck={false}
-                  data-placeholder={t('ListContentPlaceholder')}
+                  // data-placeholder={t('ListContentPlaceholder')}
                   name="content"
                   html={line}
                   onKeyDown={(e) => {
@@ -172,6 +197,13 @@ export default function NoteFullView({ notesState, setNotesState }) {
                           line.replaceAll('<div>', '').replaceAll('</div>', '')
                             .length == 0
                         ) {
+                          // console.log('if');
+                          // const tempCheckList = noteValues.checkList.splice(
+                          //   lineIndex,
+                          //   1,
+                          //   ...[noteValues.checkList[lineIndex], false],
+                          // );
+                          // setNoteValues({ ['checkList']: tempCheckList });
                           document
                             .querySelector('.noteListedContent')
                             .children[lineIndex + 1].children[1].focus();
@@ -179,6 +211,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
                           line.length > 0 &&
                           line.includes('<div>') | line.includes('</div>')
                         ) {
+                          // console.log('eles if');
+
                           document
                             .querySelector('.noteListedContent')
                             .children[lineIndex + 1].children[1].focus();
@@ -191,6 +225,12 @@ export default function NoteFullView({ notesState, setNotesState }) {
                   onPaste={preventStyledPaste}
                   key={lineIndex}
                 />
+                <button
+                  className="noteListedElement--close"
+                  onClick={DeleteLine.bind(null, lineIndex)}
+                >
+                  <Close />
+                </button>
               </span>
             ))}
         </div>
@@ -207,6 +247,20 @@ export default function NoteFullView({ notesState, setNotesState }) {
           onFocus={handleFocus}
         />
       )}
+      <div className="noteAttachments">
+        {/* <NewRecord /> */}
+        {noteValues.records.map((record) => (
+          <Record audio={record} />
+        ))}
+        <div className="noteAttachments--records"></div>
+        <div className="noteAttachments--images">
+          {noteValues.images.map((image) => (
+            <img src={image} alt={t('ImageUploadedByUser')} />
+          ))}
+        </div>
+        <div className="noteAttachments--draws"></div>
+        {/* <Record audio={audio} /> */}
+      </div>
       <span className="lastEditDate">
         {t('LastEdit')}:{'    '}
         <time>
@@ -218,7 +272,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
             minute: 'numeric',
           })}
         </time>
-        {/* <h1>{noteValues}</h1> */}
       </span>
 
       <NoteFooter

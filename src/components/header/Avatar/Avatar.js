@@ -5,7 +5,6 @@ import { ReactComponent as Update } from 'assets/Icons/refresh-cw.svg';
 import { gsap } from 'gsap';
 import AppContext from 'store/AppContext';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
-import useWindowSize from 'utils/useWindowSize';
 import ProfileModal from './ProfileModal';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -33,11 +32,9 @@ export default function Avatar() {
     }
   };
 
-  const size = useWindowSize();
-
   return (
     <div className="avatar">
-      {size.width < 750 && <ThemeToggler />}
+      <ThemeToggler />
 
       <div
         data-tooltip__bottom={t('SyncData')}

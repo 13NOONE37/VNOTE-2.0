@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
 }
+.avatar .themeToggler {
+  display: none;
+}
 .saveIcon {
   height: 37px;
   stroke: var(--primary-2);
@@ -46,6 +49,9 @@
 @media (max-width: 750px) {
   .avatar .picture {
     box-shadow: 0 0 0 3px var(--textColor-2);
+  }
+  .avatar .themeToggler {
+    display: flex;
   }
 }
 @media (max-width: 380px) {

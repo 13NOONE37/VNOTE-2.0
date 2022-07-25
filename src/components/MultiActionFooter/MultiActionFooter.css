@@ -51,11 +51,6 @@
   transition: all 0.25s ease;
 }
 
-.noteFooter .navItem:hover,
-.noteFooter .navItem:focus {
-  filter: brightness(1.2);
-}
-
 .noteFooter .navItem svg {
   stroke: var(--iconColor);
   height: 35px;

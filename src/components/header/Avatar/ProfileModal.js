@@ -10,6 +10,8 @@ import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
 import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
 import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 import Image from './Avatar.jpg';
+import getUniqId from 'utils/getUniqId';
+import { toast } from 'react-toastify';
 
 export default function ProfileModal({ showModal, setShowModal }) {
   const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
@@ -39,7 +41,10 @@ export default function ProfileModal({ showModal, setShowModal }) {
       reader.addEventListener('load', function () {
         if (window.confirm('Are you sure? It will overide all your data?')) {
           const myObj = JSON.parse(this.result);
-          //todo we should validate it in some way
+
+          //todo if some notes includes error we should give
+          //todo message and spread with others only correct ones
+
           const notes = myObj.notes.map((note) => {
             note.date = new Date(note.date);
             note.lastEditDate = new Date(note.lastEditDate);

@@ -1,0 +1,65 @@
+.record {
+  width: 380px;
+  max-width: 90vw;
+  background-color: var(--background-2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  /* padding: 12px 6px; */
+  border-radius: 4px;
+}
+.record__onlyPreview .record--icon__hide {
+  display: none;
+}
+.record--icon {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  background-color: transparent;
+  border: none;
+  padding: 6px;
+  /* margin: 0 4px; */
+}
+.record--icon svg {
+  stroke: var(--iconColor);
+  stroke-width: 1.5px;
+  height: 25px;
+  width: 25px;
+}
+.record--date,
+.record--length {
+  font-size: 12px;
+  white-space: nowrap;
+  margin: 0 8px;
+}
+.record--progress {
+  -webkit-appearance: none;
+
+  width: 100%;
+  margin: 0 10px;
+
+  height: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(var(--primary-2), var(--primary-2));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+}
+
+.record--progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--primary-1);
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background 0.3s ease-in-out;
+}
+.record--progress::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}

@@ -10,8 +10,8 @@ export default function ThemeToggler() {
 
   const { theme, toggleTheme } = useContext(AppContext);
   return (
-    <div
-      className="themeToggler"
+    <button
+      className="themeToggler "
       onClick={toggleTheme}
       data-tooltip__bottom={t('ToggleTheme')}
     >
@@ -25,6 +25,6 @@ export default function ThemeToggler() {
       >
         {theme === 'dark' ? <Moon /> : <Sun />}
       </div>
-    </div>
+    </button>
   );
 }

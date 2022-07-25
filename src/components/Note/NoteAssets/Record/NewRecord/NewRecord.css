@@ -1,0 +1,39 @@
+.newRecord--box .modalContent {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  padding: 12px;
+  margin: 25px;
+}
+.mic--button {
+  cursor: pointer;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  background-color: var(--background-2);
+  border: none;
+
+  box-shadow: 0 0 5px 0 var(--background-1);
+}
+.mic--button,
+.mic--button svg {
+  transition: all 0.3s linear;
+}
+.mic--button:hover {
+  background-color: var(--baseYellow-2);
+}
+.mic--button:hover svg {
+  stroke: var(--text-3);
+}
+.mic--button__disabled {
+  display: none;
+}
+.mic--button svg {
+  stroke: var(--iconColor);
+  width: 35px;
+  height: 35px;
+}
+.mic--button--icon__play {
+  transform: translateX(2px);
+}

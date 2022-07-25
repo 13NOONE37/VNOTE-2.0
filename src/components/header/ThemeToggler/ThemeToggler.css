@@ -1,4 +1,6 @@
 .themeToggler {
+  outline: none;
+  border: none;
   width: 70px;
   height: 37px;
   border-radius: 24px;

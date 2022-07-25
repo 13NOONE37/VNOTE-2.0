@@ -5,6 +5,14 @@
   overflow: hidden auto;
   padding-top: 75px;
 }
+.container .test .searchBar {
+  display: none;
+}
+@media (max-width: 750px) {
+  .container .test .searchBar {
+    display: grid;
+  }
+}
 /* TODO on mobile while scrolling at bottom shows white space, ask on some discord */
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
