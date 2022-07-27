@@ -11,10 +11,10 @@ import { injectStyle } from 'react-toastify/dist/inject-style';
 import { useParams } from 'react-router-dom';
 import DeleteFooter from 'components/DeleteFooter/DeleteFooter';
 import ActionHeader from 'components/ActionHeader/ActionHeader';
-import NoteFooter from 'components/Note/NoteFullView/NoteFooter/NoteFooter';
 import MultiActionFooter from 'components/MultiActionFooter/MultiActionFooter';
 import NewRecord from 'components/Note/NoteAssets/Record/NewRecord/NewRecord';
 import NewImage from 'components/Note/NoteAssets/Image/NewImage/NewImage';
+import NewDraw from 'components/Note/NoteAssets/Draw/NewDraw/NewDraw';
 
 export default function Main() {
   const { category } = useParams();
@@ -35,6 +35,7 @@ export default function Main() {
       showRecordModal: false,
       showImageModal: false,
       showDrawModal: false,
+      showAttachmentModal: false,
     },
   );
   return (
@@ -60,20 +61,25 @@ export default function Main() {
       ) : (
         <Footer setNotesState={setNotesState} />
       )}
-      {notesState.showRecordModal && (
+      {!notesState.showAttachmentModal && notesState.showRecordModal && (
         <NewRecord
           noteId={notesState.showRecordModal}
           setNotesState={setNotesState}
         />
       )}
-      {notesState.showImageModal && (
+      {!notesState.showAttachmentModal && notesState.showImageModal && (
         <NewImage
           noteId={notesState.showImageModal}
           setNotesState={setNotesState}
         />
       )}
 
-      {/*notesState.showDrawModal && <NewDraw noteId={notesState.showDrawModal}/>} */}
+      {!notesState.showAttachmentModal && notesState.showDrawModal && (
+        <NewDraw
+          noteId={notesState.showDrawModal}
+          setNotesState={setNotesState}
+        />
+      )}
     </div>
   );
 }

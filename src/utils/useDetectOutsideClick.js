@@ -11,6 +11,7 @@ const useDetectOutsideClick = (ref, handler) => {
     if (document.querySelector('.Toastify').contains(e.target)) {
       return;
     }
+    e.stopPropagation();
     handler(false);
   };
   useEffect(() => {

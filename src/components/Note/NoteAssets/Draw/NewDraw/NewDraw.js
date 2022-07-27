@@ -1,7 +1,7 @@
 import Modal from 'components/Modal/Modal';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import './NewImage.css';
+import './NewDraw.css';
 
 import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
 import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
@@ -9,7 +9,7 @@ import { upload } from '@testing-library/user-event/dist/upload';
 import AppContext from 'store/AppContext';
 import useDetectAttachmentPaste from 'utils/useDetectAttachmentPaste';
 
-export default function NewImage({ noteId, setNotesState }) {
+export default function NewDraw({ noteId, setNotesState }) {
   const { t } = useTranslation();
   const { notes, setNotes } = useContext(AppContext);
   const [dragActive, setDragActive] = useState(false);
@@ -35,7 +35,7 @@ export default function NewImage({ noteId, setNotesState }) {
           return item;
         }),
       );
-      setNotesState({ ['showImageModal']: false });
+      setNotesState({ ['showDrawModal']: false });
       setNotesState({ ['showAttachmentModal']: false });
 
       setNotesState({ ['showFullView']: true });
@@ -76,7 +76,7 @@ export default function NewImage({ noteId, setNotesState }) {
     <Modal
       additionalClass={'newImage--box'}
       setShowModal={(value) =>
-        value === false && setNotesState({ ['showImageModal']: false })
+        value === false && setNotesState({ ['showDrawModal']: false })
       }
     >
       <div

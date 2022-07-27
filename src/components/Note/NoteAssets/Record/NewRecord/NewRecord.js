@@ -75,6 +75,8 @@ export default function NewRecord({ noteId, setNotesState }) {
         }),
       );
       setNotesState({ ['showRecordModal']: false });
+      setNotesState({ ['showAttachmentModal']: false });
+
       setNotesState({ ['showFullView']: true });
       setNotesState({ ['currentId']: noteId });
     };

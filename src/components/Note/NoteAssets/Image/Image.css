@@ -1,0 +1,10 @@
+.image--box {
+  position: relative;
+}
+.image--box img {
+}
+.image--box button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}

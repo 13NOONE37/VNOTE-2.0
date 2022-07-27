@@ -31,6 +31,10 @@ export default {
   ShareNote: 'Udostępnij',
   DeleteNote: 'Usuń',
   RestoreNote: 'Przywróć',
+  AddAttachment: 'Dodaj załącznik',
+  AddDraw: 'Dodaj rysunek',
+  AddRecord: 'Dodaj nagranie',
+  AddPicture: 'Dodaj zdjęcie',
 
   NewListedNote: 'Nowa lista',
   NewDrawNote: 'Nowa notatka z rysunkiem',

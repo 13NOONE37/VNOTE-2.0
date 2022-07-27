@@ -31,10 +31,14 @@ export default {
   ShareNote: 'Share note',
   DeleteNote: ' Delete note',
   RestoreNote: 'Restore note',
+  AddAttachment: 'Add attachment',
+  AddDraw: 'Add draw',
+  AddRecord: 'Add record',
+  AddPicture: 'Add image',
 
   NewListedNote: 'New list',
   NewDrawNote: 'New note with draw',
   NewNote: 'New note',
   NewAudioNote: 'New note with audio',
-  NewPictureNote: 'New note with picture',
+  NewPictureNote: 'New note with image',
 };

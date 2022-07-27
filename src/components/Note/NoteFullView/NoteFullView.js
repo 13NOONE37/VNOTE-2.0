@@ -1,13 +1,16 @@
 import React, {
   useContext,
   useEffect,
+  useLayoutEffect,
   useReducer,
   useRef,
   useState,
   useTransition,
 } from 'react';
-import ContentEditable from 'react-contenteditable';
 import { useTranslation } from 'react-i18next';
+import ContentEditable from 'react-contenteditable';
+import Masonry from 'react-masonry-css';
+
 import useWindowSize from 'utils/useWindowSize';
 import AppContext from 'store/AppContext';
 
@@ -19,18 +22,18 @@ import Checkbox from './Checkbox/Checkbox';
 
 import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
 import { ReactComponent as Close } from 'assets/Icons/x.svg';
-
 import './NoteFullView.css';
-
-import audio from 'components/Note/NoteAssets/Record/audio.wav';
-import NewRecord from '../NoteAssets/Record/NewRecord/NewRecord';
+import AttachmentModal from '../NoteAssets/AttachmentModal/AttachmentModal';
+import Image from '../NoteAssets/Image/Image';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
   const { theme, language, notes, setNotes } = useContext(AppContext);
   const [showFooterForMobile, setShowFooterForMobile] = useState(true);
   const updateButtonRef = useRef(null);
+
   const [isPending, startTransition] = useTransition();
+
   const size = useWindowSize();
 
   const [noteValues, setNoteValues] = useReducer(
@@ -49,9 +52,14 @@ export default function NoteFullView({ notesState, setNotesState }) {
       setNotes(temp);
     });
   };
-
+  const updateAttachment = () => {
+    document.querySelector('.noteAttachments').style.width = `${
+      document.querySelector('.noteContent').getBoundingClientRect().width
+    }px`;
+  };
   const handleChange = (e) => {
     startTransition(() => {
+      updateAttachment();
       setNoteValues({ ['lastEditDate']: new Date() });
     });
     setNoteValues({
@@ -74,6 +82,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
     }
 
     startTransition(() => {
+      updateAttachment();
       setNoteValues({ ['lastEditDate']: new Date() });
     });
     setNoteValues({
@@ -105,27 +114,28 @@ export default function NoteFullView({ notesState, setNotesState }) {
 
     document.execCommand('insertText', false, text);
   };
+  const showAttachmentModal = () => {
+    setNotesState({ ['showAttachmentModal']: true });
+  };
 
-  /*
-  todo po każdym przejściu do nowej lini jest to zapisywane do nowego elementu tablicy
-  todo informacje o zaznaczeniu moglibśmy przechowywać np. poprzez napis #checked na początku lini byłby on wymazywany przed pokazaniem
-  ? zaoszczędzi to wiele błędów i zmniejszy skomplikowanie kodu
-  */
   useEffect(() => {
     const updateInterval = setInterval(
       () => updateButtonRef.current.click(),
       15000,
     );
+    updateAttachment();
     return () => {
       clearInterval(updateInterval);
     };
   }, []);
 
   //!!!xss dangerous we have to take care about that
-  //?paste has been fixed by using insertText now it's imposibble to inject in paste or typing
-  //?but i have to read more about that
-
-  //todo w content editable jest lista
+  /*
+  todo po każdym przejściu do nowej lini jest to zapisywane do nowego elementu tablicy
+  todo informacje o zaznaczeniu moglibśmy przechowywać np. poprzez napis #checked na początku lini byłby on wymazywany przed pokazaniem
+  ? zaoszczędzi to wiele błędów i zmniejszy skomplikowanie kodu
+  */
+  //! content editable może akceptować tylko style b, i, oraz rozpoznować linki u a nie przykładowo zdjęcia należy użyć jakiegoś z neta albo napisać własny
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
@@ -248,18 +258,27 @@ export default function NoteFullView({ notesState, setNotesState }) {
         />
       )}
       <div className="noteAttachments">
-        {/* <NewRecord /> */}
         {noteValues.records.map((record) => (
           <Record audio={record} />
         ))}
+
         <div className="noteAttachments--records"></div>
-        <div className="noteAttachments--images">
+        <Masonry
+          className="noteAttachments--images"
+          columnClassName="noteAttachments--images--column"
+        >
           {noteValues.images.map((image) => (
-            <img src={image} alt={t('ImageUploadedByUser')} />
+            <Image
+              src={image}
+              setNoteValues={setNoteValues}
+              noteValues={noteValues}
+            />
           ))}
-        </div>
-        <div className="noteAttachments--draws"></div>
-        {/* <Record audio={audio} /> */}
+          {noteValues.draws.map((draw) => (
+            <span>draw</span>
+            // <img src={image} alt={t('ImageUploadedByUser')} />
+          ))}
+        </Masonry>
       </div>
       <span className="lastEditDate">
         {t('LastEdit')}:{'    '}
@@ -286,7 +305,14 @@ export default function NoteFullView({ notesState, setNotesState }) {
         setShowModal={(value) => {
           setNotesState({ ['showFullView']: value });
         }}
+        showAttachmentModal={showAttachmentModal}
       />
+      {notesState.showAttachmentModal && (
+        <AttachmentModal
+          notesState={notesState}
+          setNotesState={setNotesState}
+        />
+      )}
       {notesState.showTagView && (
         <TagsModal
           noteValues={noteValues}

@@ -5,6 +5,7 @@ import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
 import { ReactComponent as Mic } from 'assets/Icons/mic.svg';
 import { ReactComponent as Picture } from 'assets/Icons/image.svg';
 import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
+
 import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
 import handleOpenFullView from 'utils/handleOpenFullView';
@@ -155,7 +156,6 @@ export default function Footer({ setNotesState }) {
       >
         <Picture />
       </button>
-      {}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import './NoteFooter.css';
+import { ReactComponent as Plus } from 'assets/Icons/plus.svg';
 import { ReactComponent as Check } from 'assets/Icons/check-square.svg';
 import { ReactComponent as Tag } from 'assets/Icons/tag.svg';
 import { ReactComponent as Share } from 'assets/Icons/share-2.svg';
@@ -15,6 +16,7 @@ export default function NoteFooter({
   updateToContext,
   setShowModal,
   setShowTagView,
+  showAttachmentModal,
 }) {
   const { t } = useTranslation();
   const changeColor = (n) => {
@@ -60,6 +62,7 @@ export default function NoteFooter({
         });
     }, 0);
   };
+
   return (
     <div className={`noteFooter ${additionalClass}`}>
       <div className="colorsRow">
@@ -77,6 +80,14 @@ export default function NoteFooter({
         ))}
       </div>
       <div className="actionsRow">
+        <button
+          className="navItem button__effect"
+          onClick={showAttachmentModal}
+          aria-label={t('AddAttachment')}
+          data-tooltip__top={t('AddAttachment')}
+        >
+          <Plus />
+        </button>
         <button
           className="navItem button__effect"
           onClick={toggleIsListed}
