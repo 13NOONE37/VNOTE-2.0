@@ -258,11 +258,15 @@ export default function NoteFullView({ notesState, setNotesState }) {
         />
       )}
       <div className="noteAttachments">
-        {noteValues.records.map((record) => (
-          <Record audio={record} />
-        ))}
-
-        <div className="noteAttachments--records"></div>
+        <div className="noteAttachments--records">
+          {noteValues.records.map((record) => (
+            <Record
+              audio={record}
+              setNoteValues={setNoteValues}
+              noteValues={noteValues}
+            />
+          ))}
+        </div>
         <Masonry
           className="noteAttachments--images"
           columnClassName="noteAttachments--images--column"

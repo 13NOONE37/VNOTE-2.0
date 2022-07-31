@@ -74,7 +74,7 @@ export default function NewImage({ noteId, setNotesState }) {
 
   return (
     <Modal
-      additionalClass={'newImage--box'}
+      additionalClass={'newImage--box hideHeader'}
       setShowModal={(value) =>
         value === false && setNotesState({ ['showImageModal']: false })
       }

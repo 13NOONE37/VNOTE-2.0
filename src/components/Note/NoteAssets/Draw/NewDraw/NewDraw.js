@@ -1,6 +1,7 @@
 import Modal from 'components/Modal/Modal';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ReactSketchCanvas } from 'react-sketch-canvas';
 import './NewDraw.css';
 
 import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
@@ -71,40 +72,21 @@ export default function NewDraw({ noteId, setNotesState }) {
   };
 
   useDetectAttachmentPaste('image', handleFile);
-
+  //https://www.npmjs.com/package/react-sketch-canvas
   return (
     <Modal
-      additionalClass={'newImage--box'}
+      additionalClass={'newImage--box hideHeader'}
       setShowModal={(value) =>
         value === false && setNotesState({ ['showDrawModal']: false })
       }
     >
-      <div
-        className={`newImage--dropzone ${
-          dragActive && 'newImage--dropzone__over'
-        }`}
-        onDragEnter={handleDrag}
-        onDragLeave={handleDrag}
-        onDragOver={handleDrag}
-        onDrop={handleDrop}
-      >
-        <FileIcon className="newImage--dropzone--icon__file" />
-        <h2 className="newImage--dropzone--heading">
-          {t('Upload or drag and drop an image')}
-        </h2>
-        <button
-          className="newImage--dropzone--button"
-          onClick={() => uploadRef.current.click()}
-        >
-          <UploadIcon /> Upload
-        </button>
-        <input
-          type="file"
-          ref={uploadRef}
-          onChange={handleChange}
-          style={{ display: 'none' }}
-        />
-      </div>
+      <ReactSketchCanvas
+        // style={styles}
+        width="600"
+        height="400"
+        strokeWidth={4}
+        strokeColor="red"
+      />
     </Modal>
   );
 }

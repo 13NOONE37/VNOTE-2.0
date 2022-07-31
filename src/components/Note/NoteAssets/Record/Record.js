@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useReducer, useRef } from 'react';
+import getBlobDuration from 'get-blob-duration';
+
 import './Record.css';
 
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
@@ -8,7 +10,12 @@ import { ReactComponent as Pause } from 'assets/Icons/pause-circle.svg';
 
 import AppContext from 'store/AppContext';
 
-export default function Record({ audio, onlyPreview }) {
+export default function Record({
+  audio,
+  onlyPreview,
+  noteValues,
+  setNoteValues,
+}) {
   const { language } = useContext(AppContext);
 
   const audioRef = useRef(null);
@@ -30,7 +37,15 @@ export default function Record({ audio, onlyPreview }) {
     setRecordState({ ['isPlaying']: false });
     audioRef.current.pause();
   };
-
+  const getLength = async () => {
+    setRecordState({ ['length']: await getBlobDuration(audio.data) });
+  };
+  const handleDelete = () => {
+    const temp = noteValues.records.filter(
+      (record) => record.data !== audio.data,
+    );
+    setNoteValues({ ['records']: temp });
+  };
   return (
     <div className={`record ${onlyPreview && 'record__onlyPreview'}`}>
       {recordState.isPlaying ? (
@@ -72,16 +87,11 @@ export default function Record({ audio, onlyPreview }) {
         }}
       />
       <time className="record--length">
-        {new Date(
-          // recordState.length
-          10 * 1000,
-        )
-          .toISOString()
-          .slice(14, 19)}
+        {new Date(recordState.length * 1000).toISOString().slice(14, 19)}
       </time>
       <audio
         onCanPlay={(e) => {
-          setRecordState({ ['length']: audioRef.current.duration || 0 });
+          getLength();
           setRecordState({ ['currentTime']: audioRef.current.currentTime });
         }}
         onPause={handlePauseAudio}
@@ -93,10 +103,17 @@ export default function Record({ audio, onlyPreview }) {
         src={audio.data}
         ref={audioRef}
       />
-      <button className="record--icon record--icon__hide  button__effect__background">
+      <a
+        download={'Test.mp3'}
+        href={audio.data}
+        className="record--icon record--icon__hide  button__effect__background"
+      >
         <Download />
-      </button>
-      <button className="record--icon record--icon__hide button__effect__background">
+      </a>
+      <button
+        onClick={handleDelete}
+        className="record--icon record--icon__hide button__effect__background"
+      >
         <Trash />
       </button>
     </div>

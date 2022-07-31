@@ -1,6 +1,5 @@
 .record {
-  width: 380px;
-  max-width: 90vw;
+  width: 100%;
   background-color: var(--background-2);
   display: flex;
   justify-content: space-around;
@@ -31,13 +30,16 @@
 .record--length {
   font-size: 12px;
   white-space: nowrap;
-  margin: 0 8px;
+  margin: 0 2px;
+}
+.record--length {
+  /* display: none !important; */
 }
 .record--progress {
   -webkit-appearance: none;
 
   width: 100%;
-  margin: 0 10px;
+  margin: 0 4px;
 
   height: 7px;
   background: rgba(255, 255, 255, 0.6);

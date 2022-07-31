@@ -2,9 +2,41 @@
   position: relative;
 }
 .image--box img {
+  width: 100%;
+  height: 100%;
 }
 .image--box button {
+  cursor: pointer;
   position: absolute;
   right: 0;
   bottom: 0;
+
+  width: 35px;
+  height: 35px;
+
+  outline: none;
+  border: 2px solid var(--iconColor);
+
+  background-color: var(--background-1);
+  transition: 0.2s ease-in;
+
+  opacity: 0;
+  visibility: hidden;
+}
+.image--box:hover button {
+  opacity: 1;
+  visibility: visible;
+}
+.image--box button:hover,
+.image--box button:focus {
+  border: 2px solid var(--primary-2);
+}
+.image--box button:hover svg {
+  stroke: var(--primary-2);
+}
+.image--box button svg {
+  width: 30px;
+  height: 30px;
+  stroke: var(--iconColor);
+  transition: 0.2s ease-in;
 }

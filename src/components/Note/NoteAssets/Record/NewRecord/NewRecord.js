@@ -16,7 +16,6 @@ import Record from '../Record';
 export default function NewRecord({ noteId, setNotesState }) {
   const { notes, setNotes } = useContext(AppContext);
 
-  const [isRecording, setIsRecording] = useState(false);
   const [testAudio, settestAudio] = useState({ date: new Date(), data: [] });
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(null);
@@ -33,23 +32,24 @@ export default function NewRecord({ noteId, setNotesState }) {
   const onSuccess = (stream) => {
     mediaRecorder = new MediaRecorder(stream);
     startRef.current.onclick = () => {
-      setInterval(intervalHandler, 1000);
+      // setInterval(intervalHandler, 1000);
       if (mediaRecorder.state === 'paused') {
         mediaRecorder.resume();
       } else {
         mediaRecorder.start();
       }
-      setIsRecording(true);
+      setIsRunning(true);
     };
     pauseRef.current.onclick = () => {
       clearInterval(intervalHandler);
       mediaRecorder.pause();
-      setIsRecording(false);
+      setIsRunning(false);
     };
     stopRef.current.onclick = () => {
       clearInterval(intervalHandler);
 
       mediaRecorder.stop();
+      setIsRunning(false);
     };
 
     mediaRecorder.onstop = (e) => {
@@ -59,7 +59,7 @@ export default function NewRecord({ noteId, setNotesState }) {
       chunks = [];
       const audioURL = window.URL.createObjectURL(blob);
 
-      audioRef.current.src = audioURL;
+      // audioRef.current.src = audioURL;
 
       setNotes(
         notes.map((item) => {
@@ -98,27 +98,43 @@ export default function NewRecord({ noteId, setNotesState }) {
     }
   }, []);
 
+  const [isRunning, setIsRunning] = useState(false);
+  let id;
+  useEffect(() => {
+    if (isRunning) {
+      id = setInterval(intervalHandler, 10);
+    } else {
+      clearInterval(id);
+    }
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [isRunning]);
+
   return (
     <Modal
-      additionalClass={'newRecord--box'}
+      additionalClass={'newRecord--box hideHeader'}
       setShowModal={(value) =>
         value === false && setNotesState({ ['showRecordModal']: false })
       }
     >
       <button
-        className={`mic--button ${!isRecording && 'mic--button__disabled'}`}
+        className={`mic--button ${!isRunning && 'mic--button__disabled'}`}
         ref={pauseRef}
       >
         <PauseIcon />
       </button>
       <button
-        className={`mic--button ${isRecording && 'mic--button__disabled'}`}
+        className={`mic--button ${isRunning && 'mic--button__disabled'}`}
         ref={startRef}
       >
         <PlayIcon className="mic--button--icon__play" />
       </button>
-      <time>{currentTime}</time>
-      <audio ref={audioRef} controls></audio>
+      <time className="newRecord--box--length">
+        {new Date(currentTime * 10).toISOString().slice(14, 22)}
+      </time>
+      {/* <audio ref={audioRef} controls ></audio> */}
       <button ref={stopRef} className={`mic--button `}>
         <PlusIcon />
       </button>

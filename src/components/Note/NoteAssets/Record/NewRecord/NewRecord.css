@@ -1,6 +1,7 @@
 .newRecord--box .modalContent {
-  display: grid;
+  display: grid !important;
   grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: unset;
   padding: 12px;
   margin: 25px;
 }
@@ -36,4 +37,8 @@
 }
 .mic--button--icon__play {
   transform: translateX(2px);
+}
+.newRecord--box--length {
+  width: 60px;
+  text-align: center;
 }
