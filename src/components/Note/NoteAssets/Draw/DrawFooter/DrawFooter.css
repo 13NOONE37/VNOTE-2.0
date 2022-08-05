@@ -1,0 +1,153 @@
+.drawFooter {
+  grid-template-rows: 1fr 1fr 1fr !important;
+  height: 175px !important;
+  overflow: hidden;
+}
+.drawFooter .actionsRow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.sizeRow {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+  grid-gap: 16px;
+  place-items: center;
+  padding: 0 32px;
+}
+.colorInput {
+  background-image: conic-gradient(
+    from 90deg,
+    violet,
+    indigo,
+    blue,
+    green,
+    yellow,
+    orange,
+    red,
+    violet
+  );
+}
+.colorInput::-webkit-color-swatch-wrapper {
+  opacity: 0;
+  cursor: pointer;
+}
+.draw--input--size,
+.draw--input--size--number {
+  height: 38px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+  background-color: transparent;
+}
+
+.draw--input--size:focus,
+.draw--input--size--number:focus {
+  outline: none;
+}
+.draw--input--size--number {
+  color: var(--iconColor);
+  font-weight: 500;
+  text-align: center;
+  border: 4px solid var(--background-1);
+}
+.draw--input--size--number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.draw--input--size::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000;
+  background: var(--primary-2);
+  border-radius: 0px;
+  border: 1px solid #000000;
+}
+.draw--input--size::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000;
+  border: 1px solid #000000;
+  height: 30px;
+  width: 15px;
+  border-radius: 4px;
+  background: var(--background-2);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -11px;
+}
+.draw--input--size:focus::-webkit-slider-runnable-track {
+  background: var(--primary-2);
+}
+.draw--input--size::-moz-range-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000;
+  background: var(--primary-2);
+  border-radius: 5px;
+  border: 1px solid #000000;
+}
+.draw--input--size::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000;
+  border: 1px solid #000000;
+  height: 30px;
+  width: 15px;
+  border-radius: 5px;
+  background: var(--background-2);
+  cursor: pointer;
+}
+.draw--input--size::-ms-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.draw--input--size::-ms-fill-lower {
+  background: var(--primary-2);
+  border: 1px solid #000000;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px #000000;
+}
+.draw--input--size::-ms-fill-upper {
+  background: var(--primary-2);
+  border: 1px solid #000000;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px #000000;
+}
+.draw--input--size::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 1px #000000;
+  border: 1px solid #000000;
+  height: 30px;
+  width: 15px;
+  border-radius: 4px;
+  background: var(--background-2);
+  cursor: pointer;
+}
+.draw--input--size:focus::-ms-fill-lower {
+  background: var(--primary-2);
+}
+.draw--input--size:focus::-ms-fill-upper {
+  background: var(--primary-2);
+}
+
+.draw--input--size {
+}
+.draw--input--size--number {
+}
+.sizeDot {
+  background-color: white;
+  width: 100%;
+}
+.drawFooter .navItem {
+  width: 100% !important;
+}
+.drawFooter .navItem__active {
+  filter: brightness(1.2);
+  box-shadow: inset 0 -8px 0 -2px var(--primary-2);
+}
+.noteFooter .navItem svg {
+  stroke: var(--iconColor);
+  height: 35px;
+  max-width: 30px;
+}
