@@ -41,4 +41,9 @@ export default {
   NewNote: 'New note',
   NewAudioNote: 'New note with audio',
   NewPictureNote: 'New note with image',
+
+  PenDrawFooter: 'Pen (Ctrl+C)',
+  EraserDrawFooter: 'Eraser (Ctrl+X)',
+  UndoDrawFooter: 'Undo (Ctrl+Shift+Z)',
+  RedoDrawFooter: 'Redo (Ctrl+Z)',
 };

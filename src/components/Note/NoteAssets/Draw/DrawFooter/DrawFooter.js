@@ -1,10 +1,4 @@
-import React, {
-  startTransition,
-  useContext,
-  useReducer,
-  useState,
-  useTransition,
-} from 'react';
+import React, { useState, useTransition } from 'react';
 import './DrawFooter.css';
 import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
 import { ReactComponent as Eraser } from 'assets/Icons/eraser.svg';
@@ -13,14 +7,22 @@ import { ReactComponent as ArrowLeft } from 'assets/Icons/corner-down-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/Icons/corner-down-right.svg';
 import { useTranslation } from 'react-i18next';
 
-export default function DrawFooter({ drawRef, drawState, setDrawState }) {
+export default function DrawFooter({
+  drawRef,
+  drawState,
+  setDrawState,
+  showFooter,
+}) {
   const { t } = useTranslation();
-  const [currentAction, setCurrentAction] = useState(null);
-  const [tartTransition, isPending] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const validateWidth = (value) => Math.max(0, Math.min(100, value));
   return (
-    <div className="noteFooter drawFooter">
+    <div
+      className={`noteFooter drawFooter ${
+        showFooter ? 'showDrawFooter' : 'hideDrawFooter'
+      }`}
+    >
       <div className="colorsRow">
         {[1, 2, 3, 4, 5, 6].map((num, index) => (
           <button
@@ -54,17 +56,22 @@ export default function DrawFooter({ drawRef, drawState, setDrawState }) {
           type="range"
           min={1}
           max={100}
-          value={drawState.strokeWidth}
-          onChange={(e) => {
+          defaultValue={drawState.strokeWidth}
+          onPointerUp={(e) => {
             startTransition(() => {
               setDrawState({
                 ['strokeWidth']: validateWidth(parseFloat(e.target.value)),
               });
-              setDrawState({
-                ['eraserWidth']: validateWidth(parseFloat(e.target.value)),
-              });
             });
           }}
+          // value={drawState.strokeWidth}
+          // onChange={(e) => {
+          //   startTransition(() => {
+          //     setDrawState({
+          //       ['strokeWidth']: validateWidth(parseFloat(e.target.value)),
+          //     });
+          //   });
+          // }}
         />
         <input
           className="draw--input--size--number"
@@ -74,9 +81,6 @@ export default function DrawFooter({ drawRef, drawState, setDrawState }) {
             startTransition(() => {
               setDrawState({
                 ['strokeWidth']: validateWidth(e.target.valueAsNumber),
-              });
-              setDrawState({
-                ['eraserWidth']: validateWidth(e.target.valueAsNumber),
               });
             });
           }}
@@ -88,27 +92,27 @@ export default function DrawFooter({ drawRef, drawState, setDrawState }) {
       <div className="actionsRow">
         <button
           className={`navItem button__effect ${
-            currentAction === 'Pen' && 'navItem__active'
+            drawState.currentAction === 'Pen' && 'navItem__active'
           }`}
           onClick={() => {
             drawRef.current.eraseMode(false);
-            setCurrentAction('Pen');
+            setDrawState({ ['currentAction']: 'Pen' });
           }}
-          aria-label={t('Pen')}
-          data-tooltip__top={t('Pen')}
+          aria-label={t('PenDrawFooter')}
+          data-tooltip__top={t('PenDrawFooter')}
         >
           <Pen />
         </button>
         <button
           className={`navItem button__effect ${
-            currentAction === 'Eraser' && 'navItem__active'
+            drawState.currentAction === 'Eraser' && 'navItem__active'
           }`}
           onClick={() => {
             drawRef.current.eraseMode(true);
-            setCurrentAction('Eraser');
+            setDrawState({ ['currentAction']: 'Eraser' });
           }}
-          aria-label={t('Eraser')}
-          data-tooltip__top={t('Eraser')}
+          aria-label={t('EraserDrawFooter')}
+          data-tooltip__top={t('EraserDrawFooter')}
         >
           <Eraser />
         </button>
@@ -117,8 +121,8 @@ export default function DrawFooter({ drawRef, drawState, setDrawState }) {
           onClick={() => {
             drawRef.current.undo();
           }}
-          aria-label={t('Undo')}
-          data-tooltip__top={t('Undo')}
+          aria-label={t('UndoDrawFooter')}
+          data-tooltip__top={t('UndoDrawFooter')}
         >
           <ArrowLeft />
         </button>
@@ -127,8 +131,8 @@ export default function DrawFooter({ drawRef, drawState, setDrawState }) {
           onClick={() => {
             drawRef.current.redo();
           }}
-          aria-label={t('Redo')}
-          data-tooltip__top={t('Redo')}
+          aria-label={t('RedoDrawFooter')}
+          data-tooltip__top={t('RedoDrawFooter')}
         >
           <ArrowRight />
         </button>

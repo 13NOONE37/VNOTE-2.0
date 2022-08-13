@@ -41,4 +41,9 @@ export default {
   NewNote: 'Nowa notatka',
   NewAudioNote: 'Nowa notatka z nagraniem',
   NewPictureNote: 'Nowa notatka ze zdjęciem',
+
+  PenDrawFooter: 'Długopis (Ctrl+C)',
+  EraserDrawFooter: 'Gumka (Ctrl+X)',
+  UndoDrawFooter: 'Cofnij (Ctrl+Shift+Z)',
+  RedoDrawFooter: 'Ponów (Ctrl+Z)',
 };

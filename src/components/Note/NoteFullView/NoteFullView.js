@@ -25,6 +25,7 @@ import { ReactComponent as Close } from 'assets/Icons/x.svg';
 import './NoteFullView.css';
 import AttachmentModal from '../NoteAssets/AttachmentModal/AttachmentModal';
 import Image from '../NoteAssets/Image/Image';
+import Draw from '../NoteAssets/Draw/Draw';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -52,14 +53,14 @@ export default function NoteFullView({ notesState, setNotesState }) {
       setNotes(temp);
     });
   };
-  const updateAttachment = () => {
-    document.querySelector('.noteAttachments').style.width = `${
-      document.querySelector('.noteContent').getBoundingClientRect().width
-    }px`;
-  };
+  // const updateAttachment = () => {
+  // document.querySelector('.noteAttachments').style.width = `${
+  //   document.querySelector('.noteContent').getBoundingClientRect().width
+  // }px`;
+  // };
   const handleChange = (e) => {
     startTransition(() => {
-      updateAttachment();
+      // updateAttachment();
       setNoteValues({ ['lastEditDate']: new Date() });
     });
     setNoteValues({
@@ -82,7 +83,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
     }
 
     startTransition(() => {
-      updateAttachment();
+      // updateAttachment();
       setNoteValues({ ['lastEditDate']: new Date() });
     });
     setNoteValues({
@@ -123,7 +124,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       () => updateButtonRef.current.click(),
       15000,
     );
-    updateAttachment();
+    // updateAttachment();
     return () => {
       clearInterval(updateInterval);
     };
@@ -278,9 +279,13 @@ export default function NoteFullView({ notesState, setNotesState }) {
               noteValues={noteValues}
             />
           ))}
+        </Masonry>
+        <Masonry
+          className="noteAttachments--images noteAttachments--draws"
+          columnClassName="noteAttachments--images--column"
+        >
           {noteValues.draws.map((draw) => (
-            <span>draw</span>
-            // <img src={image} alt={t('ImageUploadedByUser')} />
+            <Draw paths={draw} />
           ))}
         </Masonry>
       </div>

@@ -1,7 +1,6 @@
 .drawFooter {
   grid-template-rows: 1fr 1fr 1fr !important;
   height: 175px !important;
-  overflow: hidden;
 }
 .drawFooter .actionsRow {
   display: grid;
@@ -150,4 +149,12 @@
   stroke: var(--iconColor);
   height: 35px;
   max-width: 30px;
+}
+.hideDrawFooter {
+  transform: translateX(-50%) translateY(175px);
+  visibility: hidden;
+}
+.showDrawFooter {
+  transform: translateX(-50%) translateY(0);
+  visibility: visible;
 }

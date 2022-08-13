@@ -1,14 +1,26 @@
-import Modal from 'components/Modal/Modal';
-import React, { useContext, useReducer, useRef } from 'react';
+import Modal, { TopActionButton } from 'components/Modal/Modal';
+import React, {
+  useContext,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
+import ScrollContainer from 'react-indiana-drag-scroll';
+import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
+
 import './NewDraw.css';
 
 import AppContext from 'store/AppContext';
 import DrawFooter from '../DrawFooter/DrawFooter';
+import { useLayoutEffect } from 'react';
+import useShortcuts from 'utils/useShortcuts';
 
 export default function NewDraw({ noteId, setNotesState }) {
   const { t } = useTranslation();
+  const { notes, setNotes } = useContext(AppContext);
 
   const styles = {
     border: '0.0625rem solid #9c9c9c',
@@ -19,30 +31,121 @@ export default function NewDraw({ noteId, setNotesState }) {
   const [drawState, setDrawState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      strokeWidth: 4,
-      eraserWidth: 4,
-      strokeColor: '#ff0000',
+      strokeWidth: 16,
+      strokeColor: '#000000',
+      currentAction: 'Pen',
     },
   );
+  const [showFooter, setshowFooter] = useState(true);
+
+  const uploadDraw = async () => {
+    await drawRef.current.exportPaths().then((data) => {
+      setNotes(
+        notes.map((item) => {
+          if (item.id === noteId) {
+            let temp = item;
+            temp.draws.push(data);
+            temp.lastEditDate = new Date();
+
+            return temp;
+          }
+          return item;
+        }),
+      );
+      setNotesState({ ['showDrawModal']: false });
+      setNotesState({ ['showAttachmentModal']: false });
+
+      setNotesState({ ['showFullView']: true });
+      setNotesState({ ['currentId']: noteId });
+    });
+  };
+
+  useLayoutEffect(() => {
+    return () => {
+      drawRef.current && uploadDraw();
+    };
+  }, []);
+  // useEffect(() => {
+  //   console.log('change');
+  // }, [drawState.strokeWidth]);
+
+  useShortcuts([
+    {
+      key: 'KeyZ',
+      ctrl: true,
+      handler: () => {
+        drawRef.current.undo();
+        console.log('undo');
+      },
+    },
+    {
+      key: 'KeyZ',
+      ctrl: true,
+      shift: true,
+      handler: () => {
+        drawRef.current.redo();
+        console.log('redo');
+      },
+    },
+    {
+      key: 'KeyX',
+      ctrl: true,
+      handler: () => {
+        drawRef.current.redo();
+        drawRef.current.eraseMode(true);
+        setDrawState({ ['currentAction']: 'Eraser' });
+
+        console.log('eraser');
+      },
+    },
+    {
+      key: 'KeyC',
+      ctrl: true,
+      handler: () => {
+        drawRef.current.eraseMode(false);
+        setDrawState({ ['currentAction']: 'Pen' });
+
+        console.log('pen');
+      },
+    },
+  ]);
   return (
     <Modal
-      additionalClass={'newDraw--box hideHeader'}
+      additionalClass={'newDraw--box '}
       setShowModal={(value) =>
         value === false && setNotesState({ ['showDrawModal']: false })
       }
+      modalHeadContent={
+        <TopActionButton
+          classes="fixedActionButton"
+          action={() => setshowFooter(!showFooter)}
+        >
+          <EditIcon />
+        </TopActionButton>
+      }
     >
-      <ReactSketchCanvas
-        ref={drawRef}
-        style={styles}
-        width="2480"
-        height="3508"
-        className="newDraw--box--canvas"
-        {...drawState}
-      />
+      {/* 
+      npm uninstall react-indiana-drag-scroll
+      replace both scroll on scroll and right mouse button. draw on canvas instead of svg(more efficient) */}
+      <ScrollContainer className="newDraw--box--container" buttons={[1]}>
+        <ReactSketchCanvas
+          ref={drawRef}
+          style={styles}
+          width="2480"
+          height="3508"
+          preserveBackgroundImageAspectRatio="true"
+          className="newDraw--box--canvas"
+          strokeColor={drawState.strokeColor}
+          strokeWidth={drawState.strokeWidth}
+          eraserWidth={drawState.strokeWidth}
+        />
+      </ScrollContainer>
+
       <DrawFooter
         drawRef={drawRef}
         drawState={drawState}
         setDrawState={setDrawState}
+        showFooter={showFooter}
       />
     </Modal>
   );
