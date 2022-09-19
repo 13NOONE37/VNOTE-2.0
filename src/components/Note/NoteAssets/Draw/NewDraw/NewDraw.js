@@ -1,7 +1,7 @@
 import Modal, { TopActionButton } from 'components/Modal/Modal';
 import React, {
   useContext,
-  useEffect,
+  useLayoutEffect,
   useReducer,
   useRef,
   useState,
@@ -9,18 +9,19 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import ScrollContainer from 'react-indiana-drag-scroll';
+
 import { ReactComponent as EditIcon } from 'assets/Icons/edit.svg';
+import { ReactComponent as MoveIcon } from 'assets/Icons/move.svg';
 
 import './NewDraw.css';
 
 import AppContext from 'store/AppContext';
 import DrawFooter from '../DrawFooter/DrawFooter';
-import { useLayoutEffect } from 'react';
 import useShortcuts from 'utils/useShortcuts';
 
 export default function NewDraw({ noteId, setNotesState }) {
   const { t } = useTranslation();
-  const { notes, setNotes } = useContext(AppContext);
+  const { ua, notes, setNotes } = useContext(AppContext);
 
   const styles = {
     border: '0.0625rem solid #9c9c9c',
@@ -34,6 +35,7 @@ export default function NewDraw({ noteId, setNotesState }) {
       strokeWidth: 16,
       strokeColor: '#000000',
       currentAction: 'Pen',
+      disabled: false,
     },
   );
   const [showFooter, setshowFooter] = useState(true);
@@ -91,7 +93,6 @@ export default function NewDraw({ noteId, setNotesState }) {
       key: 'KeyX',
       ctrl: true,
       handler: () => {
-        drawRef.current.redo();
         drawRef.current.eraseMode(true);
         setDrawState({ ['currentAction']: 'Eraser' });
 
@@ -116,18 +117,35 @@ export default function NewDraw({ noteId, setNotesState }) {
         value === false && setNotesState({ ['showDrawModal']: false })
       }
       modalHeadContent={
-        <TopActionButton
-          classes="fixedActionButton"
-          action={() => setshowFooter(!showFooter)}
-        >
-          <EditIcon />
-        </TopActionButton>
+        <div style={{ display: 'flex' }}>
+          <TopActionButton
+            classes={'fixedActionButton'}
+            action={() => {
+              setDrawState({ ['disabled']: !drawState.disabled });
+            }}
+          >
+            <MoveIcon
+              className={drawState.disabled && 'fixedActionButton__active'}
+            />
+          </TopActionButton>
+          <TopActionButton
+            classes="fixedActionButton"
+            action={() => setshowFooter(!showFooter)}
+          >
+            <EditIcon />
+          </TopActionButton>
+        </div>
       }
     >
       {/* 
       npm uninstall react-indiana-drag-scroll
       replace both scroll on scroll and right mouse button. draw on canvas instead of svg(more efficient) */}
-      <ScrollContainer className="newDraw--box--container" buttons={[1]}>
+
+      <ScrollContainer
+        className="newDraw--box--container"
+        buttons={[1]}
+        nativeMobileScroll={!drawState.disabled}
+      >
         <ReactSketchCanvas
           ref={drawRef}
           style={styles}
@@ -138,6 +156,7 @@ export default function NewDraw({ noteId, setNotesState }) {
           strokeColor={drawState.strokeColor}
           strokeWidth={drawState.strokeWidth}
           eraserWidth={drawState.strokeWidth}
+          allowOnlyPointerType={drawState.disabled ? 'mouse' : 'all'}
         />
       </ScrollContainer>
 

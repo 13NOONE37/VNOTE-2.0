@@ -26,17 +26,16 @@ import './NoteFullView.css';
 import AttachmentModal from '../NoteAssets/AttachmentModal/AttachmentModal';
 import Image from '../NoteAssets/Image/Image';
 import Draw from '../NoteAssets/Draw/Draw';
+import ListContentEditable from './ListContentEditable';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
   const { theme, language, notes, setNotes } = useContext(AppContext);
   const [showFooterForMobile, setShowFooterForMobile] = useState(true);
   const updateButtonRef = useRef(null);
-
+  const noteListedElementRef = useRef(null);
   const [isPending, startTransition] = useTransition();
-
   const size = useWindowSize();
-
   const [noteValues, setNoteValues] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -53,11 +52,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
       setNotes(temp);
     });
   };
-  // const updateAttachment = () => {
-  // document.querySelector('.noteAttachments').style.width = `${
-  //   document.querySelector('.noteContent').getBoundingClientRect().width
-  // }px`;
-  // };
   const handleChange = (e) => {
     startTransition(() => {
       // updateAttachment();
@@ -90,14 +84,49 @@ export default function NoteFullView({ notesState, setNotesState }) {
       ['content']: encodeURI(temp.join('<br>')),
     });
   };
+  const handleKeyDown = (e, lineIndex) => {
+    if (e.key === 'Enter') {
+      const handleFocusNext = (index) => {
+        setTimeout(() => {
+          document
+            .querySelector('.noteListedContent')
+            .children[index + 1].children[1].focus();
+        }, 10);
+      };
+      const selectionIndex = window.getSelection().anchorOffset;
+      // const lineLength = line
+      //   .replaceAll('<div>', '')
+      //   .replaceAll('</div>', '').length;
+
+      if (
+        selectionIndex < window.getSelection().anchorNode.textContent.length
+      ) {
+        console.log('mid', window.getSelection());
+      } else {
+        handleFocusNext(lineIndex);
+        let temp = noteValues.checkList;
+        if (temp[lineIndex]) {
+          temp.splice(lineIndex + 1, 0, false);
+        } else {
+          temp.splice(lineIndex, 0, false);
+        }
+        setNoteValues({ ['checkList']: temp });
+      }
+    }
+  };
   const DeleteLine = (lineIndex) => {
     let temp = decodeURI(noteValues.content)
       .split('<br>')
       .filter((item, index) => index !== lineIndex);
+    let tempCheckList = noteValues.checkList;
+    tempCheckList.splice(lineIndex, 1);
+    console.log(noteValues.checkList, lineIndex);
+    console.log(tempCheckList);
 
     startTransition(() => {
       setNoteValues({ ['lastEditDate']: new Date() });
     });
+
     setNoteValues({
       ['content']: encodeURI(temp.join('<br>')),
     });
@@ -118,13 +147,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
   const showAttachmentModal = () => {
     setNotesState({ ['showAttachmentModal']: true });
   };
-
   useEffect(() => {
     const updateInterval = setInterval(
       () => updateButtonRef.current.click(),
       15000,
     );
-    // updateAttachment();
     return () => {
       clearInterval(updateInterval);
     };
@@ -174,7 +201,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
         tagName="span"
         onPaste={preventStyledPaste}
         onFocus={handleFocus}
-        defaultValue={'Test'}
       />
       <time className="createDate">
         {noteValues.date.toLocaleDateString(language, {
@@ -188,9 +214,13 @@ export default function NoteFullView({ notesState, setNotesState }) {
           {decodeURI(noteValues.content)
             .split('<br>')
             .map((line, lineIndex) => (
-              <span className="noteListedElement" key={lineIndex}>
+              <span
+                className="noteListedElement"
+                key={lineIndex}
+                ref={noteListedElementRef}
+              >
                 <Checkbox
-                  defaultChecked={noteValues.checkList[lineIndex]}
+                  checked={noteValues.checkList[lineIndex]}
                   onClick={() => handleCheck(lineIndex)}
                 />
                 <ContentEditable
@@ -201,36 +231,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
                   // data-placeholder={t('ListContentPlaceholder')}
                   name="content"
                   html={line}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      setTimeout(() => {
-                        if (
-                          line.replaceAll('<div>', '').replaceAll('</div>', '')
-                            .length == 0
-                        ) {
-                          // console.log('if');
-                          // const tempCheckList = noteValues.checkList.splice(
-                          //   lineIndex,
-                          //   1,
-                          //   ...[noteValues.checkList[lineIndex], false],
-                          // );
-                          // setNoteValues({ ['checkList']: tempCheckList });
-                          document
-                            .querySelector('.noteListedContent')
-                            .children[lineIndex + 1].children[1].focus();
-                        } else if (
-                          line.length > 0 &&
-                          line.includes('<div>') | line.includes('</div>')
-                        ) {
-                          // console.log('eles if');
-
-                          document
-                            .querySelector('.noteListedContent')
-                            .children[lineIndex + 1].children[1].focus();
-                        }
-                      }, 10);
-                    }
-                  }}
+                  onKeyDown={(e) => handleKeyDown(e, lineIndex)}
                   onChange={(e) => handleChangeLine(e, lineIndex)}
                   tagName="span"
                   onPaste={preventStyledPaste}
@@ -257,8 +258,20 @@ export default function NoteFullView({ notesState, setNotesState }) {
           onPaste={preventStyledPaste}
           onFocus={handleFocus}
         />
+        // <ListContentEditable />
       )}
-      <div className="noteAttachments">
+      <div
+        className="noteAttachments"
+        style={{
+          gap: `${
+            noteValues.draws.length > 0 ||
+            noteValues.images.length > 0 ||
+            noteValues.images.length > 0
+              ? '32px'
+              : 'unset'
+          }`,
+        }}
+      >
         <div className="noteAttachments--records">
           {noteValues.records.map((record) => (
             <Record
@@ -285,7 +298,11 @@ export default function NoteFullView({ notesState, setNotesState }) {
           columnClassName="noteAttachments--images--column"
         >
           {noteValues.draws.map((draw) => (
-            <Draw paths={draw} />
+            <Draw
+              paths={draw}
+              setNoteValues={setNoteValues}
+              noteValues={noteValues}
+            />
           ))}
         </Masonry>
       </div>

@@ -1,0 +1,33 @@
+.confirmModal {
+}
+.confirmModal .modalHead {
+  display: none !important;
+}
+.confirmModal .modalContent {
+  padding: 15px;
+  grid-gap: 0 !important;
+}
+.confirmModal--box {
+  display: flex;
+  flex-direction: column;
+}
+.confirmModal--button {
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--iconColor);
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  background-color: transparent;
+  padding: 12px 44px;
+  border: none;
+}
+.confirmModal--button__main {
+  border-top: 1px solid var(--background-2);
+  color: var(--primary-1);
+}
+@media (max-width: 900px) {
+  .confirmModal .modal-main {
+    width: unset;
+  }
+}

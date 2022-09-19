@@ -12,10 +12,13 @@ import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 import Image from './Avatar.jpg';
 import getUniqId from 'utils/getUniqId';
 import { toast } from 'react-toastify';
+import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 
 export default function ProfileModal({ showModal, setShowModal }) {
   const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
     useContext(AppContext);
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const [downloadHref, setDownloadHref] = useState('');
   const downloadRef = useRef(null);
@@ -45,6 +48,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
           //todo if some notes includes error we should give
           //todo message and spread with others only correct ones
 
+          // setShowConfirmModal(myObj);
           const notes = myObj.notes.map((note) => {
             note.date = new Date(note.date);
             note.lastEditDate = new Date(note.lastEditDate);
@@ -64,70 +68,89 @@ export default function ProfileModal({ showModal, setShowModal }) {
 
   return (
     showModal && (
-      <Modal setShowModal={setShowModal} additionalClass="profileModal">
-        <div className=" pictureModal ">
-          <img src={Image} alt="Avatar" />
-        </div>
-        <span className="nicknameModal">{userInfo.nickname}</span>
-        <ModalButton
-          isCollapse
-          collapseContent={
-            <>
-              <ActionButton title={'PL'} action={() => setLanguage('pl')}>
-                <LanguageIcon />
-              </ActionButton>
-              <ActionButton title={'EN'} action={() => setLanguage('en')}>
-                <LanguageIcon />
-              </ActionButton>
-            </>
-          }
-        >
-          <LanguageIcon />
-          {t('Language')}
-        </ModalButton>
-        <ModalButton
-          isCollapse
-          collapseContent={
-            <>
-              <ActionButton title={t('Export')} action={handleExport}>
-                <DownloadIcon />
-                <a
-                  download="BackupVNOTE.json"
-                  href={downloadHref}
-                  ref={downloadRef}
-                  style={{ display: 'none' }}
-                  aria-hidden
-                ></a>
-              </ActionButton>
-              <ActionButton
-                title={t('Import')}
-                action={() => uploadRef.current.click()}
-              >
-                <UploadIcon />
-                <input
-                  type="file"
-                  ref={uploadRef}
-                  onChange={handleImport}
-                  style={{ display: 'none' }}
-                />
-              </ActionButton>
-            </>
-          }
-        >
-          <FileIcon />
-          {t('ImportExport')}
-        </ModalButton>
-        <ModalButton
-        // isCollapse
-        >
-          <LockIcon />
-          {t('ChangePasswordEmail')}
-        </ModalButton>
-        <ModalButton action={() => setIsLogged(false)}>
-          <LogoutIcon />
-          {t('Logout')}
-        </ModalButton>
-      </Modal>
+      <>
+        <Modal setShowModal={setShowModal} additionalClass="profileModal">
+          <div className=" pictureModal ">
+            <img src={Image} alt="Avatar" />
+          </div>
+          <span className="nicknameModal">{userInfo.nickname}</span>
+          <ModalButton
+            isCollapse
+            collapseContent={
+              <>
+                <ActionButton title={'PL'} action={() => setLanguage('pl')}>
+                  <LanguageIcon />
+                </ActionButton>
+                <ActionButton title={'EN'} action={() => setLanguage('en')}>
+                  <LanguageIcon />
+                </ActionButton>
+              </>
+            }
+          >
+            <LanguageIcon />
+            {t('Language')}
+          </ModalButton>
+          <ModalButton
+            isCollapse
+            collapseContent={
+              <>
+                <ActionButton title={t('Export')} action={handleExport}>
+                  <DownloadIcon />
+                  <a
+                    download="BackupVNOTE.json"
+                    href={downloadHref}
+                    ref={downloadRef}
+                    style={{ display: 'none' }}
+                    aria-hidden
+                  ></a>
+                </ActionButton>
+                <ActionButton
+                  title={t('Import')}
+                  action={() => uploadRef.current.click()}
+                >
+                  <UploadIcon />
+                  <input
+                    type="file"
+                    ref={uploadRef}
+                    onChange={handleImport}
+                    style={{ display: 'none' }}
+                  />
+                </ActionButton>
+              </>
+            }
+          >
+            <FileIcon />
+            {t('ImportExport')}
+          </ModalButton>
+          <ModalButton
+          // isCollapse
+          >
+            <LockIcon />
+            {t('ChangePasswordEmail')}
+          </ModalButton>
+          <ModalButton action={() => setIsLogged(false)}>
+            <LogoutIcon />
+            {t('Logout')}
+          </ModalButton>
+        </Modal>
+        {showConfirmModal && (
+          <ConfirmModal
+            setShowModal={setShowConfirmModal}
+            confirmText={t('Import')}
+            handler={() => {
+              // console.log(showConfirmModal);
+              // const notes = showConfirmModal.notes.map((note) => {
+              //   note.date = new Date(note.date);
+              //   note.lastEditDate = new Date(note.lastEditDate);
+              //   return note;
+              // });
+              // setNotes(notes);
+              // setTags(showConfirmModal.tags);
+              // setShowConfirmModal(false);
+            }}
+          />
+        )}
+      </>
     )
   );
 }
