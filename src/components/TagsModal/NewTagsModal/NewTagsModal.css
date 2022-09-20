@@ -15,7 +15,6 @@
 }
 .tagArea .modalButton:focus {
   border: 2px solid var(--baseYellow-2);
-  color: var(--text-6);
 }
 .tagArea .navItem {
   cursor: pointer;
@@ -30,10 +29,11 @@
 .tagArea .navItem svg {
   height: 45px;
   transition: all 0.2s ease-in;
+  stroke: var(--iconColor);
 }
 .tagArea .navItem:hover svg,
 .tagArea .navItem:focus svg {
-  stroke: var(--baseYellow-2);
+  stroke: var(--primary-2);
 }
 .newTagsGallery .searchBar svg:nth-child(1) {
   stroke: var(--background-2);

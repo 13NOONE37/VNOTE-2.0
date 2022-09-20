@@ -63,7 +63,7 @@ export function ModalButton({
       onClick={toggleList}
     >
       {children}
-      {isCollapse && <CollapseIcon />}
+      {isCollapse && <CollapseIcon className="collapseIcon" />}
       <div className="buttonCollapsedContent">{collapseContent}</div>
     </div>
   );

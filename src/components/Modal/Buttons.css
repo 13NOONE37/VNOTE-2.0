@@ -5,12 +5,12 @@
   max-height: 45px;
   padding: 10px 20px;
 
-  background-color: var(--text-4);
+  background-color: var(--background-2);
+  color: var(--iconColor);
 
   border: 2px solid var(--text-5);
   border-radius: 16px;
 
-  color: var(--text-5);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.6px;
@@ -23,8 +23,8 @@
   transition: all 0.25s ease;
 }
 .clickedModalButton {
-  border: 2px solid var(--baseYellow-2);
-  color: var(--text-6);
+  border: 2px solid var(--primary-2);
+  /* color: var(--text-6); */
   max-height: 150px;
 }
 .clickedModalButton .buttonCollapsedContent {
@@ -35,11 +35,14 @@
   transform: rotate(90deg);
 }
 .modalButton:hover {
-  border: 2px solid var(--baseYellow-2);
-  color: var(--text-6);
+  border: 2px solid var(--primary-2);
 }
 .modalButton svg {
   transition: all 0.25s ease;
+  stroke: var(--iconColor);
+}
+.collapseIcon {
+  fill: var(--iconColor);
 }
 
 .buttonCollapsedContent {
@@ -61,7 +64,6 @@
   text-align: center;
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-6);
   padding-top: 5px;
   letter-spacing: 0.6px;
 }
@@ -69,8 +71,10 @@
   cursor: pointer;
   width: 75px;
   height: 75px;
-  background-color: var(--baseYellow-2);
-  border: 6px solid var(--text-3);
+  background-color: var(--primary-2);
+  border: none;
+  padding: 6px;
+
   border-radius: 16px;
 
   display: grid;
@@ -79,7 +83,7 @@
 
 .actionButton:hover,
 .actionButton:focus {
-  background-color: var(--baseYellow-1);
+  background-color: var(--primary-1);
 }
 .actionBox svg {
   stroke: var(--text-3);
@@ -92,10 +96,10 @@
 .fixedActionButton .actionButton {
   width: 65px;
   height: 65px;
-  background-color: var(--text-4);
+  background-color: var(--background-2);
 }
 .fixedActionButton svg {
   width: 70%;
   height: 70%;
-  stroke: var(--text-5);
+  stroke: var(--mainIcon);
 }

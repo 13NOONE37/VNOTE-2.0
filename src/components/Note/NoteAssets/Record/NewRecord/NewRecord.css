@@ -22,7 +22,7 @@
   transition: all 0.3s linear;
 }
 .mic--button:hover {
-  background-color: var(--baseYellow-2);
+  background-color: var(--primary-2);
 }
 .mic--button:hover svg {
   stroke: var(--text-3);

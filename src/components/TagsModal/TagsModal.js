@@ -32,7 +32,7 @@ export default function TagsModal({
       <span className="tagsGallery">
         <span className="tagsGallery--title">{t('SelectTags')}</span>
         <span className="tagsGallery--content">
-          {tags.map((item, index) => (
+          {[...tags, 'all'].map((item, index) => (
             <ModalButton
               action={() => toggleTag(item)}
               key={index}
