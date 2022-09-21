@@ -34,3 +34,9 @@
 .fixedActionButton__active {
   stroke: var(--primary-2) !important;
 }
+.moveButton {
+  display: none;
+}
+.showMoveButton {
+  display: grid !important;
+}

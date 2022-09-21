@@ -68,9 +68,13 @@ export function ModalButton({
     </div>
   );
 }
-export function TopActionButton({ title, children, action }) {
+export function TopActionButton({ title, children, action, classes }) {
   return (
-    <ActionButton title={title} action={action} classes="fixedActionButton">
+    <ActionButton
+      title={title}
+      action={action}
+      classes={`fixedActionButton ${classes}`}
+    >
       {children}
     </ActionButton>
   );

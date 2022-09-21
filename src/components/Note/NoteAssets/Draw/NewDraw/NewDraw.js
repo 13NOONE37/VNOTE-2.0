@@ -119,7 +119,9 @@ export default function NewDraw({ noteId, setNotesState }) {
       modalHeadContent={
         <div style={{ display: 'flex' }}>
           <TopActionButton
-            classes={'fixedActionButton'}
+            classes={`moveButton ${
+              (ua === 'mobile' || ua === 'tablet') && 'showMoveButton'
+            }`}
             action={() => {
               setDrawState({ ['disabled']: !drawState.disabled });
             }}
