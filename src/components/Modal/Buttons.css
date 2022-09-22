@@ -23,9 +23,12 @@
   transition: all 0.25s ease;
 }
 .clickedModalButton {
-  border: 2px solid var(--primary-2);
-  /* color: var(--text-6); */
+  border: 2px solid var(--primary-1);
   max-height: 150px;
+}
+.tagsViewModal .clickedModalButton {
+  border: 2px solid var(--primary-1);
+  background-color: var(--primary-2);
 }
 .clickedModalButton .buttonCollapsedContent {
   opacity: 1;

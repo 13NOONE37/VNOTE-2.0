@@ -31,7 +31,7 @@ import ListContentEditable from './ListContentEditable';
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
   const { theme, language, notes, setNotes } = useContext(AppContext);
-  const [showFooterForMobile, setShowFooterForMobile] = useState(true);
+  const [showFooterForMobile, setShowFooterForMobile] = useState(false);
   const updateButtonRef = useRef(null);
   const noteListedElementRef = useRef(null);
   const [isPending, startTransition] = useTransition();
@@ -167,9 +167,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
-      optionalColor={
-        theme === 'light' && `var(--noteColor-${noteValues.color})`
-      }
+      // optionalColor={
+      //   theme === 'light' && `var(--noteColor-${noteValues.color})`
+      // }
       modalHeadContent={
         <TopActionButton
           classes="fixedActionButton"
