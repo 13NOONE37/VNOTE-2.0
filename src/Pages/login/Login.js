@@ -77,7 +77,7 @@ export default function Login() {
               },
               {
                 heading: 'Web 3.0',
-                subheading: 'Web 3.0 is coming for us...',
+                subheading: 'Web 3.0 version is in development...',
               },
             ].map(
               (item, index) =>
@@ -117,6 +117,12 @@ export default function Login() {
     </div>
   );
 }
+const isEmailCorrect = (email) => {
+  let regexEmail = new RegExp(
+    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+  );
+  return regexEmail.test(email);
+};
 const LoginInfo = ({ children, text, action }) => {
   return (
     <span className="form--info">
@@ -137,33 +143,37 @@ const LoginSplitter = ({ children }) => {
   );
 };
 const LoginInput = ({
-  value,
-  onChange,
   type,
-  name,
   placeholder,
-  classes,
   containerClasses,
+  inputClasses,
+  field,
+  error,
 }) => {
   return (
     <span className={`form--inputBox ${containerClasses}`}>
       <input
         type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        className={`form--inputBox--input ${classes}`}
+        className={`form--inputBox--input ${inputClasses}`}
+        {...field}
       />
       <label
         className={`form--inputBox--placeholder ${
-          value.length > 0 && 'form--inputBox--input__focused'
+          field.value.length > 0 && 'form--inputBox--input__focused'
         }`}
-        htmlFor={name}
+        htmlFor={field.name}
       >
         {placeholder}
       </label>
+      {error && <span className="form--inputBox--error">{error}</span>}
     </span>
   );
+};
+const LoginError = ({ children }) => {
+  return <h3 className="form--error">{children}</h3>;
+};
+const LoginSuccess = ({ children }) => {
+  return <h3 className="form--success">{children}</h3>;
 };
 const LoginButton = ({ icon, children, action, classes, type, ...props }) => {
   return (
@@ -181,4 +191,12 @@ const LoginButton = ({ icon, children, action, classes, type, ...props }) => {
 LoginButton.defaultProps = {
   type: 'button',
 };
-export { LoginInfo, LoginSplitter, LoginInput, LoginButton };
+export {
+  LoginInfo,
+  LoginSplitter,
+  LoginInput,
+  LoginError,
+  LoginSuccess,
+  LoginButton,
+  isEmailCorrect,
+};

@@ -61,6 +61,16 @@
   color: #121929;
   margin-bottom: 16px;
 }
+.form--error {
+  color: #bb2124;
+  font-weight: 700;
+  font-size: 16px;
+}
+.form--success {
+  color: #22bb33;
+  font-weight: 700;
+  font-size: 16px;
+}
 .form--button,
 .form--inputBox {
   width: 312px;
@@ -127,6 +137,7 @@
   border-bottom: 1px solid #121929;
 
   position: relative;
+  margin-bottom: 10px;
 }
 .form--inputBox--input {
   position: absolute;
@@ -137,6 +148,14 @@
   border: none;
   padding: 4px;
   font-size: 18px;
+}
+.form--inputBox--error {
+  position: absolute;
+  left: 4px;
+  bottom: -22px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #c43325;
 }
 .form--inputBox--placeholder {
   position: absolute;
@@ -153,7 +172,10 @@
   transform: translate(-4px, -24px) scale(0.9);
 }
 .form--inputBox__margin {
-  margin-bottom: 10px;
+  margin-bottom: 28px;
+}
+.form--inputBox__nomargin {
+  margin-bottom: 0px;
 }
 .form--input__password {
 }

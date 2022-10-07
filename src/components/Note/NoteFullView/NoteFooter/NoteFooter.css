@@ -9,11 +9,22 @@
   position: fixed;
   left: 50%;
   bottom: 0;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0);
+  visibility: visible;
+  opacity: 0;
+  animation: showFooter 0.3s 0.3s linear forwards;
 
   transition: all 0.25s ease;
   display: grid;
   grid-template-rows: 1fr 1fr;
+}
+@keyframes showFooter {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .actionsRow,
 .colorsRow {

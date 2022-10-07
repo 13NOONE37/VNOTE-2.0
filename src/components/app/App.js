@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppContext from 'store/AppContext';
 import './App.css';
 import './Themes.css';
@@ -35,8 +35,8 @@ export default function App() {
     }
     return 'desktop';
   };
-  const [isLogged, setIsLogged] = useState(true); //todo change back for null
-  const [theme, setTheme] = useState('dark');
+  const [isLogged, setIsLogged] = useState(false); //todo change back for null
+  const [theme, setTheme] = useState(null);
   const [language, setLanguage] = useState('en');
   const [notes, setNotes] = useState([
     {
@@ -75,6 +75,16 @@ export default function App() {
   const [canBeSaved, setCanBeSaved] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
   //todo https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
+  useEffect(() => {
+    //if it is not set in firestore we set it depends on default in system
+    setTheme(
+      window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light',
+    );
+  }, []);
+
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
       <AppContext.Provider
