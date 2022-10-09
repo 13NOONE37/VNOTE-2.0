@@ -9,10 +9,9 @@ import { ReactComponent as DownloadIcon } from 'assets/Icons/download.svg';
 import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
 import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
 import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
-import Image from './Avatar.jpg';
-import getUniqId from 'utils/getUniqId';
-import { toast } from 'react-toastify';
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/Firebase/Config/firebase';
 
 export default function ProfileModal({ showModal, setShowModal }) {
   const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
@@ -34,7 +33,6 @@ export default function ProfileModal({ showModal, setShowModal }) {
     const href = await URL.createObjectURL(blob);
     setDownloadHref(href);
   };
-
   const handleImport = (e) => {
     const file = e.target.files[0];
 
@@ -61,6 +59,10 @@ export default function ProfileModal({ showModal, setShowModal }) {
       reader.readAsText(file);
     }
   };
+  const handleLogout = () => {
+    setIsLogged(false);
+    signOut(auth);
+  };
 
   useEffect(() => {
     handlePrepeareExport();
@@ -71,9 +73,19 @@ export default function ProfileModal({ showModal, setShowModal }) {
       <>
         <Modal setShowModal={setShowModal} additionalClass="profileModal">
           <div className=" pictureModal ">
-            <img src={Image} alt="Avatar" />
+            <img
+              src={
+                userInfo?.photoURL ||
+                `https://avatars.dicebear.com/api/bottts/${
+                  userInfo?.nickname || 'Nickname'
+                }${userInfo.metadata.createdAt}.svg`
+              }
+              alt="Avatar"
+            />
           </div>
-          <span className="nicknameModal">{userInfo.nickname}</span>
+          <span className="nicknameModal">
+            {userInfo?.nickname || 'Nickname'}
+          </span>
           <ModalButton
             isCollapse
             collapseContent={
@@ -128,7 +140,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
             <LockIcon />
             {t('ChangePasswordEmail')}
           </ModalButton>
-          <ModalButton action={() => setIsLogged(false)}>
+          <ModalButton action={handleLogout}>
             <LogoutIcon />
             {t('Logout')}
           </ModalButton>

@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
 import './Avatar.css';
-import Image from './Avatar.jpg';
 import { ReactComponent as Update } from 'assets/Icons/refresh-cw.svg';
 import { gsap } from 'gsap';
 import AppContext from 'store/AppContext';
@@ -45,9 +44,13 @@ export default function Avatar() {
       </div>
       <div className="picture" onClick={() => setShowModal(true)}>
         <img
-          src={Image}
+          src={
+            userInfo?.photoURL ||
+            `https://avatars.dicebear.com/api/bottts/${
+              userInfo?.nickname || 'Nickname'
+            }${userInfo.metadata.createdAt}.svg`
+          }
           alt="Avatar"
-          // src={`https://avatars.dicebear.com/api/${userInfo.gender}/${userInfo.nickname}.svg?mood[]=${mood}`}
         />
       </div>
 

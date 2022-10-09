@@ -19,6 +19,7 @@
   border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
+  box-sizing: content-box;
 }
 .avatar .picture img {
   width: 42px;

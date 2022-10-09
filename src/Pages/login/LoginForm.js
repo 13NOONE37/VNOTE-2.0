@@ -8,17 +8,23 @@ import {
   LoginInfo,
   LoginSplitter,
   LoginError,
-  isEmailCorrect,
 } from './Login';
 import AppContext from 'store/AppContext';
 import { useNavigate } from 'react-router-dom';
 import handlePasswordSignIn from 'utils/Firebase/Actions/auth_signin_password';
 import { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
+import useAuthProvider from 'utils/Firebase/Actions/useAuthProvider';
 export default function LoginForm() {
   const navigate = useNavigate();
   const { setIsLogged, setUserInfo } = useContext(AppContext);
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const { githubAuth, twitterAuth, googleAuth } = useAuthProvider(
+    setUserInfo,
+    setIsLogged,
+    setErrorMessage,
+  );
 
   return (
     <>
@@ -106,13 +112,25 @@ export default function LoginForm() {
 
             <LoginSplitter>or</LoginSplitter>
 
-            <LoginButton icon={<Github />} classes={'form--button__github'}>
+            <LoginButton
+              onClick={githubAuth}
+              icon={<Github />}
+              classes={'form--button__github'}
+            >
               Continue with Github
             </LoginButton>
-            <LoginButton icon={<Twitter />} classes={'form--button__twitter'}>
+            <LoginButton
+              onClick={twitterAuth}
+              icon={<Twitter />}
+              classes={'form--button__twitter'}
+            >
               Continue with Twitter
             </LoginButton>
-            <LoginButton icon={<Google />} classes={'form--button__google'}>
+            <LoginButton
+              onClick={googleAuth}
+              icon={<Google />}
+              classes={'form--button__google'}
+            >
               Continue with Google
             </LoginButton>
           </Form>
