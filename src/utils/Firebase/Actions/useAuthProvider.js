@@ -17,7 +17,7 @@ const useAuthProvider = (setUserInfo, setIsLogged, setErrorMessage) => {
   };
   const twitterAuth = () => {
     const provider = new TwitterAuthProvider();
-    signInWithPopup(auth, provider);
+    // signInWithPopup(auth, provider)
   };
   const googleAuth = () => {
     const provider = new GoogleAuthProvider();

@@ -122,7 +122,8 @@ export default function LoginForm() {
             <LoginButton
               onClick={twitterAuth}
               icon={<Twitter />}
-              classes={'form--button__twitter'}
+              disabled={true}
+              classes={'form--button__twitter form--button__disabled'}
             >
               Continue with Twitter
             </LoginButton>

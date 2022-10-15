@@ -15,11 +15,18 @@ import { ReactComponent as Github } from 'assets/Icons/github.svg';
 import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
 import { ReactComponent as Google } from 'assets/Icons/google.svg';
 import AppContext from 'store/AppContext';
+import useAuthProvider from 'utils/Firebase/Actions/useAuthProvider';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
   const { setIsLogged, setUserInfo } = useContext(AppContext);
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const { githubAuth, twitterAuth, googleAuth } = useAuthProvider(
+    setUserInfo,
+    setIsLogged,
+    setErrorMessage,
+  );
 
   return (
     <>
@@ -100,13 +107,26 @@ export default function RegisterForm() {
 
             <LoginSplitter>or</LoginSplitter>
 
-            <LoginButton icon={<Github />} classes={'form--button__github'}>
+            <LoginButton
+              onClick={githubAuth}
+              icon={<Github />}
+              classes={'form--button__github'}
+            >
               Continue with Github
             </LoginButton>
-            <LoginButton icon={<Twitter />} classes={'form--button__twitter'}>
+            <LoginButton
+              onClick={twitterAuth}
+              icon={<Twitter />}
+              disabled={true}
+              classes={'form--button__twitter form--button__disabled'}
+            >
               Continue with Twitter
             </LoginButton>
-            <LoginButton icon={<Google />} classes={'form--button__google'}>
+            <LoginButton
+              onClick={googleAuth}
+              icon={<Google />}
+              classes={'form--button__google'}
+            >
               Continue with Google
             </LoginButton>
           </Form>

@@ -134,12 +134,11 @@ export default function ProfileModal({ showModal, setShowModal }) {
             <FileIcon />
             {t('ImportExport')}
           </ModalButton>
-          <ModalButton
-          // isCollapse
-          >
+          <ModalButton>
             <LockIcon />
-            {t('ChangePasswordEmail')}
+            {t('ResetPassword')}
           </ModalButton>
+
           <ModalButton action={handleLogout}>
             <LogoutIcon />
             {t('Logout')}
