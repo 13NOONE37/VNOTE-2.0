@@ -132,7 +132,7 @@
   margin-top: 10px;
 }
 .form--button__disabled {
-  cursor: default;
+  cursor: not-allowed;
   filter: grayscale(0.75);
   opacity: 0.75;
 }
