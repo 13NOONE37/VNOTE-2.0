@@ -6,7 +6,6 @@ import handleOpenFullView from 'utils/handleOpenFullView';
 import './NotePreview.css';
 
 export default function NotePreview({
-  key,
   title,
   date,
   color,

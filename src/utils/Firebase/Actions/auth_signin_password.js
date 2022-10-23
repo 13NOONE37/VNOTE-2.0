@@ -13,7 +13,6 @@ const handlePasswordSignIn = (
       //signed in
       const user = userCredential.user;
       setIsLogged(true);
-      setUserInfo(user);
     })
     .catch((error) => {
       const errorCode = error.code;

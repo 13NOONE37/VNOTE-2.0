@@ -30,7 +30,8 @@ import ListContentEditable from './ListContentEditable';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
-  const { theme, language, notes, setNotes } = useContext(AppContext);
+  const { theme, language, notes, setNotes, setCanBeSaved } =
+    useContext(AppContext);
   const [showFooterForMobile, setShowFooterForMobile] = useState(false);
   const updateButtonRef = useRef(null);
   const noteListedElementRef = useRef(null);
@@ -50,6 +51,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         return item;
       });
       setNotes(temp);
+      setCanBeSaved(true);
     });
   };
   const handleChange = (e) => {

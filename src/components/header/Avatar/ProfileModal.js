@@ -12,7 +12,6 @@ import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/Firebase/Config/firebase';
-import fetchUserData from 'utils/Firebase/Actions/fetch_user_data';
 
 export default function ProfileModal({ showModal, setShowModal }) {
   const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
@@ -144,13 +143,6 @@ export default function ProfileModal({ showModal, setShowModal }) {
             <LogoutIcon />
             {t('Logout')}
           </ModalButton>
-          <button
-            onClick={() => {
-              fetchUserData();
-            }}
-          >
-            test
-          </button>
         </Modal>
         {showConfirmModal && (
           <ConfirmModal

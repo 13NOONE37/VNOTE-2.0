@@ -6,22 +6,20 @@ import { useTranslation } from 'react-i18next';
 import { Routes, Route } from 'react-router-dom';
 import pages from 'Pages/Routes/Pages';
 
-import Main from 'Pages/main/Main';
-import Login from 'Pages/login/Login';
 import NotFound from 'Pages/NotFound/NotFound';
 
 import AuthRoute from 'Pages/Routes/AuthRoute';
 import GuestRoute from 'Pages/Routes/GuestRoute';
+import FetchUserData from 'utils/Firebase/Actions/fetch_user_data';
+import useFetchData from 'utils/Firebase/Actions/fetch_user_data';
+import useAuthStateChanged from 'utils/Firebase/Actions/auth_state_change';
+import updateUserData from 'utils/Firebase/Actions/update_user_data';
+import { auth } from 'utils/Firebase/Config/firebase';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
   const { i18n } = useTranslation();
-
-  const [userInfo, setUserInfo] = useState({
-    nickname: 'Nickname',
-    gender: 'Female',
-    email: 'test@gmail.com',
-  });
+  const [userInfo, setUserInfo] = useState({});
   const deviceType = () => {
     const ua = navigator.userAgent;
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -35,55 +33,44 @@ export default function App() {
     }
     return 'desktop';
   };
-  const [isLogged, setIsLogged] = useState(false); //todo change back for null
+  const [isLogged, setIsLogged] = useState(null);
   const [theme, setTheme] = useState(null);
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(null);
   const [notes, setNotes] = useState([
-    {
-      id: 1,
-      title: 'Zakupy',
-      content:
-        '%3Cdiv%3EMleko%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EMas%C5%82o%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EChleb%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E',
-      date: new Date(2003, 7, 12),
-      lastEditDate: new Date(2003, 7, 12),
-      color: 3,
-      isDeleted: false,
-      isListed: false,
-      tags: { all: true },
-      checkList: [],
-      images: [],
-      draws: [],
-      records: [],
-    },
-    {
-      id: 2,
-      title: 'Lista',
-      content: '',
-      date: new Date(2003, 7, 12),
-      lastEditDate: new Date(2003, 7, 12),
-      color: 5,
-      isDeleted: false,
-      isListed: true,
-      tags: { all: true },
-      checkList: [],
-      images: [],
-      draws: [],
-      records: [],
-    },
+    // {
+    //   id: 1,
+    //   title: 'Zakupy',
+    //   content:
+    //     '%3Cdiv%3EMleko%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EMas%C5%82o%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E%3Cdiv%3EChleb%3C/div%3E%3Cdiv%3E%3Cbr%3E%3C/div%3E',
+    //   date: new Date(2003, 7, 12),
+    //   lastEditDate: new Date(2003, 7, 12),
+    //   color: 3,
+    //   isDeleted: false,
+    //   isListed: false,
+    //   tags: { all: true },
+    //   checkList: [],
+    //   images: [],
+    //   draws: [],
+    //   records: [],
+    // },
   ]);
   const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
   const [canBeSaved, setCanBeSaved] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
-  //todo https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
-  useEffect(() => {
-    //if it is not set in firestore we set it depends on default in system
-    setTheme(
-      window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light',
-    );
-  }, []);
+
+  useAuthStateChanged(
+    setIsLogged,
+    setUserInfo,
+    setTheme,
+    setLanguage,
+    setNotes,
+    setTags,
+  );
+
+  // useEffect(() => {
+  //   auth.currentUser &&
+  //     updateUserData(setCanBeSaved, { theme, language, notes, tags });
+  // }, [theme, language, tags, canBeSaved]);
 
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>
