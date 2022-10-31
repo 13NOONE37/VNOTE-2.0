@@ -149,15 +149,24 @@ export default function NoteFullView({ notesState, setNotesState }) {
   const showAttachmentModal = () => {
     setNotesState({ ['showAttachmentModal']: true });
   };
+  // useEffect(() => {
+  //   const updateInterval = setInterval(
+  //     () => updateButtonRef.current.click(),
+  //     3000,
+  //   );
+  //   return () => {
+  //     clearInterval(updateInterval);
+  //   };
+  // }, []);
   useEffect(() => {
-    const updateInterval = setInterval(
+    const updateTimeout = setTimeout(
       () => updateButtonRef.current.click(),
-      15000,
+      500,
     );
     return () => {
-      clearInterval(updateInterval);
+      clearTimeout(updateTimeout);
     };
-  }, []);
+  }, [noteValues]);
 
   //!!!xss dangerous we have to take care about that
   /*

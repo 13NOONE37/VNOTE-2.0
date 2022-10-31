@@ -1,6 +1,5 @@
 import { auth } from '../Config/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import setUserData from './set_user_data';
 
 const handlePasswordSignUp = (
   email,
@@ -13,7 +12,6 @@ const handlePasswordSignUp = (
     .then((userCredential) => {
       //signed in
       const user = userCredential.user;
-      setUserData();
       setIsLogged(true);
     })
     .catch((error) => {

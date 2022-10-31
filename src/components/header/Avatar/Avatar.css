@@ -10,6 +10,15 @@
   stroke: var(--primary-2);
   cursor: pointer;
   margin-right: 10px;
+  transition: 0.1s linear;
+}
+@keyframes saveIconAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .avatar .picture,
 .pictureModal {

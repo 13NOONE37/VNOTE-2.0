@@ -1,13 +1,16 @@
 import Modal from 'components/Modal/Modal';
 import React, { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import './NewImage.css';
+import uuid4 from 'uuid4';
+import { toast } from 'react-toastify';
 
+import AppContext from 'store/AppContext';
+import './NewImage.css';
 import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
 import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
-import { upload } from '@testing-library/user-event/dist/upload';
-import AppContext from 'store/AppContext';
 import useDetectAttachmentPaste from 'utils/useDetectAttachmentPaste';
+import { auth, storage } from 'utils/Firebase/Config/firebase';
+import { ref, uploadBytes } from 'firebase/storage';
 
 export default function NewImage({ noteId, setNotesState }) {
   const { t } = useTranslation();
@@ -23,23 +26,44 @@ export default function NewImage({ noteId, setNotesState }) {
       const blob = new Blob([this.result]);
       const url = URL.createObjectURL(blob, { type: 'image/png' });
 
-      setNotes(
-        notes.map((item) => {
-          if (item.id === noteId) {
-            let temp = item;
-            temp.images.push(url);
-            temp.lastEditDate = new Date();
+      const filePath = `files/${auth.currentUser.uid}/images/${uuid4()}${
+        file.name
+      }`;
+      const fileType = file.type;
 
-            return temp;
-          }
-          return item;
-        }),
-      );
-      setNotesState({ ['showImageModal']: false });
-      setNotesState({ ['showAttachmentModal']: false });
+      const imagesRef = ref(storage, filePath);
+      uploadBytes(imagesRef, blob, {
+        contentType: fileType,
+      })
+        .then((snapshot) => {
+          setNotes(
+            notes.map((item) => {
+              if (item.id === noteId) {
+                let temp = item;
+                temp.images.push(filePath);
+                temp.lastEditDate = new Date();
+                return temp;
+              }
+              return item;
+            }),
+          );
+          setNotesState({ ['showImageModal']: false });
+          setNotesState({ ['showAttachmentModal']: false });
 
-      setNotesState({ ['showFullView']: true });
-      setNotesState({ ['currentId']: noteId });
+          setNotesState({ ['showFullView']: true });
+          setNotesState({ ['currentId']: noteId });
+        })
+        .catch((error) => {
+          toast.info(t('ErrorUploadImage'), {
+            position: 'bottom-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        });
     });
 
     reader.readAsArrayBuffer(file);

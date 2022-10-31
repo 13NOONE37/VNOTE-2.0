@@ -67,10 +67,10 @@ export default function App() {
     setTags,
   );
 
-  // useEffect(() => {
-  //   auth.currentUser &&
-  //     updateUserData(setCanBeSaved, { theme, language, notes, tags });
-  // }, [theme, language, tags, canBeSaved]);
+  useEffect(() => {
+    auth.currentUser &&
+      updateUserData(setCanBeSaved, { theme, language, notes, tags });
+  }, [theme, language, tags, canBeSaved]);
 
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>

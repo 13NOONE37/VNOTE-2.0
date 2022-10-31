@@ -7,12 +7,13 @@ import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 
 export default function DeleteFooter() {
   const { t } = useTranslation();
-  const { notes, setNotes } = useContext(AppContext);
+  const { notes, setNotes, setCanBeSaved } = useContext(AppContext);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const deleteAll = () => {
     const temp = notes.filter((item) => !item.isDeleted);
 
     setNotes(temp);
+    setCanBeSaved(true);
   };
   return (
     <>
