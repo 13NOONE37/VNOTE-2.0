@@ -54,7 +54,7 @@ export default function NewImage({ noteId, setNotesState }) {
           setNotesState({ ['currentId']: noteId });
         })
         .catch((error) => {
-          toast.info(t('ErrorUploadImage'), {
+          toast.error(t('ErrorUpload'), {
             position: 'bottom-right',
             autoClose: 3000,
             hideProgressBar: false,

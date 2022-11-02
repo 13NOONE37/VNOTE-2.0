@@ -3,16 +3,30 @@ import { useTranslation } from 'react-i18next';
 import { ReactComponent as Close } from 'assets/Icons/x.svg';
 import './Image.css';
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
-import { getDownloadURL, ref } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref } from 'firebase/storage';
 import { storage } from 'utils/Firebase/Config/firebase';
+import { toast } from 'react-toastify';
 
 export default function Image({ noteValues, setNoteValues, src }) {
   const { t } = useTranslation();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [localURL, setlocalURL] = useState('');
+  const [localURL, setlocalURL] = useState(false);
 
   const handleDelete = () => {
     const temp = noteValues.images.filter((image) => image !== src);
+    deleteObject(ref(storage, src))
+      .then(() => {})
+      .catch(() => {
+        toast.error(t('ErrorDeleteImage'), {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
     setNoteValues({ ['images']: temp });
   };
 
@@ -25,11 +39,15 @@ export default function Image({ noteValues, setNoteValues, src }) {
   return (
     <>
       <div className="image--box" additionalClass={'newAttachment--box'}>
-        <img
-          src={localURL}
-          alt={t('UserImage')}
-          onMouseDown={(e) => e.preventDefault()}
-        />
+        {localURL ? (
+          <img
+            src={localURL}
+            alt={t('UserImage')}
+            onMouseDown={(e) => e.preventDefault()}
+          />
+        ) : (
+          'Loading...'
+        )}
         <button onClick={() => setShowConfirmModal(true)}>
           <Close />
         </button>

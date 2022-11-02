@@ -286,7 +286,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         <div className="noteAttachments--records">
           {noteValues.records.map((record) => (
             <Record
-              audio={record}
+              src={record}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
             />

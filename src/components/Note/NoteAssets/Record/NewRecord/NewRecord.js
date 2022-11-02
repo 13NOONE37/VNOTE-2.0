@@ -12,9 +12,16 @@ import { ReactComponent as PauseIcon } from 'assets/Icons/pause.svg';
 import { ReactComponent as PlusIcon } from 'assets/Icons/plus.svg';
 import AppContext from 'store/AppContext';
 import Record from '../Record';
+import { auth, storage } from 'utils/Firebase/Config/firebase';
+import { ref, uploadBytes } from 'firebase/storage';
+import uuid4 from 'uuid4';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import getBlobDuration from 'get-blob-duration';
 
 export default function NewRecord({ noteId, setNotesState }) {
   const { notes, setNotes } = useContext(AppContext);
+  const { t } = useTranslation();
 
   const [testAudio, settestAudio] = useState({ date: new Date(), data: [] });
   const [currentTime, setCurrentTime] = useState(0);
@@ -57,28 +64,59 @@ export default function NewRecord({ noteId, setNotesState }) {
         type: 'audio/ogg; codecs=opus',
       });
       chunks = [];
-      const audioURL = window.URL.createObjectURL(blob);
+      getBlobDuration(blob)
+        .then((recordDuration) => {
+          const filePath = `files/${auth.currentUser.uid}/audio/${uuid4()}.mp3`;
+          const fileType = 'audio/ogg';
 
-      // audioRef.current.src = audioURL;
+          const audioRef = ref(storage, filePath);
+          uploadBytes(audioRef, blob, {
+            contentType: fileType,
+          })
+            .then((snapshot) => {
+              setNotes(
+                notes.map((item) => {
+                  if (item.id === noteId) {
+                    let temp = item;
+                    temp.records.push({
+                      date: new Date(),
+                      url: filePath,
+                      duration: recordDuration,
+                    });
+                    return temp;
+                  }
+                  return item;
+                }),
+              );
+              setNotesState({ ['showRecordModal']: false });
+              setNotesState({ ['showAttachmentModal']: false });
 
-      setNotes(
-        notes.map((item) => {
-          if (item.id === noteId) {
-            let temp = item;
-            temp.records.push({
-              date: new Date(),
-              data: audioURL,
+              setNotesState({ ['showFullView']: true });
+              setNotesState({ ['currentId']: noteId });
+            })
+            .catch((error) => {
+              toast.error(t('ErrorUpload'), {
+                position: 'bottom-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+              });
             });
-            return temp;
-          }
-          return item;
-        }),
-      );
-      setNotesState({ ['showRecordModal']: false });
-      setNotesState({ ['showAttachmentModal']: false });
-
-      setNotesState({ ['showFullView']: true });
-      setNotesState({ ['currentId']: noteId });
+        })
+        .catch((err) => {
+          toast.error(t('SomethingWentWrong'), {
+            position: 'bottom-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        });
     };
     mediaRecorder.ondataavailable = (e) => {
       chunks.push(e.data);

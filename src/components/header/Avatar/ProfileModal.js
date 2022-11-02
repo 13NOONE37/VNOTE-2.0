@@ -11,13 +11,7 @@ import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
 import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import { signOut } from 'firebase/auth';
-import { auth, storage } from 'utils/Firebase/Config/firebase';
-import {
-  ref,
-  uploadBytes,
-  uploadBytesResumable,
-  uploadString,
-} from 'firebase/storage';
+import { auth } from 'utils/Firebase/Config/firebase';
 
 export default function ProfileModal({ showModal, setShowModal }) {
   const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
@@ -151,25 +145,6 @@ export default function ProfileModal({ showModal, setShowModal }) {
             <LogoutIcon />
             {t('Logout')}
           </ModalButton>
-          <button
-            onClick={() => {
-              console.log(auth.currentUser.uid);
-              const filePath = 'image.jpg';
-              const imagesRef = ref(
-                storage,
-                `files/${auth.currentUser.uid}/images/${filePath}`,
-              );
-              uploadBytes(imagesRef, bb).then((snapshot) => {
-                console.log(
-                  'Uploaded a blob or file!',
-                  `${snapshot.metadata.bucket}/${snapshot.metadata.fullPath}`,
-                );
-              });
-            }}
-          >
-            Create storage
-          </button>
-          <button onClick={() => {}}>Get storage</button>
         </Modal>
         {showConfirmModal && (
           <ConfirmModal

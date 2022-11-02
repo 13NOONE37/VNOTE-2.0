@@ -6,20 +6,22 @@ import React, {
   useState,
 } from 'react';
 import getBlobDuration from 'get-blob-duration';
+import { useTranslation } from 'react-i18next';
+import { storage } from 'utils/Firebase/Config/firebase';
+import { deleteObject, getBlob, getDownloadURL, ref } from 'firebase/storage';
+import { toast } from 'react-toastify';
+import AppContext from 'store/AppContext';
+
+import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 
 import './Record.css';
-
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { ReactComponent as Download } from 'assets/Icons/download.svg';
 import { ReactComponent as Play } from 'assets/Icons/play-circle.svg';
 import { ReactComponent as Pause } from 'assets/Icons/pause-circle.svg';
 
-import AppContext from 'store/AppContext';
-import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
-import { useTranslation } from 'react-i18next';
-
 export default function Record({
-  audio,
+  src,
   onlyPreview,
   noteValues,
   setNoteValues,
@@ -33,11 +35,12 @@ export default function Record({
     (state, newState) => ({ ...state, ...newState }),
     {
       isPlaying: false,
-      date: audio.date,
-      length: 0,
+      date: src.date,
+      duration: src.duration,
       currentTime: 0,
     },
   );
+  const [localURL, setlocalURL] = useState(false);
 
   const handleRunAudio = () => {
     setRecordState({ ['isPlaying']: true });
@@ -47,16 +50,32 @@ export default function Record({
     setRecordState({ ['isPlaying']: false });
     audioRef.current.pause();
   };
-  const getLength = async () => {
-    setRecordState({ ['length']: await getBlobDuration(audio.data) });
-  };
+
   const handleDelete = () => {
-    const temp = noteValues.records.filter(
-      (record) => record.data !== audio.data,
-    );
+    const temp = noteValues.records.filter((record) => record.url !== src.url);
+    deleteObject(ref(storage, src.url))
+      .then(() => {})
+      .catch(() => {
+        toast.error(t('ErrorDeleteAudio'), {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
     setNoteValues({ ['records']: temp });
   };
-  return (
+
+  useEffect(() => {
+    getDownloadURL(ref(storage, src.url)).then((result) => {
+      setlocalURL(result);
+    });
+  }, []);
+
+  return localURL ? (
     <>
       <div className={`record ${onlyPreview && 'record__onlyPreview'}`}>
         {recordState.isPlaying ? (
@@ -85,7 +104,7 @@ export default function Record({
           type="range"
           className="record--progress"
           value={recordState.currentTime}
-          max={recordState.length}
+          max={recordState.duration}
           step={0.01}
           onChange={({ target: { value } }) => {
             setRecordState({ ['currentTime']: value });
@@ -93,16 +112,15 @@ export default function Record({
           }}
           style={{
             backgroundSize: `${
-              (recordState.currentTime / recordState.length) * 100
+              (recordState.currentTime / recordState.duration) * 100
             }% 100%`,
           }}
         />
         <time className="record--length">
-          {new Date(recordState.length * 1000).toISOString().slice(14, 19)}
+          {new Date(recordState.duration * 1000).toISOString().slice(14, 19)}
         </time>
         <audio
           onCanPlay={(e) => {
-            getLength();
             setRecordState({ ['currentTime']: audioRef.current.currentTime });
           }}
           onPause={handlePauseAudio}
@@ -111,12 +129,14 @@ export default function Record({
           onTimeUpdate={(e) =>
             setRecordState({ ['currentTime']: e.target.currentTime })
           }
-          src={audio.data}
+          src={localURL}
           ref={audioRef}
         />
+
         <a
-          download={'Test.mp3'}
-          href={audio.data}
+          download={'Audio.mp3'}
+          target="_blank"
+          href={localURL}
           className="record--icon record--icon__hide  button__effect__background"
         >
           <Download />
@@ -136,5 +156,7 @@ export default function Record({
         />
       )}
     </>
+  ) : (
+    'Loading...'
   );
 }
