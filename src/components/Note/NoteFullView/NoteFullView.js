@@ -310,7 +310,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         >
           {noteValues.draws.map((draw) => (
             <Draw
-              paths={draw}
+              url={draw}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
             />

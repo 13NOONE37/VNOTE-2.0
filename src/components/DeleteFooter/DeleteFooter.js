@@ -20,10 +20,10 @@ export default function DeleteFooter() {
     const temp = notes.filter((note) => {
       if (note.isDeleted) {
         note.images.forEach((image) => deleteFromStorage(image));
+        note.draws.forEach((draw) => deleteFromStorage(draw));
         note.records.forEach((record) => {
           deleteFromStorage(record.url);
         });
-        note.draws.forEach((draw) => {});
       }
       return !note.isDeleted;
     });

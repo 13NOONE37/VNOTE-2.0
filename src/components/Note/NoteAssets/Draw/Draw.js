@@ -4,20 +4,42 @@ import { ReactSketchCanvas } from 'react-sketch-canvas';
 import { ReactComponent as Close } from 'assets/Icons/x.svg';
 import './Draw.css';
 import { useTranslation } from 'react-i18next';
+import { deleteObject, getDownloadURL, ref } from 'firebase/storage';
+import { storage } from 'utils/Firebase/Config/firebase';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
-export default function Draw({ noteValues, setNoteValues, paths }) {
+export default function Draw({ noteValues, setNoteValues, url }) {
   const drawRef = useRef(null);
   const { t } = useTranslation();
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleDelete = () => {
-    const temp = noteValues.draws.filter((draw) => draw !== paths);
+    const temp = noteValues.draws.filter((draw) => draw !== url);
+    deleteObject(ref(storage, url))
+      .then(() => {})
+      .catch(() => {
+        toast.error(t('ErrorDeleteDraw'), {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+      });
     setNoteValues({ ['draws']: temp });
   };
 
   useEffect(() => {
-    drawRef.current.loadPaths(paths);
+    getDownloadURL(ref(storage, url)).then((ur) => {
+      axios.get(ur).then((paths) => {
+        console.log(paths.data);
+        drawRef.current.loadPaths(paths.data);
+      });
+    });
   }, []);
 
   return (

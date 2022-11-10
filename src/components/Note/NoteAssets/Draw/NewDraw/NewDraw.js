@@ -18,6 +18,10 @@ import './NewDraw.css';
 import AppContext from 'store/AppContext';
 import DrawFooter from '../DrawFooter/DrawFooter';
 import useShortcuts from 'utils/useShortcuts';
+import { auth, storage } from 'utils/Firebase/Config/firebase';
+import { ref, uploadBytes, uploadString } from 'firebase/storage';
+import uuid4 from 'uuid4';
+import { toast } from 'react-toastify';
 
 export default function NewDraw({ noteId, setNotesState }) {
   const { t } = useTranslation();
@@ -42,23 +46,43 @@ export default function NewDraw({ noteId, setNotesState }) {
 
   const uploadDraw = async () => {
     await drawRef.current.exportPaths().then((data) => {
-      setNotes(
-        notes.map((item) => {
-          if (item.id === noteId) {
-            let temp = item;
-            temp.draws.push(data);
-            temp.lastEditDate = new Date();
+      const jsonString = JSON.stringify(data);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const filePath = `files/${auth.currentUser.uid}/draws/${uuid4()}.json`;
 
-            return temp;
-          }
-          return item;
-        }),
-      );
-      setNotesState({ ['showDrawModal']: false });
-      setNotesState({ ['showAttachmentModal']: false });
+      const audioRef = ref(storage, filePath);
+      uploadBytes(audioRef, blob)
+        .then((snapshot) => {
+          setNotes(
+            notes.map((item) => {
+              if (item.id === noteId) {
+                let temp = item;
+                // temp.draws.push(data);
+                temp.draws.push(filePath);
+                temp.lastEditDate = new Date();
 
-      setNotesState({ ['showFullView']: true });
-      setNotesState({ ['currentId']: noteId });
+                return temp;
+              }
+              return item;
+            }),
+          );
+          setNotesState({ ['showDrawModal']: false });
+          setNotesState({ ['showAttachmentModal']: false });
+
+          setNotesState({ ['showFullView']: true });
+          setNotesState({ ['currentId']: noteId });
+        })
+        .catch((error) => {
+          toast.error(t('ErrorUpload'), {
+            position: 'bottom-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+          });
+        });
     });
   };
 

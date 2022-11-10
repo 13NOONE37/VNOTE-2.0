@@ -21,7 +21,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
 
   const [downloadHref, setDownloadHref] = useState('');
   const downloadRef = useRef(null);
-  let bb;
+  // let bb;
   const uploadRef = useRef(null);
   const handleExport = () => {
     downloadRef.current.click();
@@ -30,7 +30,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
     const backup = { notes, tags };
     const json = JSON.stringify(backup);
     const blob = new Blob([json], { type: 'application/json' });
-    bb = await fetch(notes[0].images[0]).then((res) => res.blob());
+    // bb = await fetch(notes[0].images[0]).then((res) => res.blob());
 
     const href = await URL.createObjectURL(blob);
     setDownloadHref(href);
