@@ -11,11 +11,13 @@ import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
 import useDetectAttachmentPaste from 'utils/useDetectAttachmentPaste';
 import { auth, storage } from 'utils/Firebase/Config/firebase';
 import { ref, uploadBytes } from 'firebase/storage';
+import Loading from 'components/Loading/Loading';
 
 export default function NewImage({ noteId, setNotesState }) {
   const { t } = useTranslation();
   const { notes, setNotes } = useContext(AppContext);
   const [dragActive, setDragActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const uploadRef = useRef(null);
 
@@ -23,8 +25,9 @@ export default function NewImage({ noteId, setNotesState }) {
     const reader = new FileReader();
 
     reader.addEventListener('load', function () {
+      setIsLoading(true);
       const blob = new Blob([this.result]);
-      const url = URL.createObjectURL(blob, { type: 'image/png' });
+      // const url = URL.createObjectURL(blob, { type: 'image/png' });
 
       const filePath = `files/${auth.currentUser.uid}/images/${uuid4()}${
         file.name
@@ -47,9 +50,9 @@ export default function NewImage({ noteId, setNotesState }) {
               return item;
             }),
           );
+          setIsLoading(false);
           setNotesState({ ['showImageModal']: false });
           setNotesState({ ['showAttachmentModal']: false });
-
           setNotesState({ ['showFullView']: true });
           setNotesState({ ['currentId']: noteId });
         })
@@ -112,22 +115,28 @@ export default function NewImage({ noteId, setNotesState }) {
         onDragOver={handleDrag}
         onDrop={handleDrop}
       >
-        <FileIcon className="newImage--dropzone--icon__file" />
-        <h2 className="newImage--dropzone--heading">
-          {t('Upload or drag and drop an image')}
-        </h2>
-        <button
-          className="newImage--dropzone--button"
-          onClick={() => uploadRef.current.click()}
-        >
-          <UploadIcon /> Upload
-        </button>
-        <input
-          type="file"
-          ref={uploadRef}
-          onChange={handleChange}
-          style={{ display: 'none' }}
-        />
+        {isLoading ? (
+          <Loading sizeStyle={{ width: '60px', height: '60px' }} />
+        ) : (
+          <>
+            <FileIcon className="newImage--dropzone--icon__file" />
+            <h2 className="newImage--dropzone--heading">
+              {t('Upload or drag and drop an image')}
+            </h2>
+            <button
+              className="newImage--dropzone--button"
+              onClick={() => uploadRef.current.click()}
+            >
+              <UploadIcon /> Upload
+            </button>
+            <input
+              type="file"
+              ref={uploadRef}
+              onChange={handleChange}
+              style={{ display: 'none' }}
+            />
+          </>
+        )}
       </div>
     </Modal>
   );

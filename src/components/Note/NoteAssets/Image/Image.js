@@ -6,6 +6,7 @@ import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import { deleteObject, getDownloadURL, ref } from 'firebase/storage';
 import { storage } from 'utils/Firebase/Config/firebase';
 import { toast } from 'react-toastify';
+import Loading from 'components/Loading/Loading';
 
 export default function Image({ noteValues, setNoteValues, src }) {
   const { t } = useTranslation();
@@ -38,26 +39,28 @@ export default function Image({ noteValues, setNoteValues, src }) {
 
   return (
     <>
-      <div className="image--box" additionalClass={'newAttachment--box'}>
-        {localURL ? (
-          <img
-            src={localURL}
-            alt={t('UserImage')}
-            onMouseDown={(e) => e.preventDefault()}
-          />
-        ) : (
-          'Loading...'
-        )}
-        <button onClick={() => setShowConfirmModal(true)}>
-          <Close />
-        </button>
-      </div>
-      {showConfirmModal && (
-        <ConfirmModal
-          setShowModal={setShowConfirmModal}
-          confirmText={t('Delete')}
-          handler={handleDelete}
-        />
+      {localURL ? (
+        <>
+          <div className="image--box" additionalClass={'newAttachment--box'}>
+            <img
+              src={localURL}
+              alt={t('UserImage')}
+              onMouseDown={(e) => e.preventDefault()}
+            />
+            <button onClick={() => setShowConfirmModal(true)}>
+              <Close />
+            </button>
+          </div>
+          {showConfirmModal && (
+            <ConfirmModal
+              setShowModal={setShowConfirmModal}
+              confirmText={t('Delete')}
+              handler={handleDelete}
+            />
+          )}
+        </>
+      ) : (
+        <Loading sizeStyle={{ width: '30px', height: '30px' }} />
       )}
     </>
   );

@@ -19,6 +19,7 @@ import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { ReactComponent as Download } from 'assets/Icons/download.svg';
 import { ReactComponent as Play } from 'assets/Icons/play-circle.svg';
 import { ReactComponent as Pause } from 'assets/Icons/pause-circle.svg';
+import Loading from 'components/Loading/Loading';
 
 export default function Record({
   src,
@@ -157,6 +158,6 @@ export default function Record({
       )}
     </>
   ) : (
-    'Loading...'
+    <Loading sizeStyle={{ width: '30px', height: '30px' }} />
   );
 }

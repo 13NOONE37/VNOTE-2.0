@@ -8,13 +8,14 @@ import { deleteObject, getDownloadURL, ref } from 'firebase/storage';
 import { storage } from 'utils/Firebase/Config/firebase';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Loading from 'components/Loading/Loading';
 
 export default function Draw({ noteValues, setNoteValues, url }) {
   const drawRef = useRef(null);
   const { t } = useTranslation();
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
+  const [showDraw, setShowDraw] = useState(false);
   const handleDelete = () => {
     const temp = noteValues.draws.filter((draw) => draw !== url);
     deleteObject(ref(storage, url))
@@ -38,6 +39,7 @@ export default function Draw({ noteValues, setNoteValues, url }) {
       axios.get(ur).then((paths) => {
         console.log(paths.data);
         drawRef.current.loadPaths(paths.data);
+        setShowDraw(true);
       });
     });
   }, []);
@@ -50,6 +52,7 @@ export default function Draw({ noteValues, setNoteValues, url }) {
             className="draw--preview"
             ref={drawRef}
             style={{
+              display: `${showDraw ? 'initial' : 'none'}`,
               // aspectRatio: '2480/3508',
               pointerEvents: 'none',
 
@@ -58,6 +61,9 @@ export default function Draw({ noteValues, setNoteValues, url }) {
               // zoom: '8%',
             }}
           />
+          {!showDraw && (
+            <Loading sizeStyle={{ width: '30px', height: '30px' }} />
+          )}
         </div>
         <button
           onClick={() => setShowConfirmModal(true)}

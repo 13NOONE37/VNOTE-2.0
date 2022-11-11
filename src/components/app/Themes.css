@@ -16,6 +16,12 @@
   --baseYellow-2: #eec06b;
   --placeholderColor: #3b3b3b;
 }
+.darkMode,
+.lightMode {
+  /* in any case of css trouble change to min-height */
+  height: 100vh;
+  background-color: var(--background-1);
+}
 .lightMode {
   --background-1: #ececec;
   --background-2: #dbdbdb;

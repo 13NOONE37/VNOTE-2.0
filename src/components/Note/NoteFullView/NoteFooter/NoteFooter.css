@@ -12,7 +12,7 @@
   transform: translateX(-50%) translateY(0);
   visibility: visible;
   opacity: 0;
-  animation: showFooter 0.3s linear forwards;
+  animation: showFooter 0.3s 0.3s linear forwards;
 
   transition: all 0.25s ease;
   display: grid;

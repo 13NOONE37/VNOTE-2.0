@@ -22,6 +22,7 @@ import { auth, storage } from 'utils/Firebase/Config/firebase';
 import { ref, uploadBytes, uploadString } from 'firebase/storage';
 import uuid4 from 'uuid4';
 import { toast } from 'react-toastify';
+import Loading from 'components/Loading/Loading';
 
 export default function NewDraw({ noteId, setNotesState }) {
   const { t } = useTranslation();
@@ -43,8 +44,10 @@ export default function NewDraw({ noteId, setNotesState }) {
     },
   );
   const [showFooter, setshowFooter] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const uploadDraw = async () => {
+    setIsLoading(true);
     await drawRef.current.exportPaths().then((data) => {
       const jsonString = JSON.stringify(data);
       const blob = new Blob([jsonString], { type: 'application/json' });
@@ -66,6 +69,7 @@ export default function NewDraw({ noteId, setNotesState }) {
               return item;
             }),
           );
+          setIsLoading(false);
           setNotesState({ ['showDrawModal']: false });
           setNotesState({ ['showAttachmentModal']: false });
 
@@ -137,9 +141,7 @@ export default function NewDraw({ noteId, setNotesState }) {
   return (
     <Modal
       additionalClass={'newDraw--box '}
-      setShowModal={(value) =>
-        value === false && setNotesState({ ['showDrawModal']: false })
-      }
+      setShowModal={uploadDraw}
       modalHeadContent={
         <div style={{ display: 'flex' }}>
           <TopActionButton
@@ -166,25 +168,30 @@ export default function NewDraw({ noteId, setNotesState }) {
       {/* 
       npm uninstall react-indiana-drag-scroll
       replace both scroll on scroll and right mouse button. draw on canvas instead of svg(more efficient) */}
-
-      <ScrollContainer
-        className="newDraw--box--container"
-        buttons={[1]}
-        nativeMobileScroll={!drawState.disabled}
-      >
-        <ReactSketchCanvas
-          ref={drawRef}
-          style={styles}
-          width="2480"
-          height="3508"
-          preserveBackgroundImageAspectRatio="true"
-          className="newDraw--box--canvas"
-          strokeColor={drawState.strokeColor}
-          strokeWidth={drawState.strokeWidth}
-          eraserWidth={drawState.strokeWidth}
-          allowOnlyPointerType={drawState.disabled ? 'mouse' : 'all'}
-        />
-      </ScrollContainer>
+      {isLoading ? (
+        <Loading sizeStyle={{ width: '60px', height: '60px' }} />
+      ) : (
+        <>
+          <ScrollContainer
+            className="newDraw--box--container"
+            buttons={[1]}
+            nativeMobileScroll={!drawState.disabled}
+          >
+            <ReactSketchCanvas
+              ref={drawRef}
+              style={styles}
+              width="2480"
+              height="3508"
+              preserveBackgroundImageAspectRatio="true"
+              className="newDraw--box--canvas"
+              strokeColor={drawState.strokeColor}
+              strokeWidth={drawState.strokeWidth}
+              eraserWidth={drawState.strokeWidth}
+              allowOnlyPointerType={drawState.disabled ? 'mouse' : 'all'}
+            />
+          </ScrollContainer>
+        </>
+      )}
 
       <DrawFooter
         drawRef={drawRef}

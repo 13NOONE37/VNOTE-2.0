@@ -1,34 +1,26 @@
 import Modal from 'components/Modal/Modal';
-import React, {
-  startTransition,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import './NewRecord.css';
 import { ReactComponent as PlayIcon } from 'assets/Icons/play.svg';
 import { ReactComponent as PauseIcon } from 'assets/Icons/pause.svg';
 import { ReactComponent as PlusIcon } from 'assets/Icons/plus.svg';
 import AppContext from 'store/AppContext';
-import Record from '../Record';
 import { auth, storage } from 'utils/Firebase/Config/firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import uuid4 from 'uuid4';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import getBlobDuration from 'get-blob-duration';
+import Loading from 'components/Loading/Loading';
 
 export default function NewRecord({ noteId, setNotesState }) {
   const { notes, setNotes } = useContext(AppContext);
   const { t } = useTranslation();
-
-  const [testAudio, settestAudio] = useState({ date: new Date(), data: [] });
   const [currentTime, setCurrentTime] = useState(0);
-  const audioRef = useRef(null);
   const startRef = useRef(null);
   const pauseRef = useRef(null);
   const stopRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const constraints = { audio: true };
   let chunks = [];
@@ -60,6 +52,7 @@ export default function NewRecord({ noteId, setNotesState }) {
     };
 
     mediaRecorder.onstop = (e) => {
+      setIsLoading(true);
       const blob = new Blob(chunks, {
         type: 'audio/ogg; codecs=opus',
       });
@@ -88,6 +81,7 @@ export default function NewRecord({ noteId, setNotesState }) {
                   return item;
                 }),
               );
+              setIsLoading(false);
               setNotesState({ ['showRecordModal']: false });
               setNotesState({ ['showAttachmentModal']: false });
 
@@ -157,25 +151,33 @@ export default function NewRecord({ noteId, setNotesState }) {
         value === false && setNotesState({ ['showRecordModal']: false })
       }
     >
-      <button
-        className={`mic--button ${!isRunning && 'mic--button__disabled'}`}
-        ref={pauseRef}
-      >
-        <PauseIcon />
-      </button>
-      <button
-        className={`mic--button ${isRunning && 'mic--button__disabled'}`}
-        ref={startRef}
-      >
-        <PlayIcon className="mic--button--icon__play" />
-      </button>
-      <time className="newRecord--box--length">
-        {new Date(currentTime * 10).toISOString().slice(14, 22)}
-      </time>
-      {/* <audio ref={audioRef} controls ></audio> */}
-      <button ref={stopRef} className={`mic--button `}>
-        <PlusIcon />
-      </button>
+      {isLoading ? (
+        <div style={{ gridArea: '1/1/1/4' }}>
+          <Loading sizeStyle={{ width: '60px', height: '60px' }} />
+        </div>
+      ) : (
+        <>
+          <button
+            className={`mic--button ${!isRunning && 'mic--button__disabled'}`}
+            ref={pauseRef}
+          >
+            <PauseIcon />
+          </button>
+          <button
+            className={`mic--button ${isRunning && 'mic--button__disabled'}`}
+            ref={startRef}
+          >
+            <PlayIcon className="mic--button--icon__play" />
+          </button>
+          <time className="newRecord--box--length">
+            {new Date(currentTime * 10).toISOString().slice(14, 22)}
+          </time>
+          {/* <audio ref={audioRef} controls ></audio> */}
+          <button ref={stopRef} className={`mic--button `}>
+            <PlusIcon />
+          </button>
+        </>
+      )}
     </Modal>
   );
 }
