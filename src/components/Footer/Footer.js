@@ -10,7 +10,8 @@ import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
 import handleOpenFullView from 'utils/handleOpenFullView';
 import { useParams } from 'react-router-dom';
-import getUniqId from 'utils/getUniqId';
+
+import uuid4 from 'uuid4';
 
 export default function Footer({ setNotesState }) {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function Footer({ setNotesState }) {
   const [isPending, startTransition] = useTransition();
 
   const noteTemplate = {
-    id: getUniqId(notes),
+    id: uuid4(),
     title: '',
     content: '',
     date: new Date(),
@@ -37,30 +38,6 @@ export default function Footer({ setNotesState }) {
 
   const showFullView = (id) => {
     handleOpenFullView(setNotesState, id);
-  };
-  const showDrawModal = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('Draw view exec');
-        resolve();
-      }, 600);
-    });
-  };
-  const showAudioModal = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('Audio view exec');
-        resolve();
-      }, 600);
-    });
-  };
-  const showImageModal = () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('Image view exec');
-        resolve();
-      }, 600);
-    });
   };
 
   const handleNewNote = async (note, showOptionalModal) => {

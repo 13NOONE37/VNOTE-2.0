@@ -15,6 +15,7 @@ import useFetchData from 'utils/Firebase/Actions/fetch_user_data';
 import useAuthStateChanged from 'utils/Firebase/Actions/auth_state_change';
 import updateUserData from 'utils/Firebase/Actions/update_user_data';
 import { auth } from 'utils/Firebase/Config/firebase';
+import { changeLanguage } from 'i18next';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
@@ -35,7 +36,14 @@ export default function App() {
   };
   const [isLogged, setIsLogged] = useState(null);
   const [theme, setTheme] = useState(null);
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
   const [language, setLanguage] = useState(null);
+  const toggleLanguage = (lng) => {
+    changeLanguage(lng);
+    setLanguage(lng);
+  };
   const [notes, setNotes] = useState([
     // {
     //   id: 1,
@@ -54,7 +62,7 @@ export default function App() {
     //   records: [],
     // },
   ]);
-  const [tags, setTags] = useState(['Books', 'JS Tips', 'TODO']);
+  const [tags, setTags] = useState([]);
   const [canBeSaved, setCanBeSaved] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
 
@@ -62,7 +70,7 @@ export default function App() {
     setIsLogged,
     setUserInfo,
     setTheme,
-    setLanguage,
+    toggleLanguage,
     setNotes,
     setTags,
   );
@@ -82,14 +90,9 @@ export default function App() {
           isLogged,
           setIsLogged,
           theme,
-          toggleTheme: () => {
-            setTheme(theme === 'dark' ? 'light' : 'dark');
-          },
+          toggleTheme,
           language,
-          setLanguage: (value) => {
-            i18n.changeLanguage(value);
-            setLanguage(value);
-          },
+          toggleLanguage,
           filterPhrase,
           setFilterPhrase,
           notes,

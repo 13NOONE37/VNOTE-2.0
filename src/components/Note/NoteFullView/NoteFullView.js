@@ -1,7 +1,6 @@
 import React, {
   useContext,
   useEffect,
-  useLayoutEffect,
   useReducer,
   useRef,
   useState,
@@ -26,7 +25,6 @@ import './NoteFullView.css';
 import AttachmentModal from '../NoteAssets/AttachmentModal/AttachmentModal';
 import Image from '../NoteAssets/Image/Image';
 import Draw from '../NoteAssets/Draw/Draw';
-import ListContentEditable from './ListContentEditable';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -149,15 +147,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
   const showAttachmentModal = () => {
     setNotesState({ ['showAttachmentModal']: true });
   };
-  // useEffect(() => {
-  //   const updateInterval = setInterval(
-  //     () => updateButtonRef.current.click(),
-  //     3000,
-  //   );
-  //   return () => {
-  //     clearInterval(updateInterval);
-  //   };
-  // }, []);
+
   useEffect(() => {
     const updateTimeout = setTimeout(
       () => updateButtonRef.current.click(),
@@ -168,19 +158,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
     };
   }, [noteValues]);
 
-  //!!!xss dangerous we have to take care about that
-  /*
-  todo po każdym przejściu do nowej lini jest to zapisywane do nowego elementu tablicy
-  todo informacje o zaznaczeniu moglibśmy przechowywać np. poprzez napis #checked na początku lini byłby on wymazywany przed pokazaniem
-  ? zaoszczędzi to wiele błędów i zmniejszy skomplikowanie kodu
-  */
-  //! content editable może akceptować tylko style b, i, oraz rozpoznować linki u a nie przykładowo zdjęcia należy użyć jakiegoś z neta albo napisać własny
   return (
     <Modal
       additionalClass="hideHeader fullViewModal"
-      // optionalColor={
-      //   theme === 'light' && `var(--noteColor-${noteValues.color})`
-      // }
       modalHeadContent={
         <TopActionButton
           classes="fixedActionButton"
@@ -269,7 +249,6 @@ export default function NoteFullView({ notesState, setNotesState }) {
           onPaste={preventStyledPaste}
           onFocus={handleFocus}
         />
-        // <ListContentEditable />
       )}
       <div
         className="noteAttachments"
@@ -284,8 +263,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
         }}
       >
         <div className="noteAttachments--records">
-          {noteValues.records.map((record) => (
+          {noteValues.records.map((record, recordIndex) => (
             <Record
+              key={recordIndex}
               src={record}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
@@ -296,8 +276,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
           className="noteAttachments--images"
           columnClassName="noteAttachments--images--column"
         >
-          {noteValues.images.map((image) => (
+          {noteValues.images.map((image, imageIndex) => (
             <Image
+              key={imageIndex}
               src={image}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
@@ -305,12 +286,14 @@ export default function NoteFullView({ notesState, setNotesState }) {
           ))}
         </Masonry>
         <Masonry
-          className="noteAttachments--images noteAttachments--draws"
+          className="noteAttachments--images "
           columnClassName="noteAttachments--images--column"
         >
-          {noteValues.draws.map((draw) => (
+          {noteValues.draws.map((draw, drawIndex) => (
             <Draw
+              key={drawIndex}
               url={draw}
+              setNotesState={setNotesState}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
             />

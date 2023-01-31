@@ -89,10 +89,11 @@ export default function Login() {
                 ),
             )}
             <div className="monitor--nav">
-              {[1, 2, 3, 4].map((item) => (
+              {[1, 2, 3, 4].map((item, index) => (
                 <button
                   className="monitor--nav--dot"
                   onClick={() => setCurrentPage(item)}
+                  key={index}
                 >
                   <Dot
                     className={`monitor--nav--dot--icon ${

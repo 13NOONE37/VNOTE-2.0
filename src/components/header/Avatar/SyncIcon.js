@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { ReactComponent as Update } from 'assets/Icons/refresh-cw.svg';
+import LeavePrevent from './LeavePrevent';
 
 export default function SyncIcon({ canBeSaved }) {
   const spinIcon = useRef(null);
@@ -22,10 +23,13 @@ export default function SyncIcon({ canBeSaved }) {
     }
   };
   return (
-    <Update
-      className="saveIcon"
-      ref={spinIcon}
-      onAnimationEnd={() => handleAnimationEnd(canBeSaved)}
-    />
+    <>
+      <Update
+        className="saveIcon"
+        ref={spinIcon}
+        onAnimationEnd={() => handleAnimationEnd(canBeSaved)}
+      />
+      {canBeSaved && <LeavePrevent />}
+    </>
   );
 }

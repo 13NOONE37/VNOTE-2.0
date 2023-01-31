@@ -27,7 +27,6 @@
   box-shadow: 0 0 0 3px var(--background-1);
   border-radius: 50%;
   overflow: hidden;
-  cursor: pointer;
   box-sizing: content-box;
 }
 .avatar .picture img {
@@ -45,12 +44,16 @@
   height: 120px;
   box-shadow: inset 0 0 0 150px black;
 }
+
 .nicknameModal {
   font-size: 24px;
   font-weight: 500;
   transform: translateY(-15px);
   color: var(--mainIcon);
   letter-spacing: 0.6px;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .profileModal .modal-main {
   height: fit-content;

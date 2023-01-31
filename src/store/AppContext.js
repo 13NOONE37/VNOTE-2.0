@@ -7,7 +7,7 @@ const AppContext = createContext({
   isLogged: null,
   setIsLogged: () => {},
   language: 'en',
-  setLanguage: () => {},
+  toggleLanguage: () => {},
   theme: 'dark',
   toggleTheme: () => {},
   filterPhrase: '',

@@ -116,13 +116,11 @@ export default function NewImage({ noteId, setNotesState }) {
         onDrop={handleDrop}
       >
         {isLoading ? (
-          <Loading sizeStyle={{ width: '60px', height: '60px' }} />
+          <Loading styles={{ width: '60px', height: '60px' }} />
         ) : (
           <>
             <FileIcon className="newImage--dropzone--icon__file" />
-            <h2 className="newImage--dropzone--heading">
-              {t('Upload or drag and drop an image')}
-            </h2>
+            <h2 className="newImage--dropzone--heading">{t('DragAndDrop')}</h2>
             <button
               className="newImage--dropzone--button"
               onClick={() => uploadRef.current.click()}

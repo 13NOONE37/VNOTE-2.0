@@ -5,15 +5,14 @@ import { t } from 'i18next';
 // //todo offline data
 // //todo https://firebase.google.com/docs/firestore/manage-data/enable-offline?hl=en&authuser=0
 
-const fetchUserData = async (setTheme, setLanguage, setNotes, setTags) => {
+const fetchUserData = async (setTheme, toggleLanguage, setNotes, setTags) => {
   const docRef = doc(db, 'users', auth.currentUser.uid);
   const docSnap = await getDoc(docRef);
-  console.log(docSnap.exists(), ' : existing');
+
   if (docSnap.exists()) {
     console.log('Success ', docSnap.data());
 
     const { theme, language, notes, tags } = docSnap.data();
-
     setTheme(
       !theme
         ? window.matchMedia &&
@@ -22,8 +21,8 @@ const fetchUserData = async (setTheme, setLanguage, setNotes, setTags) => {
           : 'light'
         : theme,
     );
-
-    setLanguage(language || 'en');
+    const webLanguage = navigator.language.includes('pl') ? 'pl' : 'en';
+    toggleLanguage(!language ? webLanguage : language);
     setNotes(
       notes?.map((n) => {
         n.lastEditDate = n.lastEditDate.toDate();
@@ -43,7 +42,7 @@ const fetchUserData = async (setTheme, setLanguage, setNotes, setTags) => {
         ? 'dark'
         : 'light',
     );
-    setLanguage('en');
+    toggleLanguage('en');
     setNotes([]);
     setTags([]);
   } else {

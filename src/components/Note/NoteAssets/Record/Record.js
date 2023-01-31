@@ -158,6 +158,6 @@ export default function Record({
       )}
     </>
   ) : (
-    <Loading sizeStyle={{ width: '30px', height: '30px' }} />
+    <Loading styles={{ width: '30px', height: '30px' }} />
   );
 }

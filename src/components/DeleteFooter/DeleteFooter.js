@@ -13,9 +13,7 @@ export default function DeleteFooter() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const deleteAll = () => {
     const deleteFromStorage = (url) => {
-      deleteObject(ref(storage, url)).then(() => {
-        console.log('deleted');
-      });
+      deleteObject(ref(storage, url));
     };
     const temp = notes.filter((note) => {
       if (note.isDeleted) {

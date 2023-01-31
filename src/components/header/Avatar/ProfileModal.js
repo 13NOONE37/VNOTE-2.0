@@ -1,61 +1,134 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { t } from 'i18next';
 import Modal, { ActionButton, ModalButton } from 'components/Modal/Modal';
 import AppContext from 'store/AppContext';
 
 import { ReactComponent as LanguageIcon } from 'assets/Icons/globe.svg';
 import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
-import { ReactComponent as DownloadIcon } from 'assets/Icons/download.svg';
 import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
 import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
 import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
+
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import { signOut } from 'firebase/auth';
-import { auth } from 'utils/Firebase/Config/firebase';
+import { auth, storage } from 'utils/Firebase/Config/firebase';
+import handlePasswordReset from 'utils/Firebase/Actions/auth_send_password_reset';
+import { toast } from 'react-toastify';
+import ExportButton from 'utils/ExportButton';
+import uuid4 from 'uuid4';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export default function ProfileModal({ showModal, setShowModal }) {
-  const { setIsLogged, notes, setNotes, tags, setTags, userInfo, setLanguage } =
-    useContext(AppContext);
+  const {
+    setIsLogged,
+    notes,
+    setNotes,
+    tags,
+    setTags,
+    userInfo,
+    toggleLanguage,
+  } = useContext(AppContext);
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
-  const [downloadHref, setDownloadHref] = useState('');
-  const downloadRef = useRef(null);
-  // let bb;
   const uploadRef = useRef(null);
-  const handleExport = () => {
-    downloadRef.current.click();
-  };
-  const handlePrepeareExport = async () => {
-    const backup = { notes, tags };
-    const json = JSON.stringify(backup);
-    const blob = new Blob([json], { type: 'application/json' });
-    // bb = await fetch(notes[0].images[0]).then((res) => res.blob());
 
-    const href = await URL.createObjectURL(blob);
-    setDownloadHref(href);
-  };
+  const handleImportBackup = () => {};
+
   const handleImport = (e) => {
     const file = e.target.files[0];
 
     if (file) {
       const reader = new FileReader();
 
-      reader.addEventListener('load', function () {
+      reader.addEventListener('load', () => {
         if (window.confirm('Are you sure? It will overide all your data?')) {
-          const myObj = JSON.parse(this.result);
+          const myObj = JSON.parse(reader.result);
 
-          //todo if some notes includes error we should give
-          //todo message and spread with others only correct ones
-
-          // setShowConfirmModal(myObj);
-          const notes = myObj.notes.map((note) => {
+          //set Notes
+          const totalNotes = [
+            ...myObj.notes.map((note) => {
+              note.id = undefined;
+              note.date = new Date(note.date);
+              note.lastEditDate = new Date(note.lastEditDate);
+              return note;
+            }),
+            ...notes.map((note) => {
+              note.id = undefined;
+              return note;
+            }),
+          ];
+          let uniqueNotes = [
+            ...new Set(totalNotes.map((note) => JSON.stringify(note))),
+          ].map((json) => JSON.parse(json));
+          uniqueNotes = uniqueNotes.map((note) => {
+            note.id = uuid4();
             note.date = new Date(note.date);
             note.lastEditDate = new Date(note.lastEditDate);
             return note;
           });
-          setNotes(notes);
-          setTags(myObj.tags);
+          //Filter for error
+          uniqueNotes = uniqueNotes.filter((note) => {
+            const hasValidTitle = typeof note.title === 'string';
+            const hasValidContent = typeof note.content === 'string';
+            const hasValidColor = typeof note.color === 'number';
+            const hasValidDate = note.date instanceof Date;
+            const hasValidLastEditDate = note.lastEditDate instanceof Date;
+            const hasValidDeletedFlag = typeof note.isDeleted === 'boolean';
+            const hasValidListedFlag = typeof note.isListed === 'boolean';
+            const hasValidCheckList = Array.isArray(note.checkList);
+            const hasValidImages = Array.isArray(note.images);
+            const hasValidDraws = Array.isArray(note.draws);
+            const hasValidTags = typeof note.tags === 'object';
+
+            return (
+              hasValidTitle &&
+              hasValidContent &&
+              hasValidColor &&
+              hasValidDate &&
+              hasValidLastEditDate &&
+              hasValidDeletedFlag &&
+              hasValidListedFlag &&
+              hasValidCheckList &&
+              hasValidImages &&
+              hasValidDraws &&
+              hasValidTags
+            );
+          });
+          setNotes(uniqueNotes);
+
+          //Upload files which not exist to storage
+          for (const { url, file } of myObj.files) {
+            getDownloadURL(ref(storage, url)).catch((error) => {
+              const fileType = url.split('.')[1];
+              const filePath = url;
+              const filesRef = ref(storage, filePath);
+
+              fetch(file)
+                .then((res) => res.blob())
+                .then((res) => {
+                  uploadBytes(filesRef, res, {
+                    contentType: fileType,
+                  }).catch(() => {
+                    toast.error(t('ErrorUpload'), {
+                      position: 'bottom-right',
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: false,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  });
+                });
+            });
+          }
+          //Set tags
+          setTags(
+            [...[myObj.tags], ...tags].filter(
+              (tag, index) => myObj.tags.indexOf(tag) === index,
+            ),
+          );
+          setShowModal(false);
         }
       });
       reader.readAsText(file);
@@ -66,36 +139,33 @@ export default function ProfileModal({ showModal, setShowModal }) {
     signOut(auth);
   };
 
-  useEffect(() => {
-    handlePrepeareExport();
-  }, [showModal]);
-
   return (
     showModal && (
       <>
         <Modal setShowModal={setShowModal} additionalClass="profileModal">
-          <div className=" pictureModal ">
+          <div className="pictureModal">
             <img
               src={
                 userInfo?.photoURL ||
                 `https://avatars.dicebear.com/api/bottts/${
-                  userInfo?.nickname || 'Nickname'
+                  userInfo?.displayName || 'Nickname'
                 }${userInfo.metadata.createdAt}.svg`
               }
               alt="Avatar"
             />
           </div>
           <span className="nicknameModal">
-            {userInfo?.nickname || 'Nickname'}
+            {userInfo.email || userInfo.displayName}
           </span>
+
           <ModalButton
             isCollapse
             collapseContent={
               <>
-                <ActionButton title={'PL'} action={() => setLanguage('pl')}>
+                <ActionButton title={'PL'} action={() => toggleLanguage('pl')}>
                   <LanguageIcon />
                 </ActionButton>
-                <ActionButton title={'EN'} action={() => setLanguage('en')}>
+                <ActionButton title={'EN'} action={() => toggleLanguage('en')}>
                   <LanguageIcon />
                 </ActionButton>
               </>
@@ -108,16 +178,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
             isCollapse
             collapseContent={
               <>
-                <ActionButton title={t('Export')} action={handleExport}>
-                  <DownloadIcon />
-                  <a
-                    download="BackupVNOTE.json"
-                    href={downloadHref}
-                    ref={downloadRef}
-                    style={{ display: 'none' }}
-                    aria-hidden
-                  ></a>
-                </ActionButton>
+                <ExportButton />
                 <ActionButton
                   title={t('Import')}
                   action={() => uploadRef.current.click()}
@@ -136,10 +197,41 @@ export default function ProfileModal({ showModal, setShowModal }) {
             <FileIcon />
             {t('ImportExport')}
           </ModalButton>
-          <ModalButton>
-            <LockIcon />
-            {t('ResetPassword')}
-          </ModalButton>
+
+          {userInfo.email && (
+            <ModalButton
+              action={() =>
+                handlePasswordReset(
+                  userInfo.email,
+                  (message) => {
+                    toast.error(message, {
+                      position: 'bottom-right',
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  },
+                  (message) => {
+                    toast.info(message, {
+                      position: 'bottom-right',
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                  },
+                )
+              }
+            >
+              <LockIcon />
+              {t('ResetPassword')}
+            </ModalButton>
+          )}
 
           <ModalButton action={handleLogout}>
             <LogoutIcon />
@@ -150,17 +242,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
           <ConfirmModal
             setShowModal={setShowConfirmModal}
             confirmText={t('Import')}
-            handler={() => {
-              // console.log(showConfirmModal);
-              // const notes = showConfirmModal.notes.map((note) => {
-              //   note.date = new Date(note.date);
-              //   note.lastEditDate = new Date(note.lastEditDate);
-              //   return note;
-              // });
-              // setNotes(notes);
-              // setTags(showConfirmModal.tags);
-              // setShowConfirmModal(false);
-            }}
+            handler={handleImportBackup}
           />
         )}
       </>

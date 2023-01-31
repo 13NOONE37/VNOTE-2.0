@@ -153,7 +153,7 @@ export default function NewRecord({ noteId, setNotesState }) {
     >
       {isLoading ? (
         <div style={{ gridArea: '1/1/1/4' }}>
-          <Loading sizeStyle={{ width: '60px', height: '60px' }} />
+          <Loading styles={{ width: '60px', height: '60px' }} />
         </div>
       ) : (
         <>

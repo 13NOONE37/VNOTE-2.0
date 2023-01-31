@@ -1,5 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext, useState } from 'react';
 import AppContext from 'store/AppContext';
 import { LongPressDetectEvents, useLongPress } from 'use-long-press';
 import handleOpenFullView from 'utils/handleOpenFullView';
@@ -15,8 +14,6 @@ export default function NotePreview({
   ...props
 }) {
   const { ua, language } = useContext(AppContext);
-
-  const [enabled, setEnabled] = useState(true);
 
   const selectNote = (n) => {
     const temp = notesState.selectedNotes;
@@ -36,6 +33,7 @@ export default function NotePreview({
     }
   };
 
+  const [enabled, setEnabled] = useState(true);
   const bind = useLongPress(enabled ? callback : null, {
     onStart: () => console.log('Press started'),
     onFinish: () => console.log('Long press finished'),

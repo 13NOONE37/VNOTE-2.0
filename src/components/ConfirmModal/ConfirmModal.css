@@ -31,3 +31,8 @@
     width: unset;
   }
 }
+@media (max-height: 750px) {
+  .confirmModal .modal-main {
+    height: unset;
+  }
+}

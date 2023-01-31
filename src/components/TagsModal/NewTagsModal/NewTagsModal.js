@@ -56,6 +56,8 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
       tagName.trim().length > 0 &&
       !tags.find((tag) => tag === tagName) &&
       !new RegExp(/^trash$/i).test(tagName) &&
+      !new RegExp(/^wszystkie$/i).test(tagName) &&
+      !new RegExp(/^kosz$/i).test(tagName) &&
       !new RegExp(/^all$/i).test(tagName)
     ) {
       setTags([...tags, tagName]);

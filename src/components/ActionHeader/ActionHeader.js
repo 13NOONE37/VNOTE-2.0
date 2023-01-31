@@ -12,7 +12,6 @@ export default function ActionHeader({ notesState, setNotesState }) {
       <ArrowBack
         className="editHeader--icon"
         onClick={() => {
-          console.log(notesState.selectedNotes);
           setNotesState({ ['selectedNotes']: {} });
         }}
       />

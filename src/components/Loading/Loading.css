@@ -3,6 +3,7 @@
   height: 100%;
   display: grid;
   place-items: center;
+  margin: 10px 0;
 }
 .loader {
   position: relative;
@@ -35,10 +36,13 @@
   width: calc(var(--width) / 10);
   height: calc(var(--height) / 10);
   border-radius: 50%;
-  background: var(--primary-2);
   transform: scale(0);
+  background: var(--primary-2);
   animation: animateRotate 1s linear infinite;
   animation-delay: calc(0.05s * var(--i));
+}
+.loader.alternative span::before {
+  background: var(--background-1);
 }
 @keyframes animateRotate {
   0% {

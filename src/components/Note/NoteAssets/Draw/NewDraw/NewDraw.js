@@ -19,12 +19,12 @@ import AppContext from 'store/AppContext';
 import DrawFooter from '../DrawFooter/DrawFooter';
 import useShortcuts from 'utils/useShortcuts';
 import { auth, storage } from 'utils/Firebase/Config/firebase';
-import { ref, uploadBytes, uploadString } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
 import uuid4 from 'uuid4';
 import { toast } from 'react-toastify';
 import Loading from 'components/Loading/Loading';
 
-export default function NewDraw({ noteId, setNotesState }) {
+export default function NewDraw({ noteId, setNotesState, paths }) {
   const { t } = useTranslation();
   const { ua, notes, setNotes } = useContext(AppContext);
 
@@ -48,7 +48,7 @@ export default function NewDraw({ noteId, setNotesState }) {
 
   const uploadDraw = async () => {
     setIsLoading(true);
-    await drawRef.current.exportPaths().then((data) => {
+    drawRef.current.exportPaths().then((data) => {
       const jsonString = JSON.stringify(data);
       const blob = new Blob([jsonString], { type: 'application/json' });
       const filePath = `files/${auth.currentUser.uid}/draws/${uuid4()}.json`;
@@ -60,7 +60,6 @@ export default function NewDraw({ noteId, setNotesState }) {
             notes.map((item) => {
               if (item.id === noteId) {
                 let temp = item;
-                // temp.draws.push(data);
                 temp.draws.push(filePath);
                 temp.lastEditDate = new Date();
 
@@ -69,6 +68,7 @@ export default function NewDraw({ noteId, setNotesState }) {
               return item;
             }),
           );
+
           setIsLoading(false);
           setNotesState({ ['showDrawModal']: false });
           setNotesState({ ['showAttachmentModal']: false });
@@ -86,11 +86,15 @@ export default function NewDraw({ noteId, setNotesState }) {
             draggable: true,
             progress: undefined,
           });
+          setIsLoading(false);
+          setNotesState({ ['showDrawModal']: false });
+          setNotesState({ ['showAttachmentModal']: false });
         });
     });
   };
 
   useLayoutEffect(() => {
+    paths && drawRef.current.loadPaths(paths);
     return () => {
       drawRef.current && uploadDraw();
     };
@@ -153,7 +157,7 @@ export default function NewDraw({ noteId, setNotesState }) {
             }}
           >
             <MoveIcon
-              className={drawState.disabled && 'fixedActionButton__active'}
+              className={drawState.disabled ? 'fixedActionButton__active' : ''}
             />
           </TopActionButton>
           <TopActionButton
@@ -165,11 +169,8 @@ export default function NewDraw({ noteId, setNotesState }) {
         </div>
       }
     >
-      {/* 
-      npm uninstall react-indiana-drag-scroll
-      replace both scroll on scroll and right mouse button. draw on canvas instead of svg(more efficient) */}
       {isLoading ? (
-        <Loading sizeStyle={{ width: '60px', height: '60px' }} />
+        <Loading styles={{ width: '60px', height: '60px' }} />
       ) : (
         <>
           <ScrollContainer
