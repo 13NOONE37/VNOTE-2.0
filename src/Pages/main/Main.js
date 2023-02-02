@@ -15,6 +15,7 @@ import MultiActionFooter from 'components/MultiActionFooter/MultiActionFooter';
 import NewRecord from 'components/Note/NoteAssets/Record/NewRecord/NewRecord';
 import NewImage from 'components/Note/NoteAssets/Image/NewImage/NewImage';
 import NewDraw from 'components/Note/NoteAssets/Draw/NewDraw/NewDraw';
+import FullViewImage from 'components/Note/NoteAssets/Image/FullViewImage/FullViewImage';
 
 export default function Main() {
   const { category } = useParams();
@@ -34,6 +35,7 @@ export default function Main() {
 
       showRecordModal: false,
       showImageModal: false,
+      showFullViewImage: false,
       showDrawModal: false,
       showAttachmentModal: false,
     },

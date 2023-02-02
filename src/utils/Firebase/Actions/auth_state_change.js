@@ -13,7 +13,6 @@ const useAuthStateChanged = (
   setTags,
 ) => {
   const listener = (currentUser) => {
-    console.log(currentUser);
     if (currentUser?.email != null && currentUser?.emailVerified === false) {
       sendEmailVerification(currentUser);
     }

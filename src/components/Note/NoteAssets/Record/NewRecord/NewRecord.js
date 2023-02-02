@@ -117,16 +117,14 @@ export default function NewRecord({ noteId, setNotesState }) {
     };
   };
   const onError = (err) => {
-    console.log('getUserMedia is not supported: ' + err);
+    alert('Recording is not supported in your browser' + err);
   };
 
   useEffect(() => {
-    console.log('recorder rerender');
     if (navigator.mediaDevices.getUserMedia) {
-      console.log('getUserMedia supported');
       navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
     } else {
-      console.log('getUserMedia not supported on your browser!');
+      alert('Recording is not supported in your browser');
     }
   }, []);
 

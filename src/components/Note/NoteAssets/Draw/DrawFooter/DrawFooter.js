@@ -1,10 +1,17 @@
-import React, { useState, useTransition } from 'react';
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useTransition,
+} from 'react';
 import './DrawFooter.css';
 import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
 import { ReactComponent as Eraser } from 'assets/Icons/eraser.svg';
 import { ReactComponent as Clear } from 'assets/Icons/clear.svg';
 import { ReactComponent as ArrowLeft } from 'assets/Icons/corner-down-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/Icons/corner-down-right.svg';
+import { ReactComponent as Download } from 'assets/Icons/download.svg';
 import { useTranslation } from 'react-i18next';
 
 export default function DrawFooter({

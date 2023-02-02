@@ -16,12 +16,12 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 enableIndexedDbPersistence(db).catch((err) => {
-  if (err.code == 'failed-precondition') {
+  if (err.code === 'failed-precondition') {
     // Multiple tabs open, persistence can only be enabled
     // in one tab at a a time.
     // ...
     console.error('multi tabs open');
-  } else if (err.code == 'unimplemented') {
+  } else if (err.code === 'unimplemented') {
     console.error('browser does not support all of the features');
 
     // The current browser does not support all of the

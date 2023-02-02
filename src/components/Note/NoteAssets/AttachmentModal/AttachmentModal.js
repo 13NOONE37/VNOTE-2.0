@@ -1,5 +1,5 @@
 import Modal, { TopActionButton } from 'components/Modal/Modal';
-import React from 'react';
+import React, { useContext } from 'react';
 import './AttachmentModal.css';
 
 import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
@@ -9,9 +9,11 @@ import NewImage from '../Image/NewImage/NewImage';
 import NewRecord from '../Record/NewRecord/NewRecord';
 import NewDraw from '../Draw/NewDraw/NewDraw';
 import { useTranslation } from 'react-i18next';
+import AppContext from 'store/AppContext';
 
 export default function AttachmentModal({ notesState, setNotesState }) {
   const { t } = useTranslation();
+  const { notes } = useContext(AppContext);
   return (
     <Modal
       additionalClass={'newAttachment--box'}
@@ -21,7 +23,14 @@ export default function AttachmentModal({ notesState, setNotesState }) {
     >
       <TopActionButton
         action={() => {
-          setNotesState({ ['showDrawModal']: notesState.currentId });
+          setNotesState({
+            ['showDrawModal']: {
+              id: notesState.currentId,
+              drawNumber:
+                notes.find((note) => note.id == notesState.currentId).draws
+                  .length - 1,
+            },
+          });
         }}
         title={t('AddDraw')}
       >

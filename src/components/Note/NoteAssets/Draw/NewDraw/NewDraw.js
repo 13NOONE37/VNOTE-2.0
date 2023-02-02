@@ -1,5 +1,5 @@
 import Modal, { TopActionButton } from 'components/Modal/Modal';
-import React, {
+import {
   useContext,
   useLayoutEffect,
   useReducer,
@@ -24,7 +24,10 @@ import uuid4 from 'uuid4';
 import { toast } from 'react-toastify';
 import Loading from 'components/Loading/Loading';
 
-export default function NewDraw({ noteId, setNotesState, paths }) {
+export default function NewDraw({
+  noteId: { id, drawNumber, drawPaths },
+  setNotesState,
+}) {
   const { t } = useTranslation();
   const { ua, notes, setNotes } = useContext(AppContext);
 
@@ -58,9 +61,9 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
         .then((snapshot) => {
           setNotes(
             notes.map((item) => {
-              if (item.id === noteId) {
+              if (item.id === id) {
                 let temp = item;
-                temp.draws.push(filePath);
+                temp.draws[Math.max(drawNumber, 0)] = filePath;
                 temp.lastEditDate = new Date();
 
                 return temp;
@@ -74,7 +77,7 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
           setNotesState({ ['showAttachmentModal']: false });
 
           setNotesState({ ['showFullView']: true });
-          setNotesState({ ['currentId']: noteId });
+          setNotesState({ ['currentId']: id });
         })
         .catch((error) => {
           toast.error(t('ErrorUpload'), {
@@ -94,14 +97,11 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
   };
 
   useLayoutEffect(() => {
-    paths && drawRef.current.loadPaths(paths);
+    drawPaths && drawRef.current.loadPaths(drawPaths);
     return () => {
       drawRef.current && uploadDraw();
     };
   }, []);
-  // useEffect(() => {
-  //   console.log('change');
-  // }, [drawState.strokeWidth]);
 
   useShortcuts([
     {
@@ -109,7 +109,6 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
       ctrl: true,
       handler: () => {
         drawRef.current.undo();
-        console.log('undo');
       },
     },
     {
@@ -118,7 +117,6 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
       shift: true,
       handler: () => {
         drawRef.current.redo();
-        console.log('redo');
       },
     },
     {
@@ -127,8 +125,6 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
       handler: () => {
         drawRef.current.eraseMode(true);
         setDrawState({ ['currentAction']: 'Eraser' });
-
-        console.log('eraser');
       },
     },
     {
@@ -137,8 +133,6 @@ export default function NewDraw({ noteId, setNotesState, paths }) {
       handler: () => {
         drawRef.current.eraseMode(false);
         setDrawState({ ['currentAction']: 'Pen' });
-
-        console.log('pen');
       },
     },
   ]);

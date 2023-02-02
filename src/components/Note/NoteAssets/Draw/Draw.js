@@ -1,5 +1,5 @@
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 
 import './Draw.css';
@@ -9,20 +9,20 @@ import { storage } from 'utils/Firebase/Config/firebase';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loading from 'components/Loading/Loading';
-import NewDraw from './NewDraw/NewDraw';
-
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
-import { ReactComponent as Download } from 'assets/Icons/download.svg';
 import { ReactComponent as Play } from 'assets/Icons/play.svg';
+import AppContext from 'store/AppContext';
 
 export default function Draw({
   noteValues,
   setNoteValues,
   setNotesState,
   url,
+  id,
 }) {
   const drawRef = useRef(null);
   const { t } = useTranslation();
+  const { notes } = useContext(AppContext);
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showDraw, setShowDraw] = useState(false);
@@ -74,19 +74,20 @@ export default function Draw({
         <div className="draw--buttonsRow">
           <button
             className="record--icon button__effect__background"
-            onClick={() => console.log(noteValues.id, drawPaths)}
+            onClick={() => {
+              setNotesState({
+                ['showDrawModal']: {
+                  id: id,
+                  drawNumber:
+                    notes.find((note) => note.id == id).draws.length - 1,
+                  drawPaths: drawPaths,
+                },
+              });
+            }}
           >
             <Play />
           </button>
 
-          <a
-            download={'Draw.png'}
-            target="_blank"
-            // href={localURL}
-            className="record--icon record--icon__hide  button__effect__background"
-          >
-            <Download />
-          </a>
           <button
             onClick={() => setShowConfirmModal(true)}
             className="record--icon record--icon__hide button__effect__background"

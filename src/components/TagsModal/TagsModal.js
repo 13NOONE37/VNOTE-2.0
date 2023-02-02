@@ -15,7 +15,6 @@ export default function TagsModal({
 
   const toggleTag = (tag) => {
     const temp = noteValues.tags;
-    console.log(Object.values(temp).length);
     if (temp[tag]) {
       if (Object.values(temp).length > 1) {
         delete temp[tag];

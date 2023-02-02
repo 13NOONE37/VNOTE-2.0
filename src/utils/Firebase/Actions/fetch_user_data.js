@@ -10,8 +10,6 @@ const fetchUserData = async (setTheme, toggleLanguage, setNotes, setTags) => {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log('Success ', docSnap.data());
-
     const { theme, language, notes, tags } = docSnap.data();
     setTheme(
       !theme

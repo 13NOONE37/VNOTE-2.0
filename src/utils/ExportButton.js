@@ -31,7 +31,6 @@ const ExportButton = () => {
 
   useEffect(() => {
     const prepareBackup = async () => {
-      console.log('prepare backup');
       try {
         const backup = { notes, tags, files: [] };
         const filesNames = [];

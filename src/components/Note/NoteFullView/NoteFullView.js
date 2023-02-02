@@ -25,6 +25,7 @@ import './NoteFullView.css';
 import AttachmentModal from '../NoteAssets/AttachmentModal/AttachmentModal';
 import Image from '../NoteAssets/Image/Image';
 import Draw from '../NoteAssets/Draw/Draw';
+import FullViewImage from '../NoteAssets/Image/FullViewImage/FullViewImage';
 
 export default function NoteFullView({ notesState, setNotesState }) {
   const { t } = useTranslation();
@@ -101,7 +102,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       if (
         selectionIndex < window.getSelection().anchorNode.textContent.length
       ) {
-        console.log('mid', window.getSelection());
+        // console.log('mid', window.getSelection());
       } else {
         handleFocusNext(lineIndex);
         let temp = noteValues.checkList;
@@ -120,8 +121,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
       .filter((item, index) => index !== lineIndex);
     let tempCheckList = noteValues.checkList;
     tempCheckList.splice(lineIndex, 1);
-    console.log(noteValues.checkList, lineIndex);
-    console.log(tempCheckList);
+    // console.log(noteValues.checkList, lineIndex);
+    // console.log(tempCheckList);
 
     startTransition(() => {
       setNoteValues({ ['lastEditDate']: new Date() });
@@ -255,7 +256,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         style={{
           gap: `${
             noteValues.draws.length > 0 ||
-            noteValues.images.length > 0 ||
+            noteValues.records.length > 0 ||
             noteValues.images.length > 0
               ? '32px'
               : 'unset'
@@ -281,6 +282,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
               key={imageIndex}
               src={image}
               setNoteValues={setNoteValues}
+              setNotesState={setNotesState}
               noteValues={noteValues}
             />
           ))}
@@ -293,6 +295,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
             <Draw
               key={drawIndex}
               url={draw}
+              id={notesState.currentId}
               setNotesState={setNotesState}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
@@ -301,7 +304,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
         </Masonry>
       </div>
       <span className="lastEditDate">
-        {t('LastEdit')}:{'    '}
+        {t('LastEdit')}:
         <time>
           {noteValues.lastEditDate.toLocaleDateString(language, {
             month: 'long',
@@ -340,6 +343,9 @@ export default function NoteFullView({ notesState, setNotesState }) {
           notesState={notesState}
           setNotesState={setNotesState}
         />
+      )}
+      {notesState.showFullViewImage && (
+        <FullViewImage notesState={notesState} setNotesState={setNotesState} />
       )}
     </Modal>
   );

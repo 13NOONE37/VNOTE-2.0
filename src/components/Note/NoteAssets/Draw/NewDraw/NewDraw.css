@@ -1,6 +1,8 @@
 .newDraw--box .modal-main {
-  max-width: unset;
-  /* max-height: unset; */
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
 }
 .newDraw--box .modalContent {
   padding: 12px;
