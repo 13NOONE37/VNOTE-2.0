@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppContext from 'store/AppContext';
 import './App.css';
 import './Themes.css';
-import { useTranslation } from 'react-i18next';
 import { Routes, Route } from 'react-router-dom';
 import pages from 'Pages/Routes/Pages';
 
 import NotFound from 'Pages/NotFound/NotFound';
+import FetchError from 'Pages/FetchError/FetchError';
 
 import AuthRoute from 'Pages/Routes/AuthRoute';
 import GuestRoute from 'Pages/Routes/GuestRoute';
-import FetchUserData from 'utils/Firebase/Actions/fetch_user_data';
-import useFetchData from 'utils/Firebase/Actions/fetch_user_data';
 import useAuthStateChanged from 'utils/Firebase/Actions/auth_state_change';
 import updateUserData from 'utils/Firebase/Actions/update_user_data';
 import { auth } from 'utils/Firebase/Config/firebase';
@@ -19,7 +17,6 @@ import { changeLanguage } from 'i18next';
 
 export default function App() {
   //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
-  const { i18n } = useTranslation();
   const [userInfo, setUserInfo] = useState({});
   const deviceType = () => {
     const ua = navigator.userAgent;
@@ -64,6 +61,7 @@ export default function App() {
   ]);
   const [tags, setTags] = useState([]);
   const [canBeSaved, setCanBeSaved] = useState(false);
+  const [isDataFetched, setIsDataFetched] = useState(false);
   const [filterPhrase, setFilterPhrase] = useState('');
 
   useAuthStateChanged(
@@ -73,10 +71,12 @@ export default function App() {
     toggleLanguage,
     setNotes,
     setTags,
+    setIsDataFetched,
   );
 
   useEffect(() => {
     auth.currentUser &&
+      canBeSaved &&
       updateUserData(setCanBeSaved, { theme, language, notes, tags });
   }, [theme, language, tags, canBeSaved]);
 
@@ -104,10 +104,13 @@ export default function App() {
           setTags,
           canBeSaved,
           setCanBeSaved,
+          isDataFetched,
+          setIsDataFetched,
         }}
       >
         <Routes>
           <Route path="*" element={<NotFound />} />
+          <Route path="/error/fetch" element={<FetchError />} />
 
           <Route path="/" element={<AuthRoute />}>
             {pages.authPages.map((authPage, index) => {

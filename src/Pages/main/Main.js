@@ -20,7 +20,7 @@ import FullViewImage from 'components/Note/NoteAssets/Image/FullViewImage/FullVi
 export default function Main() {
   const { category } = useParams();
 
-  const { theme } = useContext(AppContext);
+  const { theme, isDataFetched } = useContext(AppContext);
 
   //TODO Every element should be focusable and accesable by tab nad css'ed
   injectStyle(); //! temp, we have to use own styles for notify
@@ -53,15 +53,15 @@ export default function Main() {
       <TagsSlider />
       <ToastContainer position="bottom-right" newestOnTop theme={theme} />
       <NoteContainer notesState={notesState} setNotesState={setNotesState} />
-      {Object.keys(notesState.selectedNotes).length > 0 ? (
+      {Object.keys(notesState.selectedNotes).length > 0 && isDataFetched ? (
         <MultiActionFooter
           notesState={notesState}
           setNotesState={setNotesState}
         />
-      ) : category === 'trash' ? (
+      ) : category === 'trash' && isDataFetched ? (
         <DeleteFooter />
       ) : (
-        <Footer setNotesState={setNotesState} />
+        isDataFetched && <Footer setNotesState={setNotesState} />
       )}
       {!notesState.showAttachmentModal && notesState.showRecordModal && (
         <NewRecord

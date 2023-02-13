@@ -1,11 +1,18 @@
 import { auth, db } from '../Config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { t } from 'i18next';
+import { Navigate } from 'react-router-dom';
 
 // //todo offline data
 // //todo https://firebase.google.com/docs/firestore/manage-data/enable-offline?hl=en&authuser=0
 
-const fetchUserData = async (setTheme, toggleLanguage, setNotes, setTags) => {
+const fetchUserData = async (
+  setTheme,
+  toggleLanguage,
+  setNotes,
+  setTags,
+  setIsDataFetched,
+) => {
   const docRef = doc(db, 'users', auth.currentUser.uid);
   const docSnap = await getDoc(docRef);
 
@@ -44,8 +51,11 @@ const fetchUserData = async (setTheme, toggleLanguage, setNotes, setTags) => {
     setNotes([]);
     setTags([]);
   } else {
-    alert("Error. we can't load your data");
+    Navigate('/error/fetch');
+    // alert("Error. we can't load your data");
   }
+
+  setIsDataFetched(true);
 };
 
 export default fetchUserData;

@@ -1,17 +1,10 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useTransition,
-} from 'react';
+import React, { useTransition } from 'react';
 import './DrawFooter.css';
 import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
 import { ReactComponent as Eraser } from 'assets/Icons/eraser.svg';
 import { ReactComponent as Clear } from 'assets/Icons/clear.svg';
 import { ReactComponent as ArrowLeft } from 'assets/Icons/corner-down-left.svg';
 import { ReactComponent as ArrowRight } from 'assets/Icons/corner-down-right.svg';
-import { ReactComponent as Download } from 'assets/Icons/download.svg';
 import { useTranslation } from 'react-i18next';
 
 export default function DrawFooter({
@@ -23,13 +16,32 @@ export default function DrawFooter({
   const { t } = useTranslation();
   const [isPending, startTransition] = useTransition();
 
+  // const [name, setName] = useState(drawState.name);
   const validateWidth = (value) => Math.max(0, Math.min(100, value));
+
   return (
     <div
       className={`noteFooter drawFooter ${
         showFooter ? 'showDrawFooter' : 'hideDrawFooter'
       }`}
     >
+      <input
+        className="draw--input--text"
+        type="text"
+        placeholder={t('Name')}
+        value={drawState.name}
+        onChange={(e) => {
+          if (/^.{0,32}$/.test(e.target.value)) {
+            // startTransition(() => {
+            // setName(e.target.value);
+            setDrawState({
+              name: e.target.value,
+            });
+            // });
+          }
+        }}
+        maxLength={32}
+      />
       <div className="colorsRow">
         {[1, 2, 3, 4, 5, 6].map((num, index) => (
           <button
@@ -39,7 +51,7 @@ export default function DrawFooter({
             }`}
             style={{ backgroundColor: `var(--noteColor-${num})` }}
             onClick={() =>
-              setDrawState({ ['strokeColor']: `var(--noteColor-${num})` })
+              setDrawState({ strokeColor: `var(--noteColor-${num})` })
             }
             key={index}
             value={num}
@@ -51,7 +63,7 @@ export default function DrawFooter({
           className={`colorButton colorInput`}
           onChange={(e) => {
             startTransition(() => {
-              setDrawState({ ['strokeColor']: e.target.value });
+              setDrawState({ strokeColor: e.target.value });
             });
           }}
           aria-label={t('AriaColor')}
@@ -67,7 +79,7 @@ export default function DrawFooter({
           onPointerUp={(e) => {
             startTransition(() => {
               setDrawState({
-                ['strokeWidth']: validateWidth(parseFloat(e.target.value)),
+                strokeWidth: validateWidth(parseFloat(e.target.value)),
               });
             });
           }}
@@ -75,7 +87,7 @@ export default function DrawFooter({
           // onChange={(e) => {
           //   startTransition(() => {
           //     setDrawState({
-          //       ['strokeWidth']: validateWidth(parseFloat(e.target.value)),
+          //       ['strokeWidth: validateWidth(parseFloat(e.target.value)),
           //     });
           //   });
           // }}
@@ -87,7 +99,7 @@ export default function DrawFooter({
           onChange={(e) => {
             startTransition(() => {
               setDrawState({
-                ['strokeWidth']: validateWidth(e.target.valueAsNumber),
+                strokeWidth: validateWidth(e.target.valueAsNumber),
               });
             });
           }}
@@ -103,7 +115,7 @@ export default function DrawFooter({
           }`}
           onClick={() => {
             drawRef.current.eraseMode(false);
-            setDrawState({ ['currentAction']: 'Pen' });
+            setDrawState({ currentAction: 'Pen' });
           }}
           aria-label={t('PenDrawFooter')}
           data-tooltip__top={t('PenDrawFooter')}
@@ -116,7 +128,7 @@ export default function DrawFooter({
           }`}
           onClick={() => {
             drawRef.current.eraseMode(true);
-            setDrawState({ ['currentAction']: 'Eraser' });
+            setDrawState({ currentAction: 'Eraser' });
           }}
           aria-label={t('EraserDrawFooter')}
           data-tooltip__top={t('EraserDrawFooter')}

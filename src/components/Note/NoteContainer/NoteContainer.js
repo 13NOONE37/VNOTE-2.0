@@ -6,10 +6,12 @@ import AppContext from 'store/AppContext';
 import NoteFullView from '../NoteFullView/NoteFullView';
 import { useParams } from 'react-router-dom';
 import EmptyState from './EmptyState/EmptyState';
+import Loading from 'components/Loading/Loading';
 
 export default function NoteContainer({ notesState, setNotesState }) {
   const { category } = useParams();
-  const { language, filterPhrase, notes } = useContext(AppContext);
+  const { language, filterPhrase, notes, isDataFetched } =
+    useContext(AppContext);
   const noteIndexes = [];
 
   const FilterNote = (item, phrase) => {
@@ -50,27 +52,31 @@ export default function NoteContainer({ notesState, setNotesState }) {
     520: 2,
     300: 2,
   };
-  return (
+
+  return isDataFetched ? (
     <>
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="noteContainer"
         columnClassName="my-masonry-grid_column"
       >
-        {notes.map(
-          (item, itemKey) =>
-            FilterNote(item, filterPhrase) && (
-              <NotePreview
-                key={itemKey}
-                title={item.title}
-                date={item.date}
-                color={item.color}
-                id={item.id}
-                notesState={notesState}
-                setNotesState={setNotesState}
-              />
-            ),
-        )}
+        {notes
+          .sort((a, b) => a.date - b.date)
+          .reverse()
+          .map(
+            (item, itemKey) =>
+              FilterNote(item, filterPhrase) && (
+                <NotePreview
+                  key={itemKey}
+                  title={item.title}
+                  date={item.date}
+                  color={item.color}
+                  id={item.id}
+                  notesState={notesState}
+                  setNotesState={setNotesState}
+                />
+              ),
+          )}
         {noteIndexes.length > 0 && (
           <>
             <NotePreview className="noteBlank" />
@@ -84,5 +90,7 @@ export default function NoteContainer({ notesState, setNotesState }) {
       )}
       {noteIndexes.length == 0 && <EmptyState />}
     </>
+  ) : (
+    <Loading />
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ReactComponent as Github } from 'assets/Icons/github.svg';
 import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
 import { ReactComponent as Google } from 'assets/Icons/google.svg';
@@ -13,7 +13,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import handlePasswordReset from 'utils/Firebase/Actions/auth_send_password_reset';
+import { useTranslation } from 'react-i18next';
+import AppContext from 'store/AppContext';
 export default function ForgetForm() {
+  const { t } = useTranslation();
+  const { toggleLanguage } = useContext(AppContext);
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -25,11 +29,11 @@ export default function ForgetForm() {
         validate={(values) => {
           const errors = {};
           if (!values.email) {
-            errors.email = 'Required';
+            errors.email = t('Required');
           } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
           ) {
-            errors.email = 'Invalid email address';
+            errors.email = t('Invalid email address');
           }
           return errors;
         }}
@@ -54,7 +58,7 @@ export default function ForgetForm() {
       >
         {({ isSubmitting }) => (
           <Form className="form form__login">
-            <h2 className="form--heading">Find Your Account</h2>
+            <h2 className="form--heading">{t('Find Your Account')}</h2>
 
             <Field name="email">
               {({ field, form: { touched, errors }, meta }) => (
@@ -75,14 +79,38 @@ export default function ForgetForm() {
               type={'submit'}
               disabled={isSubmitting}
             >
-              {isSubmitting ? '...' : 'Search'}
+              {isSubmitting ? '...' : t('Search')}
             </LoginButton>
-            {errorMessage && <LoginError>{errorMessage}</LoginError>}
+            {errorMessage && <LoginError>{t(errorMessage)}</LoginError>}
             {successMessage && <LoginSuccess>{successMessage}</LoginSuccess>}
 
-            <LoginInfo text={'Log in here'} action={() => navigate('/login')}>
-              Go back?
+            <LoginInfo
+              text={t('Log in here')}
+              action={() => navigate('/login')}
+            >
+              {t('Go back?')}
             </LoginInfo>
+            <LoginSplitter classes={'splitter__nomargin'}>
+              {t('Language')}
+            </LoginSplitter>
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <LoginInfo
+                text={t('Polish')}
+                action={() => toggleLanguage('pl')}
+              />
+              <LoginInfo
+                text={t('English')}
+                action={() => toggleLanguage('en')}
+              />
+            </div>
           </Form>
         )}
       </Formik>

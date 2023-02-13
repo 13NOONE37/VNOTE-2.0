@@ -17,11 +17,9 @@ export default function DeleteFooter() {
     };
     const temp = notes.filter((note) => {
       if (note.isDeleted) {
-        note.images.forEach((image) => deleteFromStorage(image));
-        note.draws.forEach((draw) => deleteFromStorage(draw));
-        note.records.forEach((record) => {
-          deleteFromStorage(record.url);
-        });
+        [...note.images, ...note.draws, ...note.records].forEach(
+          ({ filePath }) => deleteFromStorage(filePath),
+        );
       }
       return !note.isDeleted;
     });

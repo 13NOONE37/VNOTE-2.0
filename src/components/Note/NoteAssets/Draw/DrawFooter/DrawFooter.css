@@ -1,7 +1,32 @@
 .drawFooter {
   grid-template-rows: 1fr 1fr 1fr !important;
   height: 175px !important;
+
+  transition: all 0.3s ease;
 }
+.draw--input--text {
+  position: absolute;
+  top: -65px;
+  left: calc(50%);
+  transform: translateX(-50%);
+
+  background-color: var(--background-2);
+  padding: 0 12px;
+
+  text-align: center;
+  color: var(--mainIcon);
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+
+  border: none;
+  border-radius: 16px 16px 0 0;
+  outline: none;
+
+  height: 65px;
+  width: 260px;
+}
+
 .drawFooter .actionsRow {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -157,4 +182,9 @@
 .showDrawFooter {
   transform: translateX(-50%) translateY(0);
   visibility: visible;
+}
+
+.drawFooter.hideDrawFooter {
+  transform: translateX(-50%) translateY(240px) !important;
+  visibility: hidden;
 }

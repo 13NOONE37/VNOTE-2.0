@@ -18,17 +18,19 @@ export default function AttachmentModal({ notesState, setNotesState }) {
     <Modal
       additionalClass={'newAttachment--box'}
       setShowModal={(value) =>
-        value === false && setNotesState({ ['showAttachmentModal']: false })
+        value === false && setNotesState({ showAttachmentModal: false })
       }
     >
       <TopActionButton
         action={() => {
           setNotesState({
-            ['showDrawModal']: {
+            showDrawModal: {
               id: notesState.currentId,
-              drawNumber:
+              attachmentNumber:
                 notes.find((note) => note.id == notesState.currentId).draws
                   .length - 1,
+              drawURL: false,
+              drawName: '',
             },
           });
         }}
@@ -38,7 +40,14 @@ export default function AttachmentModal({ notesState, setNotesState }) {
       </TopActionButton>
       <TopActionButton
         action={() => {
-          setNotesState({ ['showRecordModal']: notesState.currentId });
+          setNotesState({
+            showRecordModal: {
+              id: notesState.currentId,
+              attachmentNumber:
+                notes.find((note) => note.id == notesState.currentId).records
+                  .length - 1,
+            },
+          });
         }}
         title={t('AddRecord')}
       >
@@ -46,7 +55,14 @@ export default function AttachmentModal({ notesState, setNotesState }) {
       </TopActionButton>
       <TopActionButton
         action={() => {
-          setNotesState({ ['showImageModal']: notesState.currentId });
+          setNotesState({
+            showImageModal: {
+              id: notesState.currentId,
+              attachmentNumber:
+                notes.find((note) => note.id == notesState.currentId).images
+                  .length - 1,
+            },
+          });
         }}
         title={t('AddPicture')}
       >

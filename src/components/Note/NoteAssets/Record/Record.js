@@ -44,18 +44,22 @@ export default function Record({
   const [localURL, setlocalURL] = useState(false);
 
   const handleRunAudio = () => {
-    setRecordState({ ['isPlaying']: true });
+    setRecordState({ isPlaying: true });
     audioRef.current.play();
   };
   const handlePauseAudio = () => {
-    setRecordState({ ['isPlaying']: false });
+    setRecordState({ isPlaying: false });
     audioRef.current.pause();
   };
 
   const handleDelete = () => {
-    const temp = noteValues.records.filter((record) => record.url !== src.url);
-    deleteObject(ref(storage, src.url))
-      .then(() => {})
+    const temp = noteValues.records.filter(
+      ({ filePath }) => filePath !== src.filePath,
+    );
+    deleteObject(ref(storage, src.filePath))
+      .then(() => {
+        setNoteValues({ records: temp });
+      })
       .catch(() => {
         toast.error(t('ErrorDeleteAudio'), {
           position: 'bottom-right',
@@ -67,11 +71,10 @@ export default function Record({
           progress: undefined,
         });
       });
-    setNoteValues({ ['records']: temp });
   };
 
   useEffect(() => {
-    getDownloadURL(ref(storage, src.url)).then((result) => {
+    getDownloadURL(ref(storage, src.filePath)).then((result) => {
       setlocalURL(result);
     });
   }, []);
@@ -108,7 +111,7 @@ export default function Record({
           max={recordState.duration}
           step={0.01}
           onChange={({ target: { value } }) => {
-            setRecordState({ ['currentTime']: value });
+            setRecordState({ currentTime: value });
             audioRef.current.currentTime = value;
           }}
           style={{
@@ -122,13 +125,13 @@ export default function Record({
         </time>
         <audio
           onCanPlay={(e) => {
-            setRecordState({ ['currentTime']: audioRef.current.currentTime });
+            setRecordState({ currentTime: audioRef.current.currentTime });
           }}
           onPause={handlePauseAudio}
           onPlay={handleRunAudio}
-          onEnded={() => setRecordState({ ['isPlaying']: false })}
+          onEnded={() => setRecordState({ isPlaying: false })}
           onTimeUpdate={(e) =>
-            setRecordState({ ['currentTime']: e.target.currentTime })
+            setRecordState({ currentTime: e.target.currentTime })
           }
           src={localURL}
           ref={audioRef}

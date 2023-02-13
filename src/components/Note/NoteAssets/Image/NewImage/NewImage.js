@@ -13,7 +13,10 @@ import { auth, storage } from 'utils/Firebase/Config/firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import Loading from 'components/Loading/Loading';
 
-export default function NewImage({ noteId, setNotesState }) {
+export default function NewImage({
+  noteId: { id, attachmentNumber },
+  setNotesState,
+}) {
   const { t } = useTranslation();
   const { notes, setNotes } = useContext(AppContext);
   const [dragActive, setDragActive] = useState(false);
@@ -41,20 +44,25 @@ export default function NewImage({ noteId, setNotesState }) {
         .then((snapshot) => {
           setNotes(
             notes.map((item) => {
-              if (item.id === noteId) {
+              if (item.id === id) {
                 let temp = item;
-                temp.images.push(filePath);
+                temp.images.push({
+                  id: uuid4(),
+                  filePath: filePath,
+                });
                 temp.lastEditDate = new Date();
+
                 return temp;
               }
               return item;
             }),
           );
+
           setIsLoading(false);
-          setNotesState({ ['showImageModal']: false });
-          setNotesState({ ['showAttachmentModal']: false });
-          setNotesState({ ['showFullView']: true });
-          setNotesState({ ['currentId']: noteId });
+          setNotesState({ showImageModal: false });
+          setNotesState({ showAttachmentModal: false });
+          setNotesState({ showFullView: true });
+          setNotesState({ currentId: id });
         })
         .catch((error) => {
           toast.error(t('ErrorUpload'), {
@@ -102,7 +110,7 @@ export default function NewImage({ noteId, setNotesState }) {
     <Modal
       additionalClass={'newImage--box hideHeader'}
       setShowModal={(value) =>
-        value === false && setNotesState({ ['showImageModal']: false })
+        value === false && setNotesState({ showImageModal: false })
       }
     >
       <div

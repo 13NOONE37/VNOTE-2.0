@@ -12,7 +12,7 @@ export default function ActionHeader({ notesState, setNotesState }) {
       <ArrowBack
         className="editHeader--icon"
         onClick={() => {
-          setNotesState({ ['selectedNotes']: {} });
+          setNotesState({ selectedNotes: {} });
         }}
       />
       <span className="editHeader--counter">

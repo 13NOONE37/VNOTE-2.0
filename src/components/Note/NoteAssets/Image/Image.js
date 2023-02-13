@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as Close } from 'assets/Icons/x.svg';
 import './Image.css';
@@ -13,19 +13,24 @@ import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { ReactComponent as Play } from 'assets/Icons/play.svg';
 
 export default function Image({
+  image,
+  setNotesState,
   noteValues,
   setNoteValues,
-  setNotesState,
-  src,
 }) {
   const { t } = useTranslation();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [localURL, setlocalURL] = useState(false);
 
   const handleDelete = () => {
-    const temp = noteValues.images.filter((image) => image !== src);
-    deleteObject(ref(storage, src))
-      .then(() => {})
+    const temp = noteValues.images.filter(
+      ({ filePath }) => filePath !== image.filePath,
+    );
+
+    deleteObject(ref(storage, image.filePath))
+      .then(() => {
+        setNoteValues({ images: temp });
+      })
       .catch(() => {
         toast.error(t('ErrorDeleteImage'), {
           position: 'bottom-right',
@@ -37,11 +42,10 @@ export default function Image({
           progress: undefined,
         });
       });
-    setNoteValues({ ['images']: temp });
   };
 
   useEffect(() => {
-    getDownloadURL(ref(storage, src)).then((result) => {
+    getDownloadURL(ref(storage, image.filePath)).then((result) => {
       setlocalURL(result);
     });
   }, []);
@@ -64,7 +68,7 @@ export default function Image({
         <div className="draw--buttonsRow">
           <button
             className="record--icon button__effect__background"
-            onClick={() => setNotesState({ ['showFullViewImage']: localURL })}
+            onClick={() => setNotesState({ showFullViewImage: localURL })}
           >
             <Play />
           </button>

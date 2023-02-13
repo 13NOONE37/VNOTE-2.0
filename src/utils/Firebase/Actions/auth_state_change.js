@@ -11,6 +11,7 @@ const useAuthStateChanged = (
   toggleLanguage,
   setNotes,
   setTags,
+  setIsDataFetched,
 ) => {
   const listener = (currentUser) => {
     if (currentUser?.email != null && currentUser?.emailVerified === false) {
@@ -21,7 +22,13 @@ const useAuthStateChanged = (
       setIsLogged(false);
     } else {
       setIsLogged(true);
-      fetchUserData(setTheme, toggleLanguage, setNotes, setTags);
+      fetchUserData(
+        setTheme,
+        toggleLanguage,
+        setNotes,
+        setTags,
+        setIsDataFetched,
+      );
     }
   };
   useEffect(() => {

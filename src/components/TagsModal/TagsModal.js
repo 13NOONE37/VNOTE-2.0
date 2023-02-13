@@ -22,19 +22,19 @@ export default function TagsModal({
     } else {
       temp[tag] = true;
     }
-    setNoteValues({ ['tags']: temp });
+    setNoteValues({ tags: temp });
   };
   return (
     <Modal
       additionalClass="tagsViewModal profileModal"
       setShowModal={(value) => {
-        setNotesState({ ['showTagView']: value });
+        setNotesState({ showTagView: value });
       }}
     >
       <span className="tagsGallery">
         <span className="tagsGallery--title">{t('SelectTags')}</span>
         <span className="tagsGallery--content">
-          {[...tags, 'all'].map((item, index) => (
+          {[...tags].map((item, index) => (
             <ModalButton
               action={() => toggleTag(item)}
               key={index}

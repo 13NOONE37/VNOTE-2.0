@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 export default function NewTagsModal({ setShowNewTagsModal }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { tags, setTags } = useContext(AppContext);
+  const { tags, setTags, setCanBeSaved } = useContext(AppContext);
   const [tagName, setTagName] = useState('');
 
   const handleChangeTag = (e, value) => {
@@ -48,6 +48,7 @@ export default function NewTagsModal({ setShowNewTagsModal }) {
   };
   const deleteTag = (tagToDelete) => {
     setTags(tags.filter((tag) => tag != tagToDelete));
+    setCanBeSaved(true);
   };
   const handleAddNewTag = (e) => {
     e.preventDefault();

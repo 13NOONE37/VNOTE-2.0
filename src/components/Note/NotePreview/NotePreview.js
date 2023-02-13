@@ -22,7 +22,7 @@ export default function NotePreview({
     } else {
       temp[n] = n;
     }
-    setNotesState({ ['selectedNotes']: temp });
+    setNotesState({ selectedNotes: temp });
   };
 
   const callback = () => {
@@ -35,9 +35,15 @@ export default function NotePreview({
 
   const [enabled, setEnabled] = useState(true);
   const bind = useLongPress(enabled ? callback : null, {
-    onStart: () => console.log('Press started'),
-    onFinish: () => console.log('Long press finished'),
-    onCancel: () => console.log('Press cancelled'),
+    onStart: () => {
+      /*console.log('Press started') */
+    },
+    onFinish: () => {
+      /*console.log('Long press finished') */
+    },
+    onCancel: () => {
+      /*console.log('Press cancelled') */
+    },
     //onMove: () => console.log("Detected mouse or touch movement"),
     threshold: 500,
     captureEvent: true,

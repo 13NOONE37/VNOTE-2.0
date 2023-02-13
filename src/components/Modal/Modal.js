@@ -9,6 +9,7 @@ import useDetectOutsideClick from 'utils/useDetectOutsideClick';
 export default function Modal({
   setShowModal,
   modalHeadContent,
+  middleHeadContent,
   children,
   additionalClass,
   optionalColor,
@@ -27,7 +28,16 @@ export default function Modal({
           >
             <ArrowLeft />
           </TopActionButton>
-          <span></span>
+          {/* <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '65px',
+            }}
+          > */}
+          {middleHeadContent ? middleHeadContent : <span></span>}
+          {/* </span> */}
           {modalHeadContent}
         </div>
 

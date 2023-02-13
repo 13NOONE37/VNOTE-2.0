@@ -43,7 +43,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
     setNoteValues('isListed', (item) => !item.isListed);
   };
   const handleOpenTagModal = () => {
-    setMultiState({ ['showTagView']: true });
+    setMultiState({ showTagView: true });
   };
   const deleteNote = () => {
     setNoteValues('isDeleted', (item) => !item.isDeleted);
@@ -58,7 +58,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
     const temp = Object.values(notesState.selectedNotes).filter((firstId) =>
       notes.find((i) => i.id === firstId && negateDependOnPage(i.isDeleted)),
     );
-    setNotesState({ ['selectedNotes']: temp });
+    setNotesState({ selectedNotes: temp });
   };
 
   return (

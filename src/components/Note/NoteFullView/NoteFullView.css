@@ -101,28 +101,31 @@
   color: var(--logoText-2);
 }
 .noteAttachments {
-  max-width: 90vw;
-  min-width: 270px;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
   /* gap: 32px; */
 }
 .noteAttachments--images {
-  display: flex;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 10px;
 }
-.noteAttachments--images--column {
+/* .noteAttachments--images--column {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 2px;
   gap: 4px 0;
-}
-.noteAttachments img {
+} */
+
+/* .noteAttachments img {
   width: 100%;
-}
+} */
 .noteAttachments--records {
   display: flex;
   flex-direction: column;

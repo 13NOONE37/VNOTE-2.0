@@ -1,26 +1,47 @@
 import { auth, db } from '../Config/firebase';
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-
-//todo offline data
-//todo https://firebase.google.com/docs/firestore/manage-data/enable-offline?hl=en&authuser=0
+import { toast } from 'react-toastify';
+import { t } from 'i18next';
 const updateUserData = async (setCanBeSaved, data) => {
   const docRef = doc(db, 'users', auth.currentUser.uid);
   const userRef = collection(db, 'users');
 
   const docSnap = await getDoc(docRef);
+
   if (docSnap.exists()) {
     //update
-    await updateDoc(doc(userRef, auth.currentUser.uid), data).then(() => {
-      setCanBeSaved(false);
-    });
+    try {
+      await updateDoc(doc(userRef, auth.currentUser.uid), data).then(() => {});
+    } catch (error) {
+      toast.error(t('ErrorUploadToFirestore'), {
+        position: 'bottom-right',
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+
+        onClose: () => setTimeout(() => window.location.reload(), 3000),
+      });
+    }
+    setCanBeSaved(false);
   } else {
     //set
-    await setDoc(doc(userRef, auth.currentUser.uid), {
-      notes: [],
-      tags: [],
-      theme: 'dark',
-      language: 'en',
-    });
+
+    try {
+      await setDoc(doc(userRef, auth.currentUser.uid), {
+        notes: [],
+        tags: [],
+        theme: 'dark',
+        language: 'en',
+      }).then(() => {});
+    } catch (error) {
+      toast.error(t('ErrorUploadToFirestore'), {
+        onClose: () => setTimeout(() => window.location.reload(), 3000),
+      });
+    }
+    setCanBeSaved(false);
   }
 };
 

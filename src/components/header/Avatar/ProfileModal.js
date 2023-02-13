@@ -8,8 +8,6 @@ import { ReactComponent as FileIcon } from 'assets/Icons/file.svg';
 import { ReactComponent as UploadIcon } from 'assets/Icons/upload.svg';
 import { ReactComponent as LockIcon } from 'assets/Icons/lock.svg';
 import { ReactComponent as LogoutIcon } from 'assets/Icons/log-out.svg';
-
-import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import { signOut } from 'firebase/auth';
 import { auth, storage } from 'utils/Firebase/Config/firebase';
 import handlePasswordReset from 'utils/Firebase/Actions/auth_send_password_reset';
@@ -17,6 +15,7 @@ import { toast } from 'react-toastify';
 import ExportButton from 'utils/ExportButton';
 import uuid4 from 'uuid4';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import Loading from 'components/Loading/Loading';
 
 export default function ProfileModal({ showModal, setShowModal }) {
   const {
@@ -28,23 +27,20 @@ export default function ProfileModal({ showModal, setShowModal }) {
     userInfo,
     toggleLanguage,
   } = useContext(AppContext);
-
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const uploadRef = useRef(null);
 
-  const handleImportBackup = () => {};
-
   const handleImport = (e) => {
+    setIsUploading(true);
     const file = e.target.files[0];
 
     if (file) {
       const reader = new FileReader();
 
       reader.addEventListener('load', () => {
-        if (window.confirm('Are you sure? It will overide all your data?')) {
+        if (window.confirm(t('ImportConfirm'))) {
           const myObj = JSON.parse(reader.result);
 
-          //set Notes
           const totalNotes = [
             ...myObj.notes.map((note) => {
               note.id = undefined;
@@ -64,71 +60,103 @@ export default function ProfileModal({ showModal, setShowModal }) {
             note.id = uuid4();
             note.date = new Date(note.date);
             note.lastEditDate = new Date(note.lastEditDate);
+            note.records = note.records.map((rec) => {
+              rec.date = new Date(rec.date);
+              return rec;
+            });
             return note;
           });
-          //Filter for error
           uniqueNotes = uniqueNotes.filter((note) => {
-            const hasValidTitle = typeof note.title === 'string';
-            const hasValidContent = typeof note.content === 'string';
-            const hasValidColor = typeof note.color === 'number';
-            const hasValidDate = note.date instanceof Date;
-            const hasValidLastEditDate = note.lastEditDate instanceof Date;
-            const hasValidDeletedFlag = typeof note.isDeleted === 'boolean';
-            const hasValidListedFlag = typeof note.isListed === 'boolean';
-            const hasValidCheckList = Array.isArray(note.checkList);
-            const hasValidImages = Array.isArray(note.images);
-            const hasValidDraws = Array.isArray(note.draws);
-            const hasValidTags = typeof note.tags === 'object';
+            const requiredProperties = [
+              { key: 'title', type: 'string' },
+              { key: 'content', type: 'string' },
+              { key: 'color', type: 'number' },
+              { key: 'date', type: Date },
+              { key: 'lastEditDate', type: Date },
+              { key: 'isDeleted', type: 'boolean' },
+              { key: 'isListed', type: 'boolean' },
+              { key: 'checkList', type: Array },
+              { key: 'images', type: Array },
+              { key: 'draws', type: Array },
+              { key: 'tags', type: 'object' },
+            ];
 
-            return (
-              hasValidTitle &&
-              hasValidContent &&
-              hasValidColor &&
-              hasValidDate &&
-              hasValidLastEditDate &&
-              hasValidDeletedFlag &&
-              hasValidListedFlag &&
-              hasValidCheckList &&
-              hasValidImages &&
-              hasValidDraws &&
-              hasValidTags
-            );
+            return requiredProperties.every(({ key, type }) => {
+              return typeof note[key] === type || note[key] instanceof type;
+            });
           });
+          //Set notes
           setNotes(uniqueNotes);
 
-          //Upload files which not exist to storage
-          for (const { url, file } of myObj.files) {
-            getDownloadURL(ref(storage, url)).catch((error) => {
-              const fileType = url.split('.')[1];
-              const filePath = url;
-              const filesRef = ref(storage, filePath);
-
-              fetch(file)
-                .then((res) => res.blob())
-                .then((res) => {
-                  uploadBytes(filesRef, res, {
-                    contentType: fileType,
-                  }).catch(() => {
-                    toast.error(t('ErrorUpload'), {
-                      position: 'bottom-right',
-                      autoClose: 3000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: false,
-                      draggable: true,
-                      progress: undefined,
-                    });
-                  });
-                });
-            });
-          }
           //Set tags
+          const tempTags = [...myObj.tags, ...tags];
           setTags(
-            [...[myObj.tags], ...tags].filter(
-              (tag, index) => myObj.tags.indexOf(tag) === index,
+            tempTags.filter(
+              (tag, index) =>
+                tempTags.indexOf(tag) === index && tag.toLowerCase() !== 'all',
             ),
           );
-          setShowModal(false);
+          const handleFile = (file, url) => {
+            return new Promise(async (resolve, reject) => {
+              url = url.split('/');
+              url[1] = auth.currentUser.uid;
+              url = url.join('/');
+
+              getDownloadURL(ref(storage, url))
+                .then(() => {
+                  resolve();
+                })
+                .catch(() => {
+                  const fileType = url.split('.')[1];
+                  const filePath = url;
+                  const filesRef = ref(storage, filePath);
+                  fetch(file)
+                    .then((res) => res.blob())
+                    .then((res) => {
+                      uploadBytes(filesRef, res, {
+                        contentType: fileType,
+                      })
+                        .then(() => {
+                          resolve();
+                        })
+                        .catch((err) => {
+                          reject();
+                        });
+                    });
+                });
+            });
+          };
+          Promise.all(myObj.files.map(({ file, url }) => handleFile(file, url)))
+            .then(() => {
+              // //Set notes
+              // setNotes(uniqueNotes);
+
+              // //Set tags
+              // const tempTags = [...myObj.tags, ...tags];
+              // setTags(
+              //   tempTags.filter(
+              //     (tag, index) =>
+              //       tempTags.indexOf(tag) === index &&
+              //       tag.toLowerCase() !== 'all',
+              //   ),
+              // );
+
+              setIsUploading(false);
+              setShowModal(false);
+            })
+            .catch(() => {
+              setIsUploading(false);
+              setShowModal(false);
+              toast.error(t('ErrorImport'), {
+                position: 'bottom-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+              });
+            });
         }
       });
       reader.readAsText(file);
@@ -142,7 +170,16 @@ export default function ProfileModal({ showModal, setShowModal }) {
   return (
     showModal && (
       <>
-        <Modal setShowModal={setShowModal} additionalClass="profileModal">
+        <Modal
+          setShowModal={
+            isUploading
+              ? () => {
+                  toast.info(t('WaitBackup'));
+                }
+              : setShowModal
+          }
+          additionalClass="profileModal"
+        >
           <div className="pictureModal">
             <img
               src={
@@ -162,10 +199,16 @@ export default function ProfileModal({ showModal, setShowModal }) {
             isCollapse
             collapseContent={
               <>
-                <ActionButton title={'PL'} action={() => toggleLanguage('pl')}>
+                <ActionButton
+                  title={t('Polish')}
+                  action={() => toggleLanguage('pl')}
+                >
                   <LanguageIcon />
                 </ActionButton>
-                <ActionButton title={'EN'} action={() => toggleLanguage('en')}>
+                <ActionButton
+                  title={t('English')}
+                  action={() => toggleLanguage('en')}
+                >
                   <LanguageIcon />
                 </ActionButton>
               </>
@@ -181,9 +224,21 @@ export default function ProfileModal({ showModal, setShowModal }) {
                 <ExportButton />
                 <ActionButton
                   title={t('Import')}
-                  action={() => uploadRef.current.click()}
+                  action={
+                    isUploading ? () => {} : () => uploadRef.current.click()
+                  }
                 >
-                  <UploadIcon />
+                  {isUploading ? (
+                    <Loading
+                      styles={{
+                        width: '30px',
+                        height: '30px',
+                        alternativeLook: true,
+                      }}
+                    />
+                  ) : (
+                    <UploadIcon />
+                  )}
                   <input
                     type="file"
                     ref={uploadRef}
@@ -238,13 +293,6 @@ export default function ProfileModal({ showModal, setShowModal }) {
             {t('Logout')}
           </ModalButton>
         </Modal>
-        {showConfirmModal && (
-          <ConfirmModal
-            setShowModal={setShowConfirmModal}
-            confirmText={t('Import')}
-            handler={handleImportBackup}
-          />
-        )}
       </>
     )
   );

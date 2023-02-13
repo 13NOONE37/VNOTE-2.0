@@ -13,7 +13,10 @@ import { useTranslation } from 'react-i18next';
 import getBlobDuration from 'get-blob-duration';
 import Loading from 'components/Loading/Loading';
 
-export default function NewRecord({ noteId, setNotesState }) {
+export default function NewRecord({
+  noteId: { id, attachmentNumber },
+  setNotesState,
+}) {
   const { notes, setNotes } = useContext(AppContext);
   const { t } = useTranslation();
   const [currentTime, setCurrentTime] = useState(0);
@@ -69,24 +72,27 @@ export default function NewRecord({ noteId, setNotesState }) {
             .then((snapshot) => {
               setNotes(
                 notes.map((item) => {
-                  if (item.id === noteId) {
+                  if (item.id === id) {
                     let temp = item;
                     temp.records.push({
+                      id: uuid4(),
                       date: new Date(),
-                      url: filePath,
+                      filePath: filePath,
                       duration: recordDuration,
                     });
+                    temp.lastEditDate = new Date();
+
                     return temp;
                   }
                   return item;
                 }),
               );
               setIsLoading(false);
-              setNotesState({ ['showRecordModal']: false });
-              setNotesState({ ['showAttachmentModal']: false });
+              setNotesState({ showRecordModal: false });
+              setNotesState({ showAttachmentModal: false });
 
-              setNotesState({ ['showFullView']: true });
-              setNotesState({ ['currentId']: noteId });
+              setNotesState({ showFullView: true });
+              setNotesState({ currentId: id });
             })
             .catch((error) => {
               toast.error(t('ErrorUpload'), {
@@ -129,16 +135,16 @@ export default function NewRecord({ noteId, setNotesState }) {
   }, []);
 
   const [isRunning, setIsRunning] = useState(false);
-  let id;
+  let intervalId;
   useEffect(() => {
     if (isRunning) {
-      id = setInterval(intervalHandler, 10);
+      intervalId = setInterval(intervalHandler, 10);
     } else {
-      clearInterval(id);
+      clearInterval(intervalId);
     }
 
     return () => {
-      clearInterval(id);
+      clearInterval(intervalId);
     };
   }, [isRunning]);
 
@@ -146,7 +152,7 @@ export default function NewRecord({ noteId, setNotesState }) {
     <Modal
       additionalClass={'newRecord--box hideHeader'}
       setShowModal={(value) =>
-        value === false && setNotesState({ ['showRecordModal']: false })
+        value === false && setNotesState({ showRecordModal: false })
       }
     >
       {isLoading ? (

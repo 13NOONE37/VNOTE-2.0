@@ -1,4 +1,4 @@
-import React, {
+import {
   useContext,
   useEffect,
   useReducer,
@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import ContentEditable from 'react-contenteditable';
-import Masonry from 'react-masonry-css';
 
 import useWindowSize from 'utils/useWindowSize';
 import AppContext from 'store/AppContext';
@@ -45,25 +44,19 @@ export default function NoteFullView({ notesState, setNotesState }) {
 
   const updateToContext = () => {
     startTransition(() => {
-      const temp = notes.map((item) => {
-        if (item.id === notesState.currentId) return noteValues;
-        return item;
+      const updatedNotes = notes.map((item) => {
+        return item.id === notesState.currentId ? noteValues : item;
       });
-      setNotes(temp);
+      setNotes(updatedNotes);
       setCanBeSaved(true);
     });
   };
-  const handleChange = (e) => {
-    startTransition(() => {
-      // updateAttachment();
-      setNoteValues({ ['lastEditDate']: new Date() });
-    });
-    setNoteValues({
-      [e.currentTarget.getAttribute('name')]: encodeURI(
-        e.currentTarget.innerHTML,
-      ),
-    });
+
+  const handleChange = ({ currentTarget }) => {
+    const attributeName = currentTarget.getAttribute('name');
+    setNoteValues({ [attributeName]: encodeURI(currentTarget.innerHTML) });
   };
+
   const handleChangeLine = (e, lineIndex) => {
     let temp = decodeURI(noteValues.content)
       .split('<br>')
@@ -71,82 +64,88 @@ export default function NoteFullView({ notesState, setNotesState }) {
         if (index === lineIndex) return e.currentTarget.innerHTML;
         return item;
       });
-    if (e.currentTarget.innerHTML.split('<br>').length - 1 == 2) {
+    if (e.currentTarget.innerHTML.split('<br>').length - 1 === 2) {
       temp = temp.map((item) => {
         return item.replace('<br>', '');
       });
     }
 
     startTransition(() => {
-      // updateAttachment();
-      setNoteValues({ ['lastEditDate']: new Date() });
+      setNoteValues({ lastEditDate: new Date() });
     });
     setNoteValues({
-      ['content']: encodeURI(temp.join('<br>')),
+      content: encodeURI(temp.join('<br>')),
     });
   };
-  const handleKeyDown = (e, lineIndex) => {
-    if (e.key === 'Enter') {
-      const handleFocusNext = (index) => {
-        setTimeout(() => {
-          document
-            .querySelector('.noteListedContent')
-            .children[index + 1].children[1].focus();
-        }, 10);
-      };
-      const selectionIndex = window.getSelection().anchorOffset;
-      // const lineLength = line
-      //   .replaceAll('<div>', '')
-      //   .replaceAll('</div>', '').length;
 
-      if (
-        selectionIndex < window.getSelection().anchorNode.textContent.length
-      ) {
-        // console.log('mid', window.getSelection());
+  const handleKeyDown = (e, lineIndex) => {
+    if (e.key !== 'Enter') return;
+
+    const selectionIndex = window.getSelection().anchorOffset;
+    const selectionLength = window.getSelection().anchorNode.textContent.length;
+    const currentChecklist = noteValues.checkList;
+
+    if (
+      (selectionIndex === 0 && selectionLength > 0) ||
+      (selectionIndex !== 0 && selectionIndex === selectionLength) ||
+      selectionLength === 0
+    ) {
+      setTimeout(() => {
+        document
+          .querySelector('.noteListedContent')
+          .children[lineIndex + 1].children[1].focus();
+      }, 10);
+
+      if (currentChecklist[lineIndex]) {
+        currentChecklist.splice(lineIndex + 1, 0, false);
       } else {
-        handleFocusNext(lineIndex);
-        let temp = noteValues.checkList;
-        if (temp[lineIndex]) {
-          temp.splice(lineIndex + 1, 0, false);
-        } else {
-          temp.splice(lineIndex, 0, false);
-        }
-        setNoteValues({ ['checkList']: temp });
+        currentChecklist.splice(lineIndex, 0, false);
       }
     }
+
+    for (let i = 0; i < currentChecklist.length; i++) {
+      if (currentChecklist[i] === undefined) currentChecklist[i] = false;
+    }
+    setNoteValues({ checkList: currentChecklist });
   };
+
   const DeleteLine = (lineIndex) => {
     let temp = decodeURI(noteValues.content)
       .split('<br>')
       .filter((item, index) => index !== lineIndex);
     let tempCheckList = noteValues.checkList;
     tempCheckList.splice(lineIndex, 1);
-    // console.log(noteValues.checkList, lineIndex);
-    // console.log(tempCheckList);
 
     startTransition(() => {
-      setNoteValues({ ['lastEditDate']: new Date() });
+      setNoteValues({ lastEditDate: new Date() });
     });
 
     setNoteValues({
-      ['content']: encodeURI(temp.join('<br>')),
+      content: encodeURI(temp.join('<br>')),
     });
   };
-  const handleCheck = (index) => {
-    const temp = noteValues.checkList;
-    temp[index] = !temp[index];
 
-    setNoteValues({ ['checkList']: temp });
+  const toggleCheckListItem = (index) => {
+    let temp = noteValues.checkList;
+    temp[index] = !temp[index];
+    for (let i = 0; i < temp.length; i++) {
+      if (temp[i] === undefined) temp[i] = false;
+    }
+
+    setNoteValues({ checkList: temp });
   };
+
   const handleFocus = () => setShowFooterForMobile(false);
+
   const preventStyledPaste = (e) => {
     e.preventDefault();
     const text = (e.originalEvent || e).clipboardData.getData('text/plain');
 
     document.execCommand('insertText', false, text);
   };
+
   const showAttachmentModal = () => {
-    setNotesState({ ['showAttachmentModal']: true });
+    setNotesState({ showAttachmentModal: true });
   };
 
   useEffect(() => {
@@ -158,6 +157,17 @@ export default function NoteFullView({ notesState, setNotesState }) {
       clearTimeout(updateTimeout);
     };
   }, [noteValues]);
+
+  const focusRef = useRef(null);
+  useEffect(() => {
+    if (
+      focusRef !== null &&
+      !noteValues.isListed &&
+      noteValues.content.length === 0
+    ) {
+      focusRef.current.focus();
+    }
+  }, []);
 
   return (
     <Modal
@@ -172,7 +182,7 @@ export default function NoteFullView({ notesState, setNotesState }) {
       }
       setShowModal={(value) => {
         updateToContext();
-        setNotesState({ ['showFullView']: value });
+        setNotesState({ showFullView: value });
       }}
     >
       <button
@@ -213,7 +223,8 @@ export default function NoteFullView({ notesState, setNotesState }) {
               >
                 <Checkbox
                   checked={noteValues.checkList[lineIndex]}
-                  onClick={() => handleCheck(lineIndex)}
+                  onChange={() => toggleCheckListItem(lineIndex)}
+                  // onClick={() => toggleCheckListItem(lineIndex)}
                 />
                 <ContentEditable
                   className={`noteContent noteContent--placeholder ${
@@ -249,59 +260,69 @@ export default function NoteFullView({ notesState, setNotesState }) {
           tagName="span"
           onPaste={preventStyledPaste}
           onFocus={handleFocus}
+          innerRef={focusRef}
         />
       )}
       <div
         className="noteAttachments"
-        style={{
-          gap: `${
-            noteValues.draws.length > 0 ||
-            noteValues.records.length > 0 ||
-            noteValues.images.length > 0
-              ? '32px'
-              : 'unset'
-          }`,
-        }}
+        // style={{
+        //   gap: `${
+        //     noteValues.draws.length > 0 ||
+        //     noteValues.records.length > 0 ||
+        //     noteValues.images.length > 0
+        //       ? '32px'
+        //       : 'unset'
+        //   }`,
+        // }}
       >
-        <div className="noteAttachments--records">
-          {noteValues.records.map((record, recordIndex) => (
+        <div
+          className="noteAttachments--records"
+          style={{
+            margin: `${noteValues.records.length > 0 ? '8px 0' : '0'}`,
+          }}
+        >
+          {noteValues.records.map((record) => (
             <Record
-              key={recordIndex}
+              key={record.id}
               src={record}
-              setNoteValues={setNoteValues}
               noteValues={noteValues}
+              setNoteValues={setNoteValues}
             />
           ))}
         </div>
-        <Masonry
+        <div
           className="noteAttachments--images"
-          columnClassName="noteAttachments--images--column"
+          style={{
+            margin: `${noteValues.images.length > 0 ? '8px 0' : '0'}`,
+          }}
         >
-          {noteValues.images.map((image, imageIndex) => (
+          {noteValues.images.map((image) => (
             <Image
-              key={imageIndex}
-              src={image}
-              setNoteValues={setNoteValues}
+              key={image.id}
+              image={image}
               setNotesState={setNotesState}
               noteValues={noteValues}
+              setNoteValues={setNoteValues}
             />
           ))}
-        </Masonry>
-        <Masonry
-          className="noteAttachments--images "
-          columnClassName="noteAttachments--images--column"
+        </div>
+        <div
+          className="noteAttachments--images"
+          style={{
+            margin: `${noteValues.draws.length > 0 ? '8px 0' : '0'}`,
+          }}
         >
-          {noteValues.draws.map((draw, drawIndex) => (
+          {noteValues.draws.map((draw) => (
             <Draw
-              key={drawIndex}
-              url={draw}
+              key={draw.id}
+              draw={draw}
               id={notesState.currentId}
               setNotesState={setNotesState}
               setNoteValues={setNoteValues}
               noteValues={noteValues}
             />
           ))}
-        </Masonry>
+        </div>
       </div>
       <span className="lastEditDate">
         {t('LastEdit')}:
@@ -321,12 +342,12 @@ export default function NoteFullView({ notesState, setNotesState }) {
           (size.width < 900) | (size.height < 750) &&
           (showFooterForMobile ? 'showNoteFooter' : 'hideNoteFooter')
         }
-        setShowTagView={(value) => setNotesState({ ['showTagView']: value })}
+        setShowTagView={(value) => setNotesState({ showTagView: value })}
         noteValues={noteValues}
         setNoteValues={setNoteValues}
         updateToContext={() => updateButtonRef.current.click()}
         setShowModal={(value) => {
-          setNotesState({ ['showFullView']: value });
+          setNotesState({ showFullView: value });
         }}
         showAttachmentModal={showAttachmentModal}
       />

@@ -1,11 +1,5 @@
 import Modal, { TopActionButton } from 'components/Modal/Modal';
-import {
-  useContext,
-  useLayoutEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
+import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -19,13 +13,19 @@ import AppContext from 'store/AppContext';
 import DrawFooter from '../DrawFooter/DrawFooter';
 import useShortcuts from 'utils/useShortcuts';
 import { auth, storage } from 'utils/Firebase/Config/firebase';
-import { ref, uploadBytes } from 'firebase/storage';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from 'firebase/storage';
 import uuid4 from 'uuid4';
 import { toast } from 'react-toastify';
 import Loading from 'components/Loading/Loading';
+import axios from 'axios';
 
 export default function NewDraw({
-  noteId: { id, drawNumber, drawPaths },
+  noteId: { id, attachmentNumber, drawURL, drawName = '' },
   setNotesState,
 }) {
   const { t } = useTranslation();
@@ -44,26 +44,66 @@ export default function NewDraw({
       strokeColor: '#000000',
       currentAction: 'Pen',
       disabled: false,
+      name: drawName,
     },
   );
   const [showFooter, setshowFooter] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const uploadDraw = async () => {
+  const uploadDraw = () => {
     setIsLoading(true);
+
     drawRef.current.exportPaths().then((data) => {
+      if (drawState.name.length === 0 && data.length === 0 && !drawURL) {
+        setIsLoading(false);
+        setNotesState({ showDrawModal: false });
+        setNotesState({ showAttachmentModal: false });
+
+        setNotesState({ showFullView: true });
+        setNotesState({ currentId: id });
+        return;
+      }
+
+      if (!drawState.name?.trim()?.length) {
+        toast.info(t('ShouldDefineName'), {
+          position: 'bottom-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+        });
+        setIsLoading(false);
+        return false;
+      }
+
       const jsonString = JSON.stringify(data);
       const blob = new Blob([jsonString], { type: 'application/json' });
       const filePath = `files/${auth.currentUser.uid}/draws/${uuid4()}.json`;
 
-      const audioRef = ref(storage, filePath);
-      uploadBytes(audioRef, blob)
+      const fileRef = ref(storage, filePath);
+
+      uploadBytes(fileRef, blob)
         .then((snapshot) => {
           setNotes(
             notes.map((item) => {
               if (item.id === id) {
                 let temp = item;
-                temp.draws[Math.max(drawNumber, 0)] = filePath;
+                if (drawURL) {
+                  temp.draws[Math.max(attachmentNumber, 0)] = {
+                    id: uuid4(),
+                    filePath: filePath,
+                    // filePath: filePath,
+                    name: drawState.name,
+                  };
+                } else {
+                  temp.draws.push({
+                    id: uuid4(),
+                    filePath: filePath,
+                    name: drawState.name,
+                  });
+                }
                 temp.lastEditDate = new Date();
 
                 return temp;
@@ -71,13 +111,15 @@ export default function NewDraw({
               return item;
             }),
           );
-
+          if (drawURL) {
+            deleteObject(ref(storage, drawURL));
+          }
           setIsLoading(false);
-          setNotesState({ ['showDrawModal']: false });
-          setNotesState({ ['showAttachmentModal']: false });
+          setNotesState({ showDrawModal: false });
+          setNotesState({ showAttachmentModal: false });
 
-          setNotesState({ ['showFullView']: true });
-          setNotesState({ ['currentId']: id });
+          setNotesState({ showFullView: true });
+          setNotesState({ currentId: id });
         })
         .catch((error) => {
           toast.error(t('ErrorUpload'), {
@@ -90,14 +132,23 @@ export default function NewDraw({
             progress: undefined,
           });
           setIsLoading(false);
-          setNotesState({ ['showDrawModal']: false });
-          setNotesState({ ['showAttachmentModal']: false });
+          setNotesState({ showDrawModal: false });
+          setNotesState({ showAttachmentModal: false });
         });
     });
   };
 
-  useLayoutEffect(() => {
-    drawPaths && drawRef.current.loadPaths(drawPaths);
+  useEffect(() => {
+    if (drawURL) {
+      setIsLoading(true);
+      getDownloadURL(ref(storage, drawURL)).then((ur) => {
+        axios.get(ur).then((paths) => {
+          drawRef.current.loadPaths(paths.data);
+          setIsLoading(false);
+        });
+      });
+    }
+    // drawPaths && drawRef.current.loadPaths(drawPaths);
     return () => {
       drawRef.current && uploadDraw();
     };
@@ -124,7 +175,7 @@ export default function NewDraw({
       ctrl: true,
       handler: () => {
         drawRef.current.eraseMode(true);
-        setDrawState({ ['currentAction']: 'Eraser' });
+        setDrawState({ currentAction: 'Eraser' });
       },
     },
     {
@@ -132,7 +183,7 @@ export default function NewDraw({
       ctrl: true,
       handler: () => {
         drawRef.current.eraseMode(false);
-        setDrawState({ ['currentAction']: 'Pen' });
+        setDrawState({ currentAction: 'Pen' });
       },
     },
   ]);
@@ -147,7 +198,7 @@ export default function NewDraw({
               (ua === 'mobile' || ua === 'tablet') && 'showMoveButton'
             }`}
             action={() => {
-              setDrawState({ ['disabled']: !drawState.disabled });
+              setDrawState({ disabled: !drawState.disabled });
             }}
           >
             <MoveIcon
@@ -163,31 +214,27 @@ export default function NewDraw({
         </div>
       }
     >
-      {isLoading ? (
-        <Loading styles={{ width: '60px', height: '60px' }} />
-      ) : (
-        <>
-          <ScrollContainer
-            className="newDraw--box--container"
-            buttons={[1]}
-            nativeMobileScroll={!drawState.disabled}
-          >
-            <ReactSketchCanvas
-              ref={drawRef}
-              style={styles}
-              width="2480"
-              height="3508"
-              preserveBackgroundImageAspectRatio="true"
-              className="newDraw--box--canvas"
-              strokeColor={drawState.strokeColor}
-              strokeWidth={drawState.strokeWidth}
-              eraserWidth={drawState.strokeWidth}
-              allowOnlyPointerType={drawState.disabled ? 'mouse' : 'all'}
-            />
-          </ScrollContainer>
-        </>
-      )}
-
+      <>
+        <ScrollContainer
+          className="newDraw--box--container"
+          buttons={[1]}
+          nativeMobileScroll={!drawState.disabled}
+        >
+          {isLoading && <Loading styles={{ width: '60px', height: '60px' }} />}
+          <ReactSketchCanvas
+            ref={drawRef}
+            style={styles}
+            width="2480"
+            height="3508"
+            preserveBackgroundImageAspectRatio="true"
+            className="newDraw--box--canvas"
+            strokeColor={drawState.strokeColor}
+            strokeWidth={drawState.strokeWidth}
+            eraserWidth={drawState.strokeWidth}
+            allowOnlyPointerType={drawState.disabled ? 'mouse' : 'all'}
+          />
+        </ScrollContainer>
+      </>
       <DrawFooter
         drawRef={drawRef}
         drawState={drawState}

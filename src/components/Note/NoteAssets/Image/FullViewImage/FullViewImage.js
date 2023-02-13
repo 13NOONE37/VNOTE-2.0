@@ -10,7 +10,7 @@ export default function FullViewImage({ notesState, setNotesState }) {
     <Modal
       additionalClass={'newDraw--box'}
       setShowModal={() => {
-        setNotesState({ ['showFullViewImage']: false });
+        setNotesState({ showFullViewImage: false });
       }}
     >
       <img

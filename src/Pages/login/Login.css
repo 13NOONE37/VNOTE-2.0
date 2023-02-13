@@ -190,6 +190,10 @@
   place-items: center;
   margin: 30px 0;
 }
+.splitter__nomargin {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 .splitter--line {
   height: 1px;
   width: 100%;

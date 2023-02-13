@@ -40,11 +40,17 @@ export default function Footer({ setNotesState }) {
     handleOpenFullView(setNotesState, id);
   };
 
-  const handleNewNote = async (note, showOptionalModal) => {
+  const handleNewNote = async (note, type, showOptionalModal) => {
     if (category) note.tags[category] = true;
     addNewNote(note);
     // showOptionalModal && (await showOptionalModal());
-    showOptionalModal && setNotesState({ [showOptionalModal]: note.id });
+    showOptionalModal &&
+      setNotesState({
+        [showOptionalModal]: {
+          id: note.id,
+          attachmentNumber: note[type].length,
+        },
+      });
     !showOptionalModal && showFullView(note.id);
   };
   const createDefaultNote = () => {
@@ -64,7 +70,7 @@ export default function Footer({ setNotesState }) {
       {
         ...noteTemplate,
       },
-      // showDrawModal,
+      'draws',
       'showDrawModal',
     );
     //todo call draw component and place it inside note
@@ -74,7 +80,7 @@ export default function Footer({ setNotesState }) {
       {
         ...noteTemplate,
       },
-      // showAudioModal,
+      'records',
       'showRecordModal',
     );
     //todo call audio component and place it inside note
@@ -84,7 +90,7 @@ export default function Footer({ setNotesState }) {
       {
         ...noteTemplate,
       },
-      // showImageModal,
+      'images',
       'showImageModal',
     );
     //todo call image component and place it inside note

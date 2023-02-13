@@ -17,8 +17,10 @@ import { ReactComponent as Cross } from 'assets/Icons/Shapes/cross.svg';
 import { ReactComponent as Rainbow } from 'assets/Icons/Shapes/rainbow.svg';
 import { ReactComponent as Rect } from 'assets/Icons/Shapes/rect.svg';
 import { Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
 
   let slideId;
@@ -63,21 +65,22 @@ export default function Login() {
             </div>
             {[
               {
-                heading: 'Simplify your notes',
-                subheading: 'Save your thougs simply',
+                heading: t('Simplify your notes'),
+                subheading: t('Save your thougs simply'),
               },
               {
-                heading: 'Keep it secret',
-                subheading: 'All of your notes are strongly encrypted',
+                heading: t('Keep it secret'),
+                subheading: t('All of your notes are strongly encrypted'),
               },
               {
-                heading: 'Cross-platform',
-                subheading:
+                heading: t('Cross-platform'),
+                subheading: t(
                   'Our app is avaible for: Windows, Linux, Mac, iOS and Android ',
+                ),
               },
               {
-                heading: 'Web 3.0',
-                subheading: 'Web 3.0 version is in development...',
+                heading: t('Web 3.0'),
+                subheading: t('Web 3.0 version is in development...'),
               },
             ].map(
               (item, index) =>
@@ -134,9 +137,9 @@ const LoginInfo = ({ children, text, action }) => {
     </span>
   );
 };
-const LoginSplitter = ({ children }) => {
+const LoginSplitter = ({ children, classes }) => {
   return (
-    <span className="splitter">
+    <span className={`splitter ${classes}`}>
       <span className="splitter--line"></span>
       <span className="splitter--text">{children}</span>
       <span className="splitter--line"></span>

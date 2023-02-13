@@ -19,5 +19,7 @@ const AppContext = createContext({
   addNewNote: () => {},
   canBeSaved: false,
   setCanBeSaved: () => {},
+  isDataFetched: false,
+  setIsDataFetched: () => {},
 });
 export default AppContext;

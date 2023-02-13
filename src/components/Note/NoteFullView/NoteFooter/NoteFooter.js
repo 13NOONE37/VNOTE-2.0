@@ -20,10 +20,10 @@ export default function NoteFooter({
 }) {
   const { t } = useTranslation();
   const changeColor = (n) => {
-    setNoteValues({ ['color']: n });
+    setNoteValues({ color: n });
   };
   const toggleIsListed = () => {
-    setNoteValues({ ['isListed']: !noteValues.isListed });
+    setNoteValues({ isListed: !noteValues.isListed });
   };
   const handleOpenTagModal = () => {
     setShowTagView(true);
@@ -45,7 +45,7 @@ export default function NoteFooter({
     });
   };
   const deleteNote = () => {
-    setNoteValues({ ['isDeleted']: !noteValues.isDeleted });
+    setNoteValues({ isDeleted: !noteValues.isDeleted });
     //it's not too good solution i think
     setTimeout(() => {
       updateToContext();
