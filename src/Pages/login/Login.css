@@ -212,7 +212,7 @@
   cursor: pointer;
   background-color: transparent;
   border: none;
-  /* outline: none; TODO: create some better focus*/
+  /* outline: none; TODO: create some better focus effect*/
   color: #121929;
   font-weight: 500;
   margin-left: 10px;

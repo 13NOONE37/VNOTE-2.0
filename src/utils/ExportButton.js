@@ -64,9 +64,7 @@ const ExportButton = () => {
       setLoading(false);
     }
   };
-  //   prepareBackup();
-  // }, []);
-  // todo loading i wypadałoby pobierać to tylko w przypadku kliknięcia exportu
+
   return (
     <>
       <ActionButton

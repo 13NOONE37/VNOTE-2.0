@@ -9,7 +9,6 @@ export default function VerifyEmail() {
     setIsLogged(false);
     signOut(auth);
   };
-  //todo translate
 
   return (
     <div className="notFoundBox" style={{ padding: '0 50px' }}>

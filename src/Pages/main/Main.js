@@ -22,8 +22,7 @@ export default function Main() {
 
   const { theme, isDataFetched } = useContext(AppContext);
 
-  //TODO Every element should be focusable and accesable by tab nad css'ed
-  injectStyle(); //! temp, we have to use own styles for notify
+  injectStyle();
 
   const [notesState, setNotesState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),

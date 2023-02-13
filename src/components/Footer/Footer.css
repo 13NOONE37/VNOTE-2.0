@@ -91,7 +91,6 @@
   stroke: var(--background-1);
 }
 .footerNav .navItemSpecial:hover svg {
-  /* TODO:Effect */
   transform: rotate(180deg);
 }
 

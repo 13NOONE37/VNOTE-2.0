@@ -16,7 +16,6 @@ import { auth } from 'utils/Firebase/Config/firebase';
 import { changeLanguage } from 'i18next';
 
 export default function App() {
-  //TODO: fix all overflow hidden in css. For example current solution doesn't work for modals
   const [userInfo, setUserInfo] = useState({});
   const deviceType = () => {
     const ua = navigator.userAgent;

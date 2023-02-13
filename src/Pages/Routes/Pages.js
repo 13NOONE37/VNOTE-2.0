@@ -35,10 +35,5 @@ export default {
       path: '/:category',
       element: <Main />,
     },
-    // {
-    //   path: '/:category/:id',
-    //   element: <h1>test</h1>,
-    // },
   ],
 };
-//todo all notes action like view search should be routed

@@ -3,9 +3,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import { t } from 'i18next';
 import { Navigate } from 'react-router-dom';
 
-// //todo offline data
-// //todo https://firebase.google.com/docs/firestore/manage-data/enable-offline?hl=en&authuser=0
-
 const fetchUserData = async (
   setTheme,
   toggleLanguage,

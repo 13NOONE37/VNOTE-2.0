@@ -54,7 +54,6 @@ export default function Footer({ setNotesState }) {
     !showOptionalModal && showFullView(note.id);
   };
   const createDefaultNote = () => {
-    //todo await until it's finished then run necessary function like full view or some modal
     handleNewNote({
       ...noteTemplate,
     });
@@ -73,7 +72,6 @@ export default function Footer({ setNotesState }) {
       'draws',
       'showDrawModal',
     );
-    //todo call draw component and place it inside note
   };
   const createAudioNote = () => {
     handleNewNote(
@@ -83,7 +81,6 @@ export default function Footer({ setNotesState }) {
       'records',
       'showRecordModal',
     );
-    //todo call audio component and place it inside note
   };
   const createImageNote = () => {
     handleNewNote(
@@ -93,10 +90,7 @@ export default function Footer({ setNotesState }) {
       'images',
       'showImageModal',
     );
-    //todo call image component and place it inside note
   };
-
-  //TODO: border radius ktory ma byc przezroczysty nalezy wyeksportowac jako clip path i uzyc go w buttonach
   return (
     <div className="footerNav">
       <button

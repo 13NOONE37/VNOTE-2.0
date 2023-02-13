@@ -7,6 +7,7 @@ import NoteFullView from '../NoteFullView/NoteFullView';
 import { useParams } from 'react-router-dom';
 import EmptyState from './EmptyState/EmptyState';
 import Loading from 'components/Loading/Loading';
+import RegexEscape from 'regex-escape';
 
 export default function NoteContainer({ notesState, setNotesState }) {
   const { category } = useParams();
@@ -17,17 +18,30 @@ export default function NoteContainer({ notesState, setNotesState }) {
   const FilterNote = (item, phrase) => {
     let isValid = false;
     const includesPhrase = (expectValue, value) => {
-      const re = new RegExp(expectValue, 'i');
+      const re = new RegExp(RegexEscape(expectValue), 'i');
       return value.match(re);
     };
 
     if (includesPhrase(phrase, item.title)) isValid = true;
     if (includesPhrase(phrase, item.content)) isValid = true;
+
     if (
       includesPhrase(
         phrase,
         item.date.toLocaleDateString(language, {
           month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        }),
+      )
+    ) {
+      isValid = true;
+    }
+    if (
+      includesPhrase(
+        phrase,
+        item.date.toLocaleDateString(language, {
+          month: 'numeric',
           day: 'numeric',
           year: 'numeric',
         }),
