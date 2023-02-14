@@ -50,7 +50,7 @@ export default function NoteContainer({ notesState, setNotesState }) {
       isValid = true;
     }
     if (item.isDeleted) isValid = false;
-    if (category && !item.tags[category]) isValid = false;
+    if (category !== 'all' && category && !item.tags[category]) isValid = false;
 
     if (item.isDeleted && category === 'trash') {
       isValid = true;

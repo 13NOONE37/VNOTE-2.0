@@ -110,4 +110,8 @@ export default {
   'There are no notes here': 'There are no notes here',
   ErrorImport: 'An error occurred while importing backup',
   ImportConfirm: 'Are you sure you want to import this backup?',
+  WrongTagName: 'That tag name is forbidden',
+  TagNameExist: 'That tag name already exist',
+  TooLongTagName: 'Tag name length should not be more than 30 characters',
+  EmptyTagName: 'Tag name should not be empty',
 };

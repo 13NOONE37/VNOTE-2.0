@@ -9,6 +9,7 @@ export default function SearchInput({
   placeholder,
   icon,
   variant2,
+  maxLength,
 }) {
   return (
     <div className={`searchBar ${variant2 && 'searchBarVariant2'}`}>
@@ -18,6 +19,7 @@ export default function SearchInput({
         placeholder={placeholder}
         value={inputValue}
         onChange={inputAction}
+        maxLength={maxLength || 524288}
       />
       <XCircle
         onClick={closeAction}

@@ -16,7 +16,9 @@ export default function TagsSlider() {
   return (
     <nav className="tagsSlider">
       <button
-        className={`tagItem ${category === 'all' && 'selectedItem'}`}
+        className={`tagItem ${
+          (category === 'all' || category === undefined) && 'selectedItem'
+        }`}
         onClick={() => navigate(`/all`)}
       >
         {t('All')}
