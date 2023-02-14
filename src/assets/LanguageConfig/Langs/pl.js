@@ -109,4 +109,8 @@ export default {
   WaitBackup: 'Proszę czekać. Twoja kopia zapasowa jest przywracana',
   ErrorImport: 'Wystąpił błąd podczas przywracania kopii zapasowej',
   ImportConfirm: 'Czy na pewno chcesz przwrócić tę kopię zapasową?',
+  WrongTagName: 'Taka nazwa jest niedozwolona',
+  TagNameExist: 'Taka nazwa już istnieje',
+  TooLongTagName: 'Nazwa nie może być dłuższa niż 30 znaków',
+  EmptyTagName: 'Nie możesz pozostawić pustej nazwy',
 };
