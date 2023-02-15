@@ -160,6 +160,7 @@ const LoginInput = ({
         type={type}
         className={`form--inputBox--input ${inputClasses}`}
         {...field}
+        autoComplete="on"
       />
       <label
         className={`form--inputBox--placeholder ${
