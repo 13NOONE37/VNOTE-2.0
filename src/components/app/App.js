@@ -39,6 +39,7 @@ export default function App() {
   const toggleLanguage = (lng) => {
     changeLanguage(lng);
     setLanguage(lng);
+    setCanBeSaved(true);
   };
   const [notes, setNotes] = useState([
     // {
@@ -77,7 +78,7 @@ export default function App() {
     auth.currentUser &&
       canBeSaved &&
       updateUserData(setCanBeSaved, { theme, language, notes, tags });
-  }, [theme, language, tags, canBeSaved]);
+  }, [canBeSaved]);
 
   return (
     <div className={`${theme === 'dark' ? 'darkMode' : 'lightMode'}`}>

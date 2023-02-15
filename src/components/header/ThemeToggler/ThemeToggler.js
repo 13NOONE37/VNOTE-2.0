@@ -8,12 +8,15 @@ import { useTranslation } from 'react-i18next';
 export default function ThemeToggler() {
   const { t } = useTranslation();
 
-  const { theme, toggleTheme } = useContext(AppContext);
+  const { theme, toggleTheme, setCanBeSaved } = useContext(AppContext);
   return (
     <button
       className="themeToggler "
       aria-label={t('ToggleTheme')}
-      onClick={toggleTheme}
+      onClick={() => {
+        toggleTheme();
+        setCanBeSaved(true);
+      }}
       data-tooltip__bottom={t('ToggleTheme')}
     >
       <div
