@@ -27,7 +27,10 @@
   margin: 10px;
 }
 .selectedItem {
-  border-bottom: 4px solid var(--primary-2);
+  border-bottom: 4px solid var(--primary-2) !important;
+}
+.tagItem:focus {
+  border-bottom: 4px solid var(--primary-3);
 }
 .tagItem:hover {
   color: var(--primary-2);

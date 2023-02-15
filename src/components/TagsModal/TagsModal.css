@@ -28,8 +28,13 @@
 }
 .tagsGallery--content .modalButton {
   width: 180px;
+  min-height: 50px;
   display: flex;
   justify-content: center;
+
+  hyphens: auto;
+  word-break: break-word;
+  text-align: center;
 }
 .tagsGallery--content .modalButton .buttonCollapsedContent {
   display: none;

@@ -32,6 +32,7 @@
 
   --primary-1: #224690;
   --primary-2: #2d53a4;
+  --primary-3: hsl(221, 75%, 80%);
 
   --logoBackground: #121929;
   --logoText-1: var(--background-1);
@@ -50,6 +51,7 @@
 
   --primary-1: #ffb733;
   --primary-2: #eec06b;
+  --primary-3: hsl(39, 75%, 80%);
 
   --logoBackground: #eec06b;
   --logoText-1: var(--background-1);

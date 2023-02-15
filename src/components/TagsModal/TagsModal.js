@@ -16,9 +16,9 @@ export default function TagsModal({
   const toggleTag = (tag) => {
     const temp = noteValues.tags;
     if (temp[tag]) {
-      if (Object.values(temp).length > 1) {
-        delete temp[tag];
-      }
+      // if (Object.values(temp).length > 1) {
+      delete temp[tag];
+      // }
     } else {
       temp[tag] = true;
     }
@@ -39,6 +39,7 @@ export default function TagsModal({
               action={() => toggleTag(item)}
               key={index}
               isActive={noteValues.tags[item]}
+              isCollapse={false}
             >
               {item || t('WithoutTitle')}
             </ModalButton>
