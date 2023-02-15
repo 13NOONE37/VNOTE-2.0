@@ -100,7 +100,7 @@ export default {
   'Sign Up': 'Sign Up',
   'Log in here': 'Log in here',
   'Already have an account?': 'Already have an account?',
-  Polish: 'Polish',
+  Polish: 'Polski',
   English: 'English',
   ErrorUploadToFirestore:
     'An error occurred while uploading data, the page will reload soon',

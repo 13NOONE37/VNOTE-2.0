@@ -20,10 +20,9 @@ enableIndexedDbPersistence(db).catch((err) => {
     // Multiple tabs open, persistence can only be enabled
     // in one tab at a a time.
     // ...
-    console.error('multi tabs open');
+    // console.error('multi tabs open');
   } else if (err.code === 'unimplemented') {
-    console.error('browser does not support all of the features');
-
+    // console.error('browser does not support all of the features');
     // The current browser does not support all of the
     // features required to enable persistence
     // ...

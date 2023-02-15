@@ -102,7 +102,7 @@ export default {
   'Sign Up': 'Zarejestruj się',
   'Already have an account?': 'Masz już konto?',
   Polish: 'Polski',
-  English: 'Angielski',
+  English: 'English',
   ErrorUploadToFirestore: 'Błąd przesyłanie zaraz nastąpi odświeżenie serwisu',
   FetchError: 'Wystąpił błąd podczas pobierania danych',
   'Go back': 'Wróć',
