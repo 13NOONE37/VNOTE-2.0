@@ -39,7 +39,6 @@ export default function App() {
   const toggleLanguage = (lng) => {
     changeLanguage(lng);
     setLanguage(lng);
-    setCanBeSaved(true);
   };
   const [notes, setNotes] = useState([
     // {

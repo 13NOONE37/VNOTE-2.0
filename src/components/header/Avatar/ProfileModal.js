@@ -26,6 +26,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
     setTags,
     userInfo,
     toggleLanguage,
+    setCanBeSaved,
   } = useContext(AppContext);
   const [isUploading, setIsUploading] = useState(false);
   const uploadRef = useRef(null);
@@ -201,13 +202,19 @@ export default function ProfileModal({ showModal, setShowModal }) {
               <>
                 <ActionButton
                   title={t('Polish')}
-                  action={() => toggleLanguage('pl')}
+                  action={() => {
+                    toggleLanguage('pl');
+                    setCanBeSaved(true);
+                  }}
                 >
                   <LanguageIcon />
                 </ActionButton>
                 <ActionButton
                   title={t('English')}
-                  action={() => toggleLanguage('en')}
+                  action={() => {
+                    toggleLanguage('en');
+                    setCanBeSaved(true);
+                  }}
                 >
                   <LanguageIcon />
                 </ActionButton>

@@ -296,6 +296,8 @@
   letter-spacing: 0.8px;
   margin-bottom: 25px;
   animation: infoEnter 1s ease forwards;
+
+  text-align: center;
 }
 @keyframes infoEnter {
   from {

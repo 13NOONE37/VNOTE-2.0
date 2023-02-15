@@ -49,41 +49,25 @@ export default function Page4() {
             { scale: 0 },
             { scale: 1, autoAlpha: 1, stagger: 0.05 },
           )
-          .fromTo(
-            branch1dots,
-            { scale: 0 },
-            { scale: 1, autoAlpha: 1, stagger: 0 },
-          )
+          .to(branch1dots, { scale: 1, autoAlpha: 1, stagger: 0 })
           .fromTo(
             branch2,
             { scale: 0 },
             { scale: 1, autoAlpha: 1, stagger: 0.05 },
           )
-          .fromTo(
-            branch2dots,
-            { scale: 0 },
-            { scale: 1, autoAlpha: 1, stagger: 0 },
-          )
+          .to(branch2dots, { scale: 1, autoAlpha: 1, stagger: 0 })
           .fromTo(
             branch3,
             { scale: 0 },
             { scale: 1, autoAlpha: 1, stagger: 0.05 },
           )
-          .fromTo(
-            branch3dots,
-            { scale: 0 },
-            { scale: 1, autoAlpha: 1, stagger: 0 },
-          )
+          .to(branch3dots, { scale: 1, autoAlpha: 1, stagger: 0 })
           .fromTo(
             branch4,
             { scale: 0 },
             { scale: 1, autoAlpha: 1, stagger: 0.05 },
           )
-          .fromTo(
-            branch4dots,
-            { scale: 0 },
-            { scale: 1, autoAlpha: 1, stagger: 0 },
-          );
+          .to(branch4dots, { scale: 1, autoAlpha: 1, stagger: 0 });
       },
     });
   });
