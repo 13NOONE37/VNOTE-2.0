@@ -11,12 +11,12 @@ const handlePasswordSignUp = (
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       //signed in
-      const user = userCredential.user;
+      // const user = userCredential.user;
       setIsLogged(true);
     })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorMessage = error.message;
       setErrorMessage(errorCode);
     });
 };

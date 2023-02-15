@@ -8,7 +8,6 @@ export default {
   Logout: 'Wyloguj się',
   LastEdit: 'Ostatnia zmiana',
   shareCopy: 'Link skopiowany do schowka',
-  DeleteNote: 'Notatka została usunięta do kosza',
   SelectTags: 'Wybierz kategorie',
 
   ToggleTheme: 'Zmień motyw',
@@ -17,7 +16,6 @@ export default {
   DeleteAll: 'Opróżnij kosz',
   Trash: 'Kosz',
   NoteDeleted: 'Notatka przeniesiona do kosza',
-  TagNameError: 'Nazwa nie powinna zawierać znaków specialnych',
   Selected: 'Wybrano',
 
   AriaColor: 'Kolor',

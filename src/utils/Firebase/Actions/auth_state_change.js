@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { auth } from '../Config/firebase';
 import { onAuthStateChanged, sendEmailVerification } from 'firebase/auth';
 import fetchUserData from './fetch_user_data';
-import i18n from 'assets/LanguageConfig/i18n';
 
 const useAuthStateChanged = (
   setIsLogged,

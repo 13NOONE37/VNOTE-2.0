@@ -1,6 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Modal, { ActionButton } from 'components/Modal/Modal';
+import Modal from 'components/Modal/Modal';
 import './ConfirmModal.css';
 
 export default function ConfirmModal({ confirmText, handler, setShowModal }) {

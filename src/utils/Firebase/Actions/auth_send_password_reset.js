@@ -10,7 +10,7 @@ const handlePasswordReset = (email, setErrorMessage, setSuccessMessage) => {
     })
     .catch((error) => {
       const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorMessage = error.message;
       setErrorMessage(errorCode);
     });
 };

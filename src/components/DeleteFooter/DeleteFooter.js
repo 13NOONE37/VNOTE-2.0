@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import './DeleteFooter.css';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { useTranslation } from 'react-i18next';

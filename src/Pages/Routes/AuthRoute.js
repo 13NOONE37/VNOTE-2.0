@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import AppContext from 'store/AppContext';
 import { Navigate, Outlet } from 'react-router-dom';
 import Loading from 'components/Loading/Loading';
-import { auth } from 'utils/Firebase/Config/firebase';
 import VerifyEmail from 'Pages/VerifyEmail/VerifyEmail';
 
 export default function AuthRoute() {

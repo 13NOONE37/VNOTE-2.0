@@ -1,14 +1,13 @@
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
-import React, { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import './Draw.css';
 import { useTranslation } from 'react-i18next';
-import { deleteObject, getDownloadURL, ref } from 'firebase/storage';
+import { deleteObject, ref } from 'firebase/storage';
 import { storage } from 'utils/Firebase/Config/firebase';
 import { toast } from 'react-toastify';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { ReactComponent as Play } from 'assets/Icons/play.svg';
-import AppContext from 'store/AppContext';
 
 export default function Draw({
   noteValues,

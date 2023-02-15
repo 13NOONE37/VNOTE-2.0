@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { getBlob, ref } from 'firebase/storage';
 import { storage } from './Firebase/Config/firebase';
 import AppContext from 'store/AppContext';

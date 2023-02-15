@@ -1,13 +1,11 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as Close } from 'assets/Icons/x.svg';
 import './Image.css';
 import ConfirmModal from 'components/ConfirmModal/ConfirmModal';
 import { deleteObject, getDownloadURL, ref } from 'firebase/storage';
 import { storage } from 'utils/Firebase/Config/firebase';
 import { toast } from 'react-toastify';
 import Loading from 'components/Loading/Loading';
-import axios from 'axios';
 
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { ReactComponent as Play } from 'assets/Icons/play.svg';

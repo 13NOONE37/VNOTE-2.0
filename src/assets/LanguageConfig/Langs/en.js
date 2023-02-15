@@ -8,7 +8,6 @@ export default {
   Logout: 'Log out',
   LastEdit: 'Last edit',
   shareCopy: 'Link copied to clipboard',
-  DeleteNote: 'Note has been moved to recycle bin',
   SelectTags: 'Select tags',
 
   ToggleTheme: 'Toggle theme',
@@ -17,7 +16,6 @@ export default {
   DeleteAll: 'Delete all',
   Trash: 'Trash',
   NoteDeleted: 'Note moved to trash',
-  TagNameError: 'Tag name should not contain special characters',
   Selected: 'Selected',
 
   AriaColor: 'Color',
@@ -68,7 +66,6 @@ export default {
   EmailHasBeenSent: 'Email has been sent',
   ShouldDefineName: 'You should type name for your draw',
   'Go back?': 'Go back?',
-  'Log in here': 'Log in here',
   Search: 'Search',
   'Find Your Account': 'Find Your Account',
   'Invalid email address': 'Invalid email address',

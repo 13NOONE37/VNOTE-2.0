@@ -1,4 +1,4 @@
-import React, { useContext, useId, useTransition } from 'react';
+import { useContext } from 'react';
 import './Footer.css';
 import { ReactComponent as Check } from 'assets/Icons/check-square.svg';
 import { ReactComponent as Pen } from 'assets/Icons/edit-2.svg';
@@ -16,9 +16,7 @@ import uuid4 from 'uuid4';
 export default function Footer({ setNotesState }) {
   const { t } = useTranslation();
   const { category } = useParams();
-  const { notes, addNewNote } = useContext(AppContext);
-
-  const [isPending, startTransition] = useTransition();
+  const { addNewNote } = useContext(AppContext);
 
   const noteTemplate = {
     id: uuid4(),

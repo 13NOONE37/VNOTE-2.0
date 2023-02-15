@@ -2,7 +2,6 @@ import React, { useContext, useReducer, useState } from 'react';
 import './MultiActionFooter.css';
 import { ReactComponent as Check } from 'assets/Icons/check-square.svg';
 import { ReactComponent as Tag } from 'assets/Icons/tag.svg';
-import { ReactComponent as Share } from 'assets/Icons/share-2.svg';
 import { ReactComponent as Trash } from 'assets/Icons/trash-2.svg';
 import { ReactComponent as Restore } from 'assets/Icons/restore.svg';
 import { useTranslation } from 'react-i18next';

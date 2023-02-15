@@ -2,7 +2,6 @@ import { auth } from '../Config/firebase';
 import {
   signInWithRedirect,
   GoogleAuthProvider,
-  signInWithPopup,
   GithubAuthProvider,
   TwitterAuthProvider,
 } from 'firebase/auth';
@@ -14,7 +13,7 @@ const useAuthProvider = (setUserInfo, setIsLogged, setErrorMessage) => {
     signInWithRedirect(auth, provider);
   };
   const twitterAuth = () => {
-    const provider = new TwitterAuthProvider();
+    // const provider = new TwitterAuthProvider();
     // signInWithPopup(auth, provider)
   };
   const googleAuth = () => {

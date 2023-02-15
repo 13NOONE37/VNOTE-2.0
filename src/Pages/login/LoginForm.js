@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react';
+import { useContext } from 'react';
 import { ReactComponent as Github } from 'assets/Icons/github.svg';
 import { ReactComponent as Twitter } from 'assets/Icons/twitter.svg';
 import { ReactComponent as Google } from 'assets/Icons/google.svg';

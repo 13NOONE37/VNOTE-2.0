@@ -1,6 +1,5 @@
 import { auth, db } from '../Config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { t } from 'i18next';
 import { Navigate } from 'react-router-dom';
 
 const fetchUserData = async (

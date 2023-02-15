@@ -13,10 +13,7 @@ import { useTranslation } from 'react-i18next';
 import getBlobDuration from 'get-blob-duration';
 import Loading from 'components/Loading/Loading';
 
-export default function NewRecord({
-  noteId: { id, attachmentNumber },
-  setNotesState,
-}) {
+export default function NewRecord({ noteId: { id }, setNotesState }) {
   const { notes, setNotes } = useContext(AppContext);
   const { t } = useTranslation();
   const [currentTime, setCurrentTime] = useState(0);
@@ -28,7 +25,6 @@ export default function NewRecord({
   const constraints = { audio: true };
   let chunks = [];
   let mediaRecorder = null;
-  let audioCtx = null;
 
   const intervalHandler = () => setCurrentTime((v) => v + 1);
   const onSuccess = (stream) => {
