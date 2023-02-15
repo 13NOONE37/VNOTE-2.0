@@ -12,6 +12,7 @@ export default function ThemeToggler() {
   return (
     <button
       className="themeToggler "
+      aria-label={t('ToggleTheme')}
       onClick={toggleTheme}
       data-tooltip__bottom={t('ToggleTheme')}
     >
