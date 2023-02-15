@@ -104,6 +104,9 @@ export default {
   ErrorUploadToFirestore: 'Błąd przesyłanie zaraz nastąpi odświeżenie serwisu',
   FetchError: 'Wystąpił błąd podczas pobierania danych',
   'Go back': 'Wróć',
+
+  'Nothing was found': 'Żadne notatki nie zostały znalezione',
+  'There are no notes here': 'Brak notatek',
   WaitBackup: 'Proszę czekać. Twoja kopia zapasowa jest przywracana',
   ErrorImport: 'Wystąpił błąd podczas przywracania kopii zapasowej',
   ImportConfirm: 'Czy na pewno chcesz przwrócić tę kopię zapasową?',
