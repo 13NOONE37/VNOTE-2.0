@@ -7,7 +7,7 @@ import SearchBar from 'components/header/SearchBar/SearchBar';
 import TagsSlider from 'components/TagsSlider/TagsSlider';
 import NoteContainer from 'components/Note/NoteContainer/NoteContainer';
 import { ToastContainer } from 'react-toastify';
-import { injectStyle } from 'react-toastify/dist/inject-style';
+// import { injectStyle } from 'react-toastify/dist/inject-style';
 import { useParams } from 'react-router-dom';
 import DeleteFooter from 'components/DeleteFooter/DeleteFooter';
 import ActionHeader from 'components/ActionHeader/ActionHeader';
@@ -15,14 +15,13 @@ import MultiActionFooter from 'components/MultiActionFooter/MultiActionFooter';
 import NewRecord from 'components/Note/NoteAssets/Record/NewRecord/NewRecord';
 import NewImage from 'components/Note/NoteAssets/Image/NewImage/NewImage';
 import NewDraw from 'components/Note/NoteAssets/Draw/NewDraw/NewDraw';
-import FullViewImage from 'components/Note/NoteAssets/Image/FullViewImage/FullViewImage';
 
 export default function Main() {
   const { category } = useParams();
 
   const { theme, isDataFetched } = useContext(AppContext);
 
-  injectStyle();
+  // injectStyle();
 
   const [notesState, setNotesState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),

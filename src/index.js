@@ -5,8 +5,10 @@ import reportWebVitals from './reportWebVitals';
 import { I18nextProvider } from 'react-i18next';
 import i18n from 'assets/LanguageConfig/i18n';
 import { BrowserRouter } from 'react-router-dom';
+import { injectStyle } from 'react-toastify/dist/inject-style';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+injectStyle();
 root.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18n}>
