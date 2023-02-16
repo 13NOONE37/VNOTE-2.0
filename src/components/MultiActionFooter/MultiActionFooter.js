@@ -12,7 +12,7 @@ import TagsModal from 'components/TagsModal/TagsModal';
 export default function MultiActionFooter({ notesState, setNotesState }) {
   const { category } = useParams();
   const { t } = useTranslation();
-  const { notes, setNotes } = useContext(AppContext);
+  const { notes, setNotes, setCanBeSaved } = useContext(AppContext);
   const [tempTags, setTempTags] = useState({ tags: {} });
   const [multiState, setMultiState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -34,6 +34,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
     });
 
     setNotes(temp);
+    setCanBeSaved(true);
   };
   const changeColor = (n) => {
     setNoteValues('color', () => n);
