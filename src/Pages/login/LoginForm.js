@@ -73,6 +73,7 @@ export default function LoginForm() {
                     containerClasses={'form--inputBox__margin'}
                     field={field}
                     error={meta.touched && meta.error ? meta.error : false}
+                    autoComplete={'on'}
                   />
                 </>
               )}
@@ -87,6 +88,7 @@ export default function LoginForm() {
                     containerClasses={'form--inputBox__password'}
                     field={field}
                     error={meta.touched && meta.error ? meta.error : false}
+                    autoComplete={'on'}
                   />
                 </>
               )}

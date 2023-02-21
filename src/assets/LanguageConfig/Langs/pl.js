@@ -82,7 +82,7 @@ export default {
     'Wszyskie twoje notatki są silnie zaszyfrowane',
   'Cross-platform': 'Wieloplatformowość',
   'Our app is avaible for: Windows, Linux, Mac, iOS and Android ':
-    'Nasza aplikacja jest dostępna na platformach: Windows, Linux, Mac, iOS i Android',
+    'Dostępna na Windows, Linux, Mac, iOS i Android',
   'Web 3.0': 'Web 3.0',
   'Web 3.0 version is in development...': 'Wersja web 3.0 jest w produkcji...',
   Password: 'Hasło',
@@ -114,4 +114,8 @@ export default {
   TagNameExist: 'Taka nazwa już istnieje',
   TooLongTagName: 'Nazwa nie może być dłuższa niż 30 znaków',
   EmptyTagName: 'Nie możesz pozostawić pustej nazwy',
+  MoveUp: 'Przesuń w górę',
+  MoveDown: 'Przesuń w dół',
+  DragAndDrop: 'Przeciągnij i upuść',
+  AddTagName: 'Dodaj nazwę kategorii',
 };

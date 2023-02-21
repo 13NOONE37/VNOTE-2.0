@@ -84,6 +84,7 @@ export default function NoteFooter({
           onClick={showAttachmentModal}
           aria-label={t('AddAttachment')}
           data-tooltip__top={t('AddAttachment')}
+          style={{ '--leftOffset': '30px' }}
         >
           <Plus />
         </button>
@@ -92,6 +93,7 @@ export default function NoteFooter({
           onClick={toggleIsListed}
           aria-label={t('MakeListed')}
           data-tooltip__top={t('MakeListed')}
+          style={{ '--leftOffset': '0px' }}
         >
           <Check />
         </button>
@@ -100,17 +102,18 @@ export default function NoteFooter({
           onClick={handleOpenTagModal}
           aria-label={t('SetTagsForNote')}
           data-tooltip__top={t('SetTagsForNote')}
+          style={{ '--leftOffset': '0px' }}
         >
           <Tag />
         </button>
-        <button
+        {/* <button
           className="navItem button__effect navItem3"
           onClick={handleShare}
           aria-label={t('ShareNote')}
           data-tooltip__top={t('ShareNote')}
         >
           <Share />
-        </button>
+        </button> */}
         <button
           className="navItem button__effect"
           onClick={deleteNote}
@@ -118,6 +121,7 @@ export default function NoteFooter({
           data-tooltip__top={
             noteValues.isDeleted ? t('RestoreNote') : t('DeleteNote')
           }
+          style={{ '--leftOffset': '0px' }}
         >
           {noteValues.isDeleted ? <Restore /> : <Trash />}
         </button>

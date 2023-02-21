@@ -105,10 +105,15 @@
   visibility: collapse;
   transition: all 0.1s linear;
   white-space: nowrap;
-  left: 50%;
+  left: calc(50% + var(--leftOffset));
   transform: translateX(-50%);
 }
-
+@media (min-width: 550px) {
+  [data-tooltip__top],
+  [data-tooltip__bottom] {
+    --leftOffset: 0px !important;
+  }
+}
 [data-tooltip__bottom]::after {
   content: attr(data-tooltip__bottom);
 
@@ -121,7 +126,9 @@
 }
 
 [data-tooltip__top]:hover::after,
-[data-tooltip__bottom]:hover::after {
+[data-tooltip__bottom]:hover::after,
+[data-tooltip__top]:focus::after,
+[data-tooltip__bottom]:focus::after {
   opacity: 1;
   visibility: visible;
 }

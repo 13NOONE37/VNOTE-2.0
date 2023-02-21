@@ -78,7 +78,7 @@ export default {
     'All of your notes are strongly encrypted',
   'Cross-platform': 'Cross-platform',
   'Our app is avaible for: Windows, Linux, Mac, iOS and Android ':
-    'Our app is avaible for: Windows, Linux, Mac, iOS and Android ',
+    'Avaible on Windows, Linux, Mac, iOS and Android',
   'Web 3.0': 'Web 3.0',
   'Web 3.0 version is in development...':
     'Web 3.0 version is in development...',
@@ -111,4 +111,8 @@ export default {
   TagNameExist: 'That tag name already exist',
   TooLongTagName: 'Tag name length should not be more than 30 characters',
   EmptyTagName: 'Tag name should not be empty',
+  MoveUp: 'Move up',
+  MoveDown: 'Move down',
+  DragAndDrop: 'Drag and drop',
+  AddTagName: 'Add tag name',
 };

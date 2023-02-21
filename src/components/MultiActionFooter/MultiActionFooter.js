@@ -82,6 +82,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
             onClick={toggleIsListed}
             aria-label={t('MakeListed')}
             data-tooltip__top={t('MakeListed')}
+            style={{ '--leftOffset': '0px' }}
           >
             <Check />
           </button>
@@ -90,6 +91,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
             onClick={handleOpenTagModal}
             aria-label={t('SetTagsForNote')}
             data-tooltip__top={t('SetTagsForNote')}
+            style={{ '--leftOffset': '0px' }}
           >
             <Tag />
           </button>
@@ -101,6 +103,7 @@ export default function MultiActionFooter({ notesState, setNotesState }) {
             data-tooltip__top={
               category == 'trash' ? t('RestoreNote') : t('DeleteNote')
             }
+            style={{ '--leftOffset': '0px' }}
           >
             {category == 'trash' ? <Restore /> : <Trash />}
           </button>

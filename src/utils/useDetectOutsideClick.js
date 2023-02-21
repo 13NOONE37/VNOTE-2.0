@@ -14,9 +14,18 @@ const useDetectOutsideClick = (ref, handler) => {
     e.stopPropagation();
     handler(false);
   };
+  const keyListener = (e) => {
+    if (e.key === 'Escape') {
+      handler(false);
+    }
+  };
   useEffect(() => {
     window.addEventListener('mousedown', listener);
-    return () => window.removeEventListener('mousedown', listener);
+    window.addEventListener('keydown', keyListener);
+    return () => {
+      window.removeEventListener('mousedown', listener);
+      window.removeEventListener('keydown', keyListener);
+    };
   });
 };
 export default useDetectOutsideClick;

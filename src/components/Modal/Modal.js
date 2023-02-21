@@ -5,6 +5,7 @@ import { ReactComponent as CollapseIcon } from 'assets/Icons/chevron-right.svg';
 import { ReactComponent as ArrowLeft } from 'assets/Icons/arrow-left.svg';
 
 import useDetectOutsideClick from 'utils/useDetectOutsideClick';
+import FocusTrap from 'focus-trap-react';
 
 export default function Modal({
   setShowModal,
@@ -19,16 +20,21 @@ export default function Modal({
   useDetectOutsideClick(modalRef, setShowModal);
 
   return (
-    <div className={`modal ${additionalClass}`}>
-      <div className="modal-main" ref={modalRef}>
-        <div className="modalHead" style={{ backgroundColor: optionalColor }}>
-          <TopActionButton
-            action={() => setShowModal(false)}
-            classes={'fixedActionButton'}
-          >
-            <ArrowLeft />
-          </TopActionButton>
-          {/* <span
+    <FocusTrap
+      focusTrapOptions={{
+        initialFocus: false,
+      }}
+    >
+      <div className={`modal ${additionalClass}`}>
+        <div className="modal-main" ref={modalRef}>
+          <div className="modalHead" style={{ backgroundColor: optionalColor }}>
+            <TopActionButton
+              action={() => setShowModal(false)}
+              classes={'fixedActionButton'}
+            >
+              <ArrowLeft />
+            </TopActionButton>
+            {/* <span
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -36,19 +42,20 @@ export default function Modal({
               height: '65px',
             }}
           > */}
-          {middleHeadContent ? middleHeadContent : <span></span>}
-          {/* </span> */}
-          {modalHeadContent}
-        </div>
+            {middleHeadContent ? middleHeadContent : <span></span>}
+            {/* </span> */}
+            {modalHeadContent}
+          </div>
 
-        <div
-          className="modalContent"
-          style={{ backgroundColor: optionalColor }}
-        >
-          {children}
+          <div
+            className="modalContent"
+            style={{ backgroundColor: optionalColor }}
+          >
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 }
 

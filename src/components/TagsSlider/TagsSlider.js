@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppContext from 'store/AppContext';
 import './TagsSlider.css';
@@ -10,11 +10,25 @@ export default function TagsSlider() {
   const navigate = useNavigate();
   const { category } = useParams();
 
-  const { tags, setTags } = useContext(AppContext);
+  const { tags } = useContext(AppContext);
   const [showNewTagsModal, setShowNewTagsModal] = useState(false);
 
+  const tagsSliderRef = useRef(null);
+
+  const handleWheel = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    tagsSliderRef.current.scrollLeft += e.deltaY / 2;
+  };
+  useEffect(() => {
+    tagsSliderRef.current.removeEventListener('wheel', handleWheel);
+    tagsSliderRef.current.addEventListener('wheel', handleWheel, {
+      passive: false,
+    });
+  }, []);
+
   return (
-    <nav className="tagsSlider">
+    <nav className="tagsSlider" ref={tagsSliderRef}>
       <button
         className={`tagItem ${
           (category === 'all' || category === undefined) && 'selectedItem'
@@ -23,13 +37,13 @@ export default function TagsSlider() {
       >
         {t('All')}
       </button>
-      {tags.map((item, index) => (
+      {tags.map((item) => (
         <button
-          className={`tagItem ${category === item && 'selectedItem'}`}
-          key={index}
-          onClick={() => navigate(`/${item}`)}
+          className={`tagItem ${category === item.name && 'selectedItem'}`}
+          key={item.id}
+          onClick={() => navigate(`/${item.name}`)}
         >
-          {item || t('WithoutTitle')}
+          {item.name || t('WithoutTitle')}
         </button>
       ))}
       <button

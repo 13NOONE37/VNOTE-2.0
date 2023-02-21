@@ -18,6 +18,7 @@ export default function ThemeToggler() {
         setCanBeSaved(true);
       }}
       data-tooltip__bottom={t('ToggleTheme')}
+      style={{ '--leftOffset': '0px' }}
     >
       <div
         className="themeIcon"

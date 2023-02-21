@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import AppContext from 'store/AppContext';
 import './TagsModal.css';
-import Modal, { ModalButton } from 'components/Modal/Modal';
+import Modal, { ActionButton, ModalButton } from 'components/Modal/Modal';
 
 import { useTranslation } from 'react-i18next';
+import CreateTagField from './CreateTag/CreateTagField';
 
 export default function TagsModal({
   noteValues,
@@ -30,21 +31,27 @@ export default function TagsModal({
       setShowModal={(value) => {
         setNotesState({ showTagView: value });
       }}
+      middleHeadContent={
+        <>
+          <span className="tagsGallery--title">{t('SelectTags')}</span>
+          <ActionButton classes={'hideButton'} />
+        </>
+      }
     >
       <span className="tagsGallery">
-        <span className="tagsGallery--title">{t('SelectTags')}</span>
         <span className="tagsGallery--content">
-          {[...tags].map((item, index) => (
+          {[...tags].map((item) => (
             <ModalButton
-              action={() => toggleTag(item)}
-              key={index}
-              isActive={noteValues.tags[item]}
+              action={() => toggleTag(item.name)}
+              key={item.id}
+              isActive={noteValues.tags[item.name]}
               isCollapse={false}
             >
-              {item || t('WithoutTitle')}
+              {item.name || t('WithoutTitle')}
             </ModalButton>
           ))}
         </span>
+        <CreateTagField />
       </span>
     </Modal>
   );

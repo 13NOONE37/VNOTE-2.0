@@ -96,6 +96,7 @@ export default function Footer({ setNotesState }) {
         className="navItem button__effect"
         aria-label={t('NewListedNote')}
         data-tooltip__top={t('NewListedNote')}
+        style={{ '--leftOffset': '10px' }}
       >
         <Check />
       </button>
@@ -104,6 +105,7 @@ export default function Footer({ setNotesState }) {
         className="navItem button__effect navItem2"
         aria-label={t('NewDrawNote')}
         data-tooltip__top={t('NewDrawNote')}
+        style={{ '--leftOffset': '0px' }}
       >
         <Pen />
       </button>
@@ -112,6 +114,7 @@ export default function Footer({ setNotesState }) {
         className="navItemSpecial"
         aria-label={t('NewNote')}
         data-tooltip__top={t('NewNote')}
+        style={{ '--leftOffset': '0px' }}
       >
         <Plus />
       </button>
@@ -120,6 +123,7 @@ export default function Footer({ setNotesState }) {
         className="navItem button__effect navItem3"
         aria-label={t('NewAudioNote')}
         data-tooltip__top={t('NewAudioNote')}
+        style={{ '--leftOffset': '0px' }}
       >
         <Mic />
       </button>
@@ -128,6 +132,7 @@ export default function Footer({ setNotesState }) {
         className="navItem button__effect"
         aria-label={t('NewPictureNote')}
         data-tooltip__top={t('NewPictureNote')}
+        style={{ '--leftOffset': '-55px' }}
       >
         <Picture />
       </button>

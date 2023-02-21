@@ -16,6 +16,8 @@ import { ReactComponent as Dots2 } from 'assets/Icons/Shapes/dots2.svg';
 import { ReactComponent as Cross } from 'assets/Icons/Shapes/cross.svg';
 import { ReactComponent as Rainbow } from 'assets/Icons/Shapes/rainbow.svg';
 import { ReactComponent as Rect } from 'assets/Icons/Shapes/rect.svg';
+import { ReactComponent as Eye } from 'assets/Icons/eye-off.svg';
+import { ReactComponent as EyeOff } from 'assets/Icons/eye.svg';
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -153,14 +155,18 @@ const LoginInput = ({
   inputClasses,
   field,
   error,
+  autoComplete,
 }) => {
+  const [passwordShowed, setPasswordShowed] = useState(false);
   return (
     <span className={`form--inputBox ${containerClasses}`}>
       <input
-        type={type}
+        type={
+          type === 'password' ? (passwordShowed ? 'text' : 'password') : type
+        }
         className={`form--inputBox--input ${inputClasses}`}
         {...field}
-        autoComplete="on"
+        autoComplete={autoComplete}
       />
       <label
         className={`form--inputBox--placeholder ${
@@ -170,9 +176,21 @@ const LoginInput = ({
       >
         {placeholder}
       </label>
+      {type === 'password' && (
+        <button
+          type="button"
+          onClick={() => setPasswordShowed(!passwordShowed)}
+          className="form--inputBox--icon"
+        >
+          {passwordShowed ? <Eye /> : <EyeOff />}
+        </button>
+      )}
       {error && <span className="form--inputBox--error">{error}</span>}
     </span>
   );
+};
+LoginInput.defaultProps = {
+  autoComplete: 'off',
 };
 const LoginError = ({ children }) => {
   return <h3 className="form--error">{children}</h3>;

@@ -91,10 +91,12 @@ export default function ProfileModal({ showModal, setShowModal }) {
 
           //Set tags
           const tempTags = [...myObj.tags, ...tags];
+          console.log(tempTags);
           setTags(
             tempTags.filter(
               (tag, index) =>
-                tempTags.indexOf(tag) === index && tag.toLowerCase() !== 'all',
+                tempTags.findIndex((item) => item.name === tag.name) ===
+                  index && tag.name.toLowerCase() !== 'all',
             ),
           );
           const handleFile = (file, url) => {
@@ -141,7 +143,7 @@ export default function ProfileModal({ showModal, setShowModal }) {
               //       tag.toLowerCase() !== 'all',
               //   ),
               // );
-
+              setCanBeSaved(true);
               setIsUploading(false);
               setShowModal(false);
             })

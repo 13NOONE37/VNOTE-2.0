@@ -21,6 +21,7 @@ export default function Avatar() {
         style={{
           display: 'grid',
           placeItems: 'center',
+          '--leftOffset': '-20px',
         }}
       >
         <SyncIcon canBeSaved={canBeSaved} />

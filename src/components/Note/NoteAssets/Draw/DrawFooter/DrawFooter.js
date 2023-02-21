@@ -119,6 +119,7 @@ export default function DrawFooter({
           }}
           aria-label={t('PenDrawFooter')}
           data-tooltip__top={t('PenDrawFooter')}
+          style={{ '--leftOffset': '40px' }}
         >
           <Pen />
         </button>
@@ -132,6 +133,7 @@ export default function DrawFooter({
           }}
           aria-label={t('EraserDrawFooter')}
           data-tooltip__top={t('EraserDrawFooter')}
+          style={{ '--leftOffset': '0px' }}
         >
           <Eraser />
         </button>
@@ -142,6 +144,7 @@ export default function DrawFooter({
           }}
           aria-label={t('UndoDrawFooter')}
           data-tooltip__top={t('UndoDrawFooter')}
+          style={{ '--leftOffset': '0px' }}
         >
           <ArrowLeft />
         </button>
@@ -152,6 +155,7 @@ export default function DrawFooter({
           }}
           aria-label={t('RedoDrawFooter')}
           data-tooltip__top={t('RedoDrawFooter')}
+          style={{ '--leftOffset': '0px' }}
         >
           <ArrowRight />
         </button>
@@ -162,6 +166,7 @@ export default function DrawFooter({
           }}
           aria-label={t('Clear')}
           data-tooltip__top={t('Clear')}
+          style={{ '--leftOffset': '-10px' }}
         >
           <Clear />
         </button>
