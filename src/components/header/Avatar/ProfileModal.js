@@ -187,9 +187,9 @@ export default function ProfileModal({ showModal, setShowModal }) {
             <img
               src={
                 userInfo?.photoURL ||
-                `https://avatars.dicebear.com/api/bottts/${
-                  userInfo?.displayName || 'Nickname'
-                }${userInfo.metadata.createdAt}.svg`
+                `https://api.dicebear.com/9.x/bottts/svg?seed=${
+                  userInfo?.nickname || 'Nickname'
+                }${userInfo.metadata.createdAt}`
               }
               alt="Avatar"
             />

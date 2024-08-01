@@ -30,9 +30,9 @@ export default function Avatar() {
         <img
           src={
             userInfo?.photoURL ||
-            `https://avatars.dicebear.com/api/bottts/${
+            `https://api.dicebear.com/9.x/bottts/svg?seed=${
               userInfo?.nickname || 'Nickname'
-            }${userInfo.metadata.createdAt}.svg`
+            }${userInfo.metadata.createdAt}`
           }
           alt="Avatar"
         />
