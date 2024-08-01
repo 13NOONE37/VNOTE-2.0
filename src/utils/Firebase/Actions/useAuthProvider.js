@@ -4,21 +4,24 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   TwitterAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 
 const useAuthProvider = (setUserInfo, setIsLogged, setErrorMessage) => {
-  const githubAuth = () => {
+  const githubAuth = async () => {
     const provider = new GithubAuthProvider();
 
-    signInWithRedirect(auth, provider);
+    // signInWithRedirect(auth, provider);
+    const userCred = await signInWithPopup(auth, provider);
   };
-  const twitterAuth = () => {
+  const twitterAuth = async () => {
     // const provider = new TwitterAuthProvider();
     // signInWithPopup(auth, provider)
   };
-  const googleAuth = () => {
+  const googleAuth = async () => {
     const provider = new GoogleAuthProvider();
-    signInWithRedirect(auth, provider);
+    // signInWithRedirect(auth, provider);
+    const userCred = await signInWithPopup(auth, provider);
   };
 
   return { githubAuth, twitterAuth, googleAuth };
