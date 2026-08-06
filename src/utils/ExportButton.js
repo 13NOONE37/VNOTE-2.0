@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react';
-import { getBlob, ref } from 'firebase/storage';
-import { storage } from './Firebase/Config/firebase';
+// import { getBlob, ref } from 'firebase/storage';
+// import { storage } from './Firebase/Config/firebase';
 import AppContext from 'store/AppContext';
 
 import { ReactComponent as DownloadIcon } from 'assets/Icons/download.svg';
@@ -8,18 +8,18 @@ import { ActionButton } from 'components/Modal/Modal';
 import { useTranslation } from 'react-i18next';
 import Loading from 'components/Loading/Loading';
 
-const readBlobAsDataURL = (blob) => {
-  const reader = new FileReader();
-  return new Promise((resolve, reject) => {
-    reader.onload = () => {
-      resolve(reader.result);
-    };
-    reader.onerror = () => {
-      reject(reader.error);
-    };
-    reader.readAsDataURL(blob);
-  });
-};
+// const readBlobAsDataURL = (blob) => {
+//   const reader = new FileReader();
+//   return new Promise((resolve, reject) => {
+//     reader.onload = () => {
+//       resolve(reader.result);
+//     };
+//     reader.onerror = () => {
+//       reject(reader.error);
+//     };
+//     reader.readAsDataURL(blob);
+//   });
+// };
 const ExportButton = () => {
   const { t } = useTranslation();
   const { notes, tags } = useContext(AppContext);
@@ -40,18 +40,18 @@ const ExportButton = () => {
     setLoading(true);
     try {
       const backup = { notes, tags, files: [] };
-      const filesNames = [];
+      // const filesNames = [];
 
-      notes.forEach(({ images, records, draws }) => {
-        filesNames.push(
-          ...[...images, ...records, ...draws].map(({ filePath }) => filePath),
-        );
-      });
-      for (const url of filesNames) {
-        const blob = await getBlob(ref(storage, url));
-        const file = await readBlobAsDataURL(blob);
-        backup.files.push({ url, file });
-      }
+      // notes.forEach(({ images, records, draws }) => {
+      //   filesNames.push(
+      //     ...[...images, ...records, ...draws].map(({ filePath }) => filePath),
+      //   );
+      // });
+      // for (const url of filesNames) {
+      //   const blob = await getBlob(ref(storage, url));
+      //   const file = await readBlobAsDataURL(blob);
+      //   backup.files.push({ url, file });
+      // }
 
       const json = JSON.stringify(backup);
       const blob = new Blob([json], { type: 'application/json' });
